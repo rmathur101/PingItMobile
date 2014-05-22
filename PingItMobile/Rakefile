@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+$:.unshift("/Library/RubyMotion/lib")
+require 'motion/project/template/ios'
+require 'motion/project'
+require 'motion-cocoapods'
+require 'bubble-wrap'
+require 'bubble-wrap-http'
+
+begin
+  require 'bundler'
+  Bundler.require
+rescue LoadError
+end
+
+Motion::Project::App.setup do |app|
+  # Use `rake config' to see complete project settings.
+  app.name = 'PingItMobile'
+  app.frameworks += %w{ AdSupport Accounts Social }
+    app.weak_frameworks += %w{ AdSupport Accounts Social }
+    app.pods do
+      pod 'Facebook-iOS-SDK', '~> 3.1.1'
+    end
+
+    app.info_plist['FacebookAppID'] = '764749046879221'
+    app.info_plist['URL types'] = { 'URL Schemes' => 'fb764749046879221'
+}
+end
+
