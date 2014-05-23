@@ -46,6 +46,10 @@ class AppDelegate
     FBSession.activeSession.close
   end
 
+  def authenticate
+    window.rootView
+  end
+
   # ===========================================================================================================
   # = Facebook Methods - https://developers.facebook.com/docs/howtos/login-with-facebook-using-ios-sdk/#setup =
   # ===========================================================================================================
