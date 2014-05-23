@@ -55,7 +55,9 @@ class AppDelegate
       map_controller = MapController.alloc.initWithNibName(nil, bundle:nil)
       create_controller = CreateController.alloc.initWithNibName(nil, bundle:nil)
 
-      tab_controller.viewControllers = [index_controller, map_controller, create_controller]
+      navigation_controller = UINavigationController.alloc.initWithRootViewController(index_controller)
+
+      tab_controller.viewControllers = [navigation_controller, map_controller, create_controller]
       window.rootViewController = tab_controller
       window.makeKeyAndVisible
     # else
