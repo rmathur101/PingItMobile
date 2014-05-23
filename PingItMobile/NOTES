@@ -1,0 +1,47 @@
+THINGS TO DO
+
+*create the show page
+
+*find a way to push data to the web_app's database from the create form
+
+
+
+
+
+
+
+
+
+THOUGHTS
+
+*what do I need to send the data from the phone to the web app???
+
+*we need to have something to hold the data from the create form that we can send
+*what is that going to be? Well we try putting the data in the NSUserDefault and see if we can take that hash and access it wehn we make the http request using buble wrap
+*what can I do right now? well I can assume there is a way to get the information into the NSUserDefaults. Let's say that I am storing the data somewhere and let's see how i can access that data and send it via buble wrap. 
+
+
+
+
+
+
+
+
+------------------------------------------------------------
+*what is it going to take to create the show page???
+
+*we want the event_title
+*we want the the description
+*we want the the yes / no option
+*we want the google map w/location
+*we want the distance
+*we want the number of rsvps
+----------------------------------------------
+
+
+
+QUESTIONS
+
+
+
+
