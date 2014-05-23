@@ -49,11 +49,92 @@ class AppDelegate
 
   def authenticate
     # if FBSession.activeSession.open? #if else condition removed for easy access to landing page (no fb login)
+      # Create Ping Form
+      create_form = Formotion::Form.new({
+        title: "PingIt",
+        sections: 
+        [
+          { # What Section
+            title: "What's Going On?",
+            rows: 
+            [
+              { # Title Row
+                title: "Name",
+                key: :title,
+                type: :string,
+                placeholder: 'My Event',
+                auto_correction: :no,
+                auto_capitalization: :words
+              },
+              { # Description Row
+                title: "Description",
+                key: :description,
+                type: :text,
+                row_height: 75,
+                placeholder: 'Event Description',
+                auto_correction: :yes,
+                auto_capitalization: :sentences
+              },
+              { # Category Row
+                title: "Category",
+                key: :category,
+                type: :picker,
+                items: ["Social", "Sports", "Food", "Entertainment", "Deal", "Other"],
+                value: "Social"
+              }
+            ]
+          },
+          { # When Section
+            title: "When Is It Happening?",
+            rows: 
+            [
+              { # Start Time Row
+                title: "Start",
+                key: :start_time,
+                type: :date,
+                picker_mode: :time,
+                value: '6:00 PM',
+                input_accessory: :done #adds a Done button to the date picker
+              },
+              { # End Time Row
+                title: "End",
+                key: :end_time,
+                type: :date,
+                picker_mode: :time,
+                value: '8:00 PM',
+                input_accessory: :done #adds a Done button to the date picker               
+              }
+            ] 
+          },
+          { # Where Section
+            title: "Where Are We Meeting?",
+            rows: 
+            [
+              { # Address Row
+                title: "Address",
+                key: :address,
+                type: :string
+              },
+              # { # Map with Pin???
+              #   title: "Ping It!",
+              #   type: :static
+              # },
+              { # Submit form
+                title: "Ping It!",
+                type: :submit
+              }
+            ]
+          }
+        ]
+      })
+
+      # Tab Bar
       tab_controller = UITabBarController.alloc.initWithNibName(nil, bundle: nil)
 
+      # Tab Bar Items
       index_controller = IndexController.alloc.initWithNibName(nil, bundle:nil)
       map_controller = MapController.alloc.initWithNibName(nil, bundle:nil)
-      create_controller = CreateController.alloc.initWithNibName(nil, bundle:nil)
+      create_controller = CreateController.alloc.initWithForm(create_form)
 
       navigation_controller = UINavigationController.alloc.initWithRootViewController(index_controller)
 
