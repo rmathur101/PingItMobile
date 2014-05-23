@@ -21,6 +21,25 @@ class CreateController < Formotion::FormController
     # ON FORM SUBMIT BLOCK
     self.form.on_submit do |form|
       form.active_row && form.active_row.text_field.resignFirstResponder
+
+      puts "THIS IS DATA"
+      # p form.render
+      data = form.render
+      p data
+      # this_event = Event.initalize(form.render)
+      Event.send_new_event(data) do |color|
+        p "I am inside the new_event"
+        # if color.nil?
+        #   @search.setTitle("None :(", forState: UIControlStateNormal)
+        # else
+        #   @search.setTitle("Search", forState: UIControlStateNormal)
+        #   self.open_color(color)
+        # end
+        # @search.enabled = true
+        # @text_field.enabled = true
+      end
+
+
       alert = UIAlertView.alloc.init
       alert.title = "@form.render"
       alert.message = @form.render.to_s

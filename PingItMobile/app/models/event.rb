@@ -1,5 +1,5 @@
 class Event
-  PROPERTIES = [:title, :description, :location, :lat, :long, :timestamp, :id, :name]
+  PROPERTIES = [:title, :description, :category, :start_time, :end_time, :address, :lat, :long]
   PROPERTIES.each { |prop|
     attr_accessor prop
   }
@@ -11,11 +11,26 @@ class Event
       end
     }
   end
+
+  def self.send_new_event(tag, &block)
+    BW::HTTP.post("http://www.colr.org/js/color/#{self.hex}/addtag/", payload: {tags: tag}) do |response|
+      block.call
+    end
+  end
+
+  
 end
 
-# *we want the event_title
-# *we want the the description
-# *we want the the yes / no option
-# *we want the google map w/location
-# *we want the distance
-# *we want the number of rsvps
+
+
+# title 
+# description
+#status             DO I NEED THIS??? (WHICH DO I NEED?)
+# start_time
+# end_time
+# address
+# latitude
+# longitude
+# creator_id
+# created_at
+# category_id
