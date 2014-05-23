@@ -9,7 +9,6 @@ class MainController < UIViewController
     view.addSubview(authButton)
     NSNotificationCenter.defaultCenter.addObserver(self, selector: 'sessionStateChanged:', name: FBSessionStateChangedNotification, object: nil)
 
-    puts "INSIDE MAIN CONTROLLER"
 
     # Check the session for a cached token to show the proper authenticated
     # UI. However, since this is not user intitiated, do not show the login UX.
