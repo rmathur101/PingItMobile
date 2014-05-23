@@ -48,20 +48,21 @@ class AppDelegate
   end
 
   def authenticate
-    puts "LOGIN STATUS"
-    p FBSession.activeSession.open? #is someone logged in?
-    if FBSession.activeSession.open?
+    # if FBSession.activeSession.open? #if else condition removed for easy access to landing page (no fb login)
       tab_controller = UITabBarController.alloc.initWithNibName(nil, bundle: nil)
+
       index_controller = IndexController.alloc.initWithNibName(nil, bundle:nil)
-      tab_controller.viewControllers = [index_controller]
+      map_controller = MapController.alloc.initWithNibName(nil, bundle:nil)
+      create_controller = CreateController.alloc.initWithNibName(nil, bundle:nil)
+
+      tab_controller.viewControllers = [index_controller, map_controller, create_controller]
       window.rootViewController = tab_controller
       window.makeKeyAndVisible
-    else
-      puts "inside this thing"
-      main_controller = MainController.alloc.initWithNibName(nil, bundle:nil)
-      window.rootViewController = main_controller #goes to MainController      
-      window.makeKeyAndVisible
-    end
+    # else
+    #   main_controller = MainController.alloc.initWithNibName(nil, bundle:nil)
+    #   window.rootViewController = main_controller #goes to MainController      
+    #   window.makeKeyAndVisible
+    # end
 
   end
 
