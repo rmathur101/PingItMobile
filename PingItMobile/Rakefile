@@ -5,6 +5,8 @@ require 'motion/project'
 require 'motion-cocoapods'
 require 'bubble-wrap'
 require 'bubble-wrap-http'
+require 'formotion'
+require 'teacup'
 
 begin
   require 'bundler'
@@ -22,7 +24,7 @@ Motion::Project::App.setup do |app|
     end
 
     app.info_plist['FacebookAppID'] = '764749046879221'
-    app.info_plist['URL types'] = { 'URL Schemes' => 'fb764749046879221'
-}
+    app.info_plist['URL types'] = { 'URL Schemes' => 'fb764749046879221'}
+    app.interface_orientations = [:portrait]
 end
 
