@@ -30,8 +30,9 @@ class AppDelegate
   # =============
 
   def application(application, didFinishLaunchingWithOptions:launchOptions)
-    window.rootViewController = navController
-    window.makeKeyAndVisible
+    authenticate
+    # window.rootViewController = navController
+    # window.makeKeyAndVisible
     true
   end
 
@@ -47,7 +48,22 @@ class AppDelegate
   end
 
   def authenticate
-    window.rootView
+    # if FBSession.activeSession.open? #if else condition removed for easy access to landing page (no fb login)
+      tab_controller = UITabBarController.alloc.initWithNibName(nil, bundle: nil)
+
+      index_controller = IndexController.alloc.initWithNibName(nil, bundle:nil)
+      map_controller = MapController.alloc.initWithNibName(nil, bundle:nil)
+      create_controller = CreateController.alloc.initWithNibName(nil, bundle:nil)
+
+      tab_controller.viewControllers = [index_controller, map_controller, create_controller]
+      window.rootViewController = tab_controller
+      window.makeKeyAndVisible
+    # else
+    #   main_controller = MainController.alloc.initWithNibName(nil, bundle:nil)
+    #   window.rootViewController = main_controller #goes to MainController      
+    #   window.makeKeyAndVisible
+    # end
+
   end
 
   # ===========================================================================================================
