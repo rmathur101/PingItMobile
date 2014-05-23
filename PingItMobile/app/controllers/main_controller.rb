@@ -9,6 +9,7 @@ class MainController < UIViewController
     view.addSubview(authButton)
     NSNotificationCenter.defaultCenter.addObserver(self, selector: 'sessionStateChanged:', name: FBSessionStateChangedNotification, object: nil)
 
+
     # Check the session for a cached token to show the proper authenticated
     # UI. However, since this is not user intitiated, do not show the login UX.
     appDelegate.openSessionWithAllowLoginUI(false)
@@ -98,13 +99,14 @@ class MainController < UIViewController
   # Called when the FBSessionStateChangedNotification is pushed out
   # Changed the text on the authButton and updates the textLabel
   def sessionStateChanged(notification)
-    if FBSession.activeSession.open?
-      showUserInfo
-      authButton.setTitle("Sign out", forState: UIControlStateNormal)
-    else
-      resetTextLabel
-      authButton.setTitle("Sign in with Facebook", forState: UIControlStateNormal)
-    end
+    appDelegate.authenticate
+    # if FBSession.activeSession.open?
+    #   showUserInfo
+    #   authButton.setTitle("Sign out", forState: UIControlStateNormal)
+    # else
+    #   resetTextLabel
+    #   authButton.setTitle("Sign in with Facebook", forState: UIControlStateNormal)
+    # end
   end
 
 end
