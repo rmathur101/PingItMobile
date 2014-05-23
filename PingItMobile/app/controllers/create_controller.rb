@@ -11,7 +11,7 @@ class CreateController < UIViewController
 
   end
 
-def initWithNibName(name, bundle: bundle)
+  def initWithNibName(name, bundle: bundle)
     super
     self.tabBarItem = UITabBarItem.alloc.initWithTitle("MakeIt!", image: "something", tag: 3)
     self
