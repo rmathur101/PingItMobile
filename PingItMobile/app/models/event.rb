@@ -16,7 +16,7 @@ class Event
 
 #getting the event might not need a payload (unless the payload should be the events that are already on the phone)
   def self.get_events(&block)
-    BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone/get_events" do |response|
+    BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone/get_events") do |response|
       puts "RESPONSE FROM GET EVENTS REQUEST"
       p response
       block.call
