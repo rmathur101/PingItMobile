@@ -21,6 +21,25 @@ class CreateController < Formotion::FormController
     # ON FORM SUBMIT BLOCK
     self.form.on_submit do |form|
       form.active_row && form.active_row.text_field.resignFirstResponder
+
+      #storing the create event data here 
+      new_event_data = form.render
+      Event.send_new_event(new_event_data) do |event|
+        
+        p "THIS IS CALLBACK AFTER THE HTTP REQUEST IS MADE"
+
+
+        # if color.nil?
+        #   @search.setTitle("None :(", forState: UIControlStateNormal)
+        # else
+        #   @search.setTitle("Search", forState: UIControlStateNormal)
+        #   self.open_color(color)
+        # end
+        # @search.enabled = true
+        # @text_field.enabled = true
+      end
+
+
       alert = UIAlertView.alloc.init
       alert.title = "@form.render"
       alert.message = @form.render.to_s
