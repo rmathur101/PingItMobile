@@ -12,23 +12,26 @@ class Event
     }
   end
 
+#--------------------------------------------------------------------------------------------EVENT REQUESTS
 
-  #the type of request must be a get (think why?)
-  def self.send_new_event(new_event_data, &block)
-    BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone", payload: {data: new_event_data}) do |response|
-      puts "RESPONS FROM SEND EVENT REQUEST"
-      p response
-      block.call
-    end
-  end
-
-  def selt.get_events
-    BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone", payload: {data: new_event_data}) do |response|
+#getting the event might not need a payload (unless the payload should be the events that are already on the phone)
+  def self.get_events(&block)
+    BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone/get_events" do |response|
       puts "RESPONSE FROM GET EVENTS REQUEST"
       p response
       block.call
     end
   end
+
+  def self.create_event(new_event_data, &block)
+    BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone/create_event", payload: {data: new_event_data}) do |response|
+      puts "RESPONSE FROM CREATE EVENT REQUEST"
+      p response
+      block.call
+    end
+  end
+
+#------------------------------------------------------------------------------------------------------------------
 
 # "http://www.pure-garden-7269.herokuapp.com/phone"
   # "http://www.colr.org/js/color/#{self.hex}/addtag/"
@@ -38,18 +41,4 @@ end
 #QUESTIONS
 #----------------------------------------------------
 #how do I get ONLY the new events? so that we don't have to referesh every time
-
-
-
-# title 
-# description
-#status             DO I NEED THIS??? (WHICH DO I NEED?)
-# start_time
-# end_time
-# address
-# latitude
-# longitude
-# creator_id
-# created_at
-# category_id
 
