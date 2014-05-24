@@ -12,13 +12,17 @@ class Event
     }
   end
 
-  def self.send_new_event(tag, &block)
-    BW::HTTP.post("http://pure-garden-7269.herokuapp.com/phone", payload: {tags: tag}) do |response|
+
+  #the type of request must be a get (think why?)
+  def self.send_new_event(new_event_data, &block)
+    BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone", payload: {data: new_event_data}) do |response|
+      puts "THERE SHOULD BE SOME RESPONSE BELOW"
+      p response
       block.call
     end
   end
 
-
+# "http://www.pure-garden-7269.herokuapp.com/phone"
   # "http://www.colr.org/js/color/#{self.hex}/addtag/"
 
 end

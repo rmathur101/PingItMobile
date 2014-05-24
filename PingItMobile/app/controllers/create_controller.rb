@@ -22,14 +22,11 @@ class CreateController < Formotion::FormController
     self.form.on_submit do |form|
       form.active_row && form.active_row.text_field.resignFirstResponder
 
-      puts "THIS IS DATA"
-      # p form.render
-      data = form.render
-      p data
-      # this_event = Event.initalize(form.render)
-      Event.send_new_event(data) do |event|
+      #storing the create event data here 
+      new_event_data = form.render
+      Event.send_new_event(new_event_data) do |event|
         
-        p "I am inside the new_event this should happen after the http whatever"
+        p "THIS IS CALLBACK AFTER THE HTTP REQUEST IS MADE"
 
 
         # if color.nil?
