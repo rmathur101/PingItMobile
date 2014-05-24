@@ -13,12 +13,14 @@ class Event
   end
 
   def self.send_new_event(tag, &block)
-    BW::HTTP.post("http://www.colr.org/js/color/#{self.hex}/addtag/", payload: {tags: tag}) do |response|
+    BW::HTTP.post("http://pure-garden-7269.herokuapp.com/phone", payload: {tags: tag}) do |response|
       block.call
     end
   end
 
-  
+
+  # "http://www.colr.org/js/color/#{self.hex}/addtag/"
+
 end
 
 

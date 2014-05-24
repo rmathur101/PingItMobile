@@ -27,8 +27,11 @@ class CreateController < Formotion::FormController
       data = form.render
       p data
       # this_event = Event.initalize(form.render)
-      Event.send_new_event(data) do |color|
-        p "I am inside the new_event"
+      Event.send_new_event(data) do |event|
+        
+        p "I am inside the new_event this should happen after the http whatever"
+
+
         # if color.nil?
         #   @search.setTitle("None :(", forState: UIControlStateNormal)
         # else
