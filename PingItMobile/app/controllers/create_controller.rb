@@ -28,10 +28,10 @@ class CreateController < Formotion::FormController
 
       what_data = {} #no data in what_data 
       #----------------------------------------------------------------testing http requests
-      # Event.get_events do |event|
-      #   p "THIS IS CALLBACK AFTER THE GET_EVENTS HTTP REQUEST IS MADE"
-      #   p event
-      # end
+      Event.get_events do |event|
+        p "THIS IS CALLBACK AFTER THE GET_EVENTS HTTP REQUEST IS MADE"
+        p event
+      end
 
       Event.create_event(new_event_data) do |event|
         p "THIS IS CALLBACK AFTER THE CREATE_EVENT HTTP REQUEST IS MADE"
