@@ -13,8 +13,10 @@ class MapController < UIViewController
     device_has_location_services_enabled = BW::Location.enabled?
     if device_has_location_services_enabled 
       BW::Location.get do |result|
-        p result[:from].coordinate if result[:from].coordinate
-        p result[:to].coordinate if result[:to].coordinate
+        puts "FROM COORD"
+        p result[:from].coordinate if result[:from]
+        puts "TO COORD"
+        p result[:to].coordinate if result[:to]
       end
     end
   end
