@@ -18,7 +18,7 @@ class Event
   def self.get_events(&block)
     BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone/get_events") do |response|
       puts "RESPONSE FROM GET EVENTS REQUEST"
-      p response
+      p response.body.to_str
       block.call
     end
   end
@@ -26,8 +26,10 @@ class Event
   def self.create_event(new_event_data, &block)
     BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone/create_event", payload: {data: new_event_data}) do |response|
       puts "RESPONSE FROM CREATE EVENT REQUEST"
-      p response
-      block.call
+      result_data = BW::JSON.parse(response.body.to_str)
+      p result_data
+      # p response
+      block.call(result_data)
     end
   end
 
