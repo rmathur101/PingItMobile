@@ -60,6 +60,7 @@ class Event
     BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone/create_event", payload: {data: new_event_data}) do |response|
       puts "RESPONSE FROM CREATE EVENT REQUEST"
       if response.ok?   
+        # p response
         result_data = BW::JSON.parse(response.body.to_str)
         block.call(result_data)
       else
