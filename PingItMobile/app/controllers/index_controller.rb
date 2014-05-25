@@ -48,17 +48,21 @@ class IndexController < UITableViewController
       event_obj_array = []
       event_obj_array.push(event_obj[:title])
 
+
+      #working out the time to be displayed on index---------------------------------------------------------------
       event_time = event_obj[:start_time]
       convert_event_time = Time.iso8601(event_time.gsub(/\.\d*/, ""))
-      difference = convert_event_time - NSDate.date
-      time_until_event = (difference/60/60).round
-      event_obj_array.push(time_until_event.to_s)
-      
-
-      # event_obj_array.push("Time")
-
-      event_obj_array.push("Distance")
-      @data.push(event_obj_array)   
+      difference = NSDate.date - convert_event_time
+      # if difference >= 0
+      p difference
+      #if difference >= 0 #checking to make sure the time is in the future
+      # end 
+        time_until_event = (difference/60/60).round
+        event_obj_array.push(time_until_event.to_s)
+        # event_obj_array.push("Time")
+        event_obj_array.push("Distance")
+        @data.push(event_obj_array)   
+      #--------------------------------------------------------------------------------------------------------------
     end
 
     #TODO
@@ -119,13 +123,6 @@ class IndexController < UITableViewController
     # alert.addButtonWithTitle "OK"
     # alert.show
   end
-
-  def return_this_thing(event)
-    this_event = event
-    return this_event
-  end
-
-
 
 
 end

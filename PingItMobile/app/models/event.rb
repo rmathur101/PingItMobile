@@ -7,10 +7,6 @@ class Event
     attr_accessor prop
   }
 
-  attr_accessor :this_thing
-
-
-  # attr_accessor array_of_things
 
   def return_array_of_events(events)
     self.this_thing = events
