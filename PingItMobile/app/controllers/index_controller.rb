@@ -26,8 +26,8 @@ class IndexController < UITableViewController
       App::Persistence['events'] = event 
     end
 
-    array_events = App::Persistence['events'] 
-    # p array_events
+    @array_events = App::Persistence['events'] 
+    p @array_events
 
 #----------------------------------------------------------------------------
 
@@ -44,17 +44,22 @@ class IndexController < UITableViewController
 
 
     @data = []
-    array_events.each do |event_obj| 
+    @array_events.each do |event_obj| 
       event_obj_array = []
       event_obj_array.push(event_obj[:title])
+      p event_obj[:title]
+
 
 
       #working out the time to be displayed on index---------------------------------------------------------------
       event_time = event_obj[:start_time]
+      p event_obj[:start_time]
       convert_event_time = Time.iso8601(event_time.gsub(/\.\d*/, ""))
-      difference = NSDate.date - convert_event_time
+      p convert_event_time 
+      difference = convert_event_time - NSDate.date
+      p NSDate.date
       # if difference >= 0
-      p difference
+      # p difference
       #if difference >= 0 #checking to make sure the time is in the future
       # end 
         time_until_event = (difference/60/60).round
@@ -110,9 +115,15 @@ class IndexController < UITableViewController
   #if a row was selected 
   def tableView(tableView, didSelectRowAtIndexPath: indexPath) #this is what runs when you pick one of the rows within the table 
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    p indexPath.row
 
     
     @new_view = ShowController.alloc.initWithNibName(nil, bundle:nil)
+    puts "will this give me a cell?"
+
+    # p @array_events[indexPath.row]
+
+    App::Persistence['show_info'] = @array_events[indexPath.row] 
 
 
     self.navigationController.pushViewController(@new_view, animated: true)
