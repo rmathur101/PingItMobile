@@ -24,20 +24,12 @@ class CreateController < Formotion::FormController
 
       #storing the create event data here 
       new_event_data = form.render
-      Event.send_new_event(new_event_data) do |event|
-        
-        p "THIS IS CALLBACK AFTER THE HTTP REQUEST IS MADE"
 
-
-        # if color.nil?
-        #   @search.setTitle("None :(", forState: UIControlStateNormal)
-        # else
-        #   @search.setTitle("Search", forState: UIControlStateNormal)
-        #   self.open_color(color)
-        # end
-        # @search.enabled = true
-        # @text_field.enabled = true
+      Event.create_event(new_event_data) do |event|
+        p "THIS IS CALLBACK AFTER THE CREATE_EVENT HTTP REQUEST IS MADE"
+        p event
       end
+      #-------------------------------------------------------------------------------------
 
 
       alert = UIAlertView.alloc.init
