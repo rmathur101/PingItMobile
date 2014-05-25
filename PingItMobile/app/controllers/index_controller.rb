@@ -13,21 +13,31 @@ class IndexController < UITableViewController
     #--------------------------------------------PARSING THE EVENT DATA FROM HEROKU IN A FORM FOR PHONE APP
 
 
+    @defaults = NSUserDefaults.standardUserDefaults
+
+    puts "THIS IS THE DEFAULTS"
+    p @defaults
 
     Event.get_events do |event|
       p "THIS IS CALLBACK AFTER THE GET_EVENTS HTTP REQUEST IS MADE"
-      p event[0]
+      # p event[0]
 
-      event.each do |this_event|
-        new_event =  Event.new(this_event)
-        p new_event
-
+      event.each_with_index do |this_event, index|
+        new_event =  Event.new
+        # p this_event
+        new_event.create_event_object(this_event)
+        # p new_event
+        post_as_data = NSKeyedArchiver.archivedDataWithRootObject(new_event)
+        @defaults[index] = post_as_data 
       end
 
     end
 
-    puts "ALL EVENTS"
-    p Event.all
+
+    puts "WHEN IS THIS RUNNING?"
+    p @defaults[1]
+    p @defaults[2]
+
 
 
 

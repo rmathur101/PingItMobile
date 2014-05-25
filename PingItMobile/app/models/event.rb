@@ -1,10 +1,13 @@
 class Event
-  PROPERTIES = [:title, :description, :category, :start_time, :end_time, :address, :lat, :long]
+  PROPERTIES = [:id, :end_time, :title, :description, :start_time, :address, :latitude, :longitude, :creator_id, :created_at, :updated_at, :category_id, :status]
+
+  # {"id"=>1, "end_time"=>"2014-05-24T21:51:08.988Z", "title"=>"Sport town", "description"=>"Play the game", "start_time"=>"2014-05-24T22:07:48.988Z", "address"=>"630 N Kingsbury St Chicago, IL 60654", "latitude"=>41.8936415, "longitude"=>-87.6419372558594, "creator_id"=>1, "created_at"=>"2014-05-24T21:51:09.150Z", "updated_at"=>"2014-05-24T21:51:09.150Z", "category_id"=>2, "status"=>"pending"}
+
   PROPERTIES.each { |prop|
     attr_accessor prop
   }
 
-  def initialize(hash = {})
+  def create_event_object(hash = {})
     hash.each { |key, value|
       if PROPERTIES.member? key.to_sym
         self.send((key.to_s + "=").to_s, value)
@@ -56,10 +59,77 @@ class Event
 
 #------------------------------------------------------------------------------------------------------------------
 
-# "http://www.pure-garden-7269.herokuapp.com/phone"
-  # "http://www.colr.org/js/color/#{self.hex}/addtag/"
+   def initWithCoder(decoder)
+    self.init
+    PROPERTIES.each { |prop|
+      value = decoder.decodeObjectForKey(prop.to_s)
+      self.send((prop.to_s + "=").to_s, value) if value
+    }
+    self
+  end
+
+  # # called when saving an object to NSUserDefaults
+  def encodeWithCoder(encoder)
+    PROPERTIES.each { |prop|
+      encoder.encodeObject(self.send(prop), forKey: prop.to_s)
+    }
+  end
 
 end
+
+#-----------------------------------------------------------
+#called when an object is loaded from NSUserDefaults
+#this is an initializer, should should return "self"
+  # def initWithCoder(decoder)
+  #   self.init
+  #   PROPERTIES.each { |prop|
+  #     value = decoder.decodeObjectForKey(prop.to_s)
+  #     self.send((prop.to_s + "=").to_s, value) if value
+  #   }
+  #   self
+  # end
+
+  # # # called when saving an object to NSUserDefaults
+  # def encodeWithCoder(encoder)
+  #   PROPERTIES.each { |prop|
+  #     encoder.encodeObject(self.send(prop), forKey: prop.to_s)
+  #   }
+  # end
+  #--------------------------------------------------------------when you want to store things in defaults = NSUSerDefaults.standardUserDefaults
+
+
+  #example
+  #-------------------------------
+  # post = Post.new
+  # post.message = "hello!"
+  # post.id = 1000
+  #--------------------------------
+
+  #SAVING A POST
+  #---------------------------------------------------------
+  # post_as_data = NSKeyedArchiver.archivedDataWithRootObject(post)
+  # defaults["saved_post"] = post_as_data 
+  #------------------------------------------------------
+  #saved as a key value pair in defaults
+
+  #LOADING A POST
+  #---------------------------------------------------------
+  # post_as_data = defaults["saved_post"]
+  # post = NSKeyedUnarchiver.unarchiveObjectWithData(post_as_data)
+  #-----------------------------------------------------------------
+
+  #to purge all things from NSUser use: NSUserDefaults.resetStandardUserDefaults
+
+  #to use the defaults hash must first initialize:
+  #-------------------------------------------------------------
+  #@defaults = NSUserDefaults.standardUserDefaults
+  #@defaults["one"] = 1
+  #-----------------------------(to retrieve)
+  #@defaults["one"] => 1
+  #---------------------------------------------------------------
+
+
+
 
 #QUESTIONS
 #----------------------------------------------------
