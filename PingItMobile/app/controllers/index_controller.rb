@@ -7,10 +7,38 @@ class IndexController < UITableViewController
     @table.separatorColor = UIColor.blackColor
     @table.backgroundColor = UIColor.blackColor
     self.view.addSubview(@table)
-
     self.title = "Pings near you!"
-
     self.view.backgroundColor = UIColor.blackColor
+
+    #--------------------------------------------PARSING THE EVENT DATA FROM HEROKU IN A FORM FOR PHONE APP
+
+
+
+    Event.get_events do |event|
+      p "THIS IS CALLBACK AFTER THE GET_EVENTS HTTP REQUEST IS MADE"
+      p event[0]
+
+      event.each do |this_event|
+        new_event =  Event.new(this_event)
+        p new_event
+
+      end
+
+    end
+
+    puts "ALL EVENTS"
+    p Event.all
+
+
+
+
+    # p lots_of_data 
+    # puts "THIS IS AN EXAMPLE OF THE DATETIME THAT I AM GETTING FROM THE WEBAPP"
+    # p (@event_information[0]).start_time
+
+    # puts "THIS IS THE DATE THAT I AM GETTING FROM THE PHONE"
+    # p NSDate.date
+    #----------------------------------------------------------------------------
 
     #data stuff
     @table.dataSource = self #set our controller as the table's dataSource
