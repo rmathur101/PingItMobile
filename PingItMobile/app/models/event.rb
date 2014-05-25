@@ -7,6 +7,17 @@ class Event
     attr_accessor prop
   }
 
+  attr_accessor :this_thing
+
+
+  # attr_accessor array_of_things
+
+  def return_array_of_events(events)
+    self.this_thing = events
+    # return events
+  end
+
+
   def create_event_object(hash = {})
     hash.each { |key, value|
       if PROPERTIES.member? key.to_sym
@@ -26,11 +37,11 @@ class Event
       result_data = BW::JSON.parse(response.body.to_str)
       # p response.body.to_str
       # p response.body
+
+      # block.call(result_data)
       block.call(result_data)
     end
   end
-
-
 
 #getting the event might not need a payload (unless the payload should be the events that are already on the phone)
   # def self.get_events(&block)
@@ -48,10 +59,12 @@ class Event
   def self.create_event(new_event_data, &block)
     BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone/create_event", payload: {data: new_event_data}) do |response|
       puts "RESPONSE FROM CREATE EVENT REQUEST"
-      result_data = BW::JSON.parse(response.body.to_str)
-      # p result_data
-      # p response
-      block.call(result_data)
+      if response.ok?   
+        result_data = BW::JSON.parse(response.body.to_str)
+        block.call(result_data)
+      else
+        block.call("nope")
+      end
     end
   end
 

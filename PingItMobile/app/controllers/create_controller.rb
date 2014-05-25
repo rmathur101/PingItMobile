@@ -26,7 +26,7 @@ class CreateController < Formotion::FormController
       new_event_data = form.render
 
 
-      what_data = {} #no data in what_data 
+
       #----------------------------------------------------------------testing http requests
       # Event.get_events do |event|
       #   p "THIS IS CALLBACK AFTER THE GET_EVENTS HTTP REQUEST IS MADE"
