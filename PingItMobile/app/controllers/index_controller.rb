@@ -60,6 +60,7 @@ class IndexController < UITableViewController
     # @data = [["will", "this", "think"]]
 
 
+
     @data = []
     @array_events.each do |event_obj| 
       event_obj_array = []
