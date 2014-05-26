@@ -21,8 +21,8 @@ class IndexController < UIViewController
     @data = []
 
     Event.get_events do |events| #need to make sure that the program does not move on until we have a response back from this http request 
-      # p "these are the events i am getting from the web app"
-      # p event   
+      p "these are the events i am getting from the web app"
+      p events   
       App::Persistence['events'] = events 
       @array_events = App::Persistence['events'] 
       # # $request_boolean == "true"
@@ -39,7 +39,7 @@ class IndexController < UIViewController
 
 
 
-        
+
         # p "THE CURRENT DATETIME"
         # current_time =  NSDate.date.timeIntervalSinceReferenceDate
         # p current_time
@@ -47,8 +47,8 @@ class IndexController < UIViewController
 
         event_time = event_obj[:start_time]
         convert_event_time = (NSDate.dateWithString(event_time)).timeIntervalSinceReferenceDate
-        p "THE CONVERTED START TIME"
-        p convert_event_time 
+        # p "THE CONVERTED START TIME"
+        # p convert_event_time 
       
         # difference = convert_event_time - NSDate.date
         # p difference
