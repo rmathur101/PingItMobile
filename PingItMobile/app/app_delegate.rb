@@ -101,8 +101,8 @@ class AppDelegate
                 title: "Duration",
                 key: :duration,
                 type: :picker,
-                items: [1,2,3,4,5,6],
-                value: 2,
+                items: ["1", "2", "3", "4", "5", "6"],
+                value: "1",
                 input_accessory: :done
               }
               # { # End Time Row

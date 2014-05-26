@@ -25,6 +25,9 @@ class CreateController < Formotion::FormController
       #storing the create event data here 
       new_event_data = form.render
 
+      p "FORMOTION CREATE EVENT DATA"
+      p new_event_data
+
       Event.create_event(new_event_data) do |event|
         p "THIS IS CALLBACK AFTER THE CREATE_EVENT HTTP REQUEST IS MADE"
         p event

@@ -22,7 +22,7 @@ class IndexController < UITableViewController
 # 2012-05-31T19:41:33Z #the example that bubble wrap gave us 
 
 
-    App::Persistence.delete('events') #USE THIS TO DELETE THE PERSISTENCE DATA 
+    # App::Persistence.delete('events') #USE THIS TO DELETE THE PERSISTENCE DATA 
 
 
     Event.get_events do |event| #need to make sure that the program does not move on until we have a response back from this http request 
