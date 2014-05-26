@@ -4,15 +4,8 @@ class ShowController < UIViewController
     canvasYellow = UIColor.colorWithRed(1.0, green: 0.89, blue: 0.51, alpha: 1.0)
 
     self.view.backgroundColor = canvasYellow
-    # self.
+
     p App::Persistence['show_info']
-
-    # App::Persistence['show_info'][:title]
-    # App::Persistence['show_info'][:description]
-    # App::Persistence['show_info'][:address]
-    # App::Persistence['show_info'][:status]
-    # App::Persistence['show_info'][:start_time]
-
 
     @data = {}
     @data[:event_id] = App::Persistence['show_info'][:id]
@@ -67,6 +60,8 @@ class ShowController < UIViewController
     @no_button.addTarget(self, action: :select_no, forControlEvents: UIControlEventTouchUpInside)
     self.view.addSubview(@no_button)
 
+
+#TO DO (SHOW)
     #title
     #description
     #google image ICEBOX
@@ -81,15 +76,15 @@ class ShowController < UIViewController
 #------------------------------------------------------------------the alert box is rendered in the callback function of the rsvp request 
   def select_yes
     @data[:rsvp_status] = "yes"
-    puts "@data HASH IS BELOW"
-    p @data
 
-    Event.send_rsvp_info(@data) do
+    Event.send_rsvp_info(@data) do |event|
       @alert_box = UIAlertView.alloc.initWithTitle("What up dude.",
         message: "PROCESSING REQUEST",
         delegate: nil,
         cancelButtonTitle: "ok",
         otherButtonTitles: nil)
+      puts "THIS IS RESPONSE FROM HTTP REQUEST IN SELECT_YES"
+      p event 
       @alert_box.show
     end
   end
@@ -99,12 +94,14 @@ class ShowController < UIViewController
     puts "@data HASH IS BELOW"
     p @data
 
-    Event.send_rsvp_info(@data) do
+    Event.send_rsvp_info(@data) do |event|
       @alert_box = UIAlertView.alloc.initWithTitle("What up dude.",
         message: "You suck and I hate you.",
         delegate: nil,
         cancelButtonTitle: "ok",
         otherButtonTitles: nil)
+      puts "THIS IS RESPONSE FROM HTTP REQUEST IN SELECT_NO"
+      p event      
       @alert_box.show
     end
   end

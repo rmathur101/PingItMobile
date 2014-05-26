@@ -27,12 +27,12 @@ class Event
   def self.get_events(&block)
     BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone/get_events") do |response|
       puts "RESPONSE FROM GET EVENTS REQUEST" 
-      #p response #this is in the correct form that I want
-      result_data = BW::JSON.parse(response.body.to_str)
-      # p response.body.to_str
-      # p response.body
-      # block.call(result_data)
-      block.call(result_data)
+      if response.ok?
+        result_data = BW::JSON.parse(response.body.to_str)
+        block.call(result_data)
+      else
+        block.call("no")
+      end
     end
   end
 
@@ -45,14 +45,15 @@ class Event
         result_data = BW::JSON.parse(response.body.to_str)
         block.call(result_data)
       else
-        block.call("nope")
+        block.call("no")
       end
     end
   end
 
   def self.send_rsvp_info(event_rsvp_info, &block)
     BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone/register_rsvp_info", payload: {data: event_rsvp_info}) do |response|
-      block.call(response)
+      result_data = BW::JSON.parse(response.body.to_str)
+      block.call(result_data)
     end
   end
 
