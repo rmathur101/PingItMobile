@@ -1,7 +1,7 @@
 class IndexController < UIViewController
   def viewDidLoad
     super
-
+    @data = []
     self.title = "Events"
 
     events_table = UITableView.alloc.initWithFrame(self.view.bounds)
@@ -21,20 +21,45 @@ class IndexController < UIViewController
 # App::Persistence.delete('events') #USE THIS TO DELETE THE PERSISTENCE DATA 
 
 
-$request_boolean = "false"
-
-
+# $request_boolean = "false"
   # while $request_boolean == "false"
-    Event.get_events do |event| #need to make sure that the program does not move on until we have a response back from this http request 
-      p event   
-      App::Persistence['events'] = event 
-      $boolean_request = event
-      p $request_boolean
-      $request_boolean == "true"
+    Event.get_events do |events| #need to make sure that the program does not move on until we have a response back from this http request 
+      # p "these are the events i am getting from the web app"
+      # p event   
+      # App::Persistence['events'] = event 
+      # # $request_boolean == "true"
+      events.each do |event_obj|
+                    event_obj_array = []
+        event_obj_array.push(event_obj[:title])
+
+        # p "THE CURRENT DATETIME"
+        # p NSDate.date
+        #working out the time to be displayed on index---------------------------------------------------------------
+        event_time = event_obj[:start_time]
+        p "THE START TIME"
+        p event_time
+        # convert_event_time = Time.iso8601(event_time.gsub(/\.\d*/, ""))
+        convert_event_time = NSDate.dateWithString(event_time)
+        p "THE CONVERTED START TIME"
+        p convert_event_time.timeIntervalSinceReferenceDate 
+        difference = convert_event_time - NSDate.date
+        # if difference >= 0
+        p difference
+        #if difference >= 0 #checking to make sure the time is in the future
+        # end 
+          time_until_event = (difference/60/60).round
+          event_obj_array.push(time_until_event.to_s)
+          # event_obj_array.push("Time")
+          event_obj_array.push("Distance")
+          @data.push(event_obj_array)   
+      end
+
+      events_table.reloadData
+
     end
   # end
 
-    @array_events = App::Persistence['events'] 
+    # @array_events = App::Persistence['events'] 
     # p @array_events
 
 
@@ -46,29 +71,33 @@ $request_boolean = "false"
 
     # @data = [["will", "this", "think"]]
 
-    @data = []
-    @array_events.each do |event_obj| 
-      event_obj_array = []
-      event_obj_array.push(event_obj[:title])
+    # @data = []
+    # @array_events.each do |event_obj| 
+      # event_obj_array = []
+      # event_obj_array.push(event_obj[:title])
 
-      #working out the time to be displayed on index---------------------------------------------------------------
-      event_time = event_obj[:start_time]
-      # p event_obj[:start_time]
-      convert_event_time = Time.iso8601(event_time.gsub(/\.\d*/, ""))
-      # p convert_event_time 
-      difference = convert_event_time - NSDate.date
-      # p NSDate.date
-      # if difference >= 0
+      # # p "THE CURRENT DATETIME"
+      # # p NSDate.date
+      # #working out the time to be displayed on index---------------------------------------------------------------
+      # event_time = event_obj[:start_time]
+      # p "THE START TIME"
+      # p event_time
+      # # convert_event_time = Time.iso8601(event_time.gsub(/\.\d*/, ""))
+      # convert_event_time = NSDate.dateWithString(event_time)
+      # p "THE CONVERTED START TIME"
+      # p convert_event_time.timeIntervalSinceReferenceDate 
+      # difference = convert_event_time - NSDate.date
+      # # if difference >= 0
       # p difference
-      #if difference >= 0 #checking to make sure the time is in the future
-      # end 
-        time_until_event = (difference/60/60).round
-        event_obj_array.push(time_until_event.to_s)
-        # event_obj_array.push("Time")
-        event_obj_array.push("Distance")
-        @data.push(event_obj_array)   
+      # #if difference >= 0 #checking to make sure the time is in the future
+      # # end 
+      #   time_until_event = (difference/60/60).round
+      #   event_obj_array.push(time_until_event.to_s)
+      #   # event_obj_array.push("Time")
+      #   event_obj_array.push("Distance")
+      #   @data.push(event_obj_array)   
       #--------------------------------------------------------------------------------------------------------------
-    end
+    # end
 
 # semiphor (used for multi threading of stuff)
 
