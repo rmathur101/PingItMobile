@@ -1,8 +1,24 @@
 THINGS TO DO
 
+
+(PHONE SPECIFIC)
+
 *create the show page
 
-*find a way to push data to the web_app's database from the create form
+*move to the real phone
+
+*FB AUTH (connect a user on the phone to the user on the web app when a request is made that requries the user (create event))
+
+*Format time (need to talk to tam and ron about how we are managing date time for pings)
+
+*Validations on ping submit (how to verify address)
+
+
+
+
+(WEB APP SPECFIC)
+*how to evaluate the pending status of pings
+*how are we entering in time on the web app and on the phone
 
 
 
