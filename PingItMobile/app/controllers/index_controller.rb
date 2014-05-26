@@ -22,9 +22,21 @@ class IndexController < UITableViewController
 # 2012-05-31T19:41:33Z #the example that bubble wrap gave us 
 
 
-    Event.get_events do |event|
+    # App::Persistence.delete('events') #USE THIS TO DELETE THE PERSISTENCE DATA 
+
+
+    Event.get_events do |event| #need to make sure that the program does not move on until we have a response back from this http request 
+      # p event
+      # testing =  event[0]
+      # p testing
+      # testing[:duration] = "this is the duration now"
+      # p testing
+
+      # puts "THESE ARE THE EVENTS I AM GETTING BACK"
       App::Persistence['events'] = event 
+      # p App::Persistence['events']
     end
+
 
     @array_events = App::Persistence['events'] 
     p @array_events
@@ -36,6 +48,8 @@ class IndexController < UITableViewController
     @table.delegate = self #delegate has to do with how the table looks and how the user interacts with it
     
 
+
+
     #what pieces of data are going to go in our cells?
     #the name of the event,
     #the time until the start of the event
@@ -43,21 +57,23 @@ class IndexController < UITableViewController
     #checked, unchecked, or denied (in which it shouldn't even show up in the table)
 
 
+    # @data = [["will", "this", "think"]]
+
+
+
     @data = []
     @array_events.each do |event_obj| 
       event_obj_array = []
       event_obj_array.push(event_obj[:title])
-      p event_obj[:title]
-
-
+      # p event_obj[:title]
 
       #working out the time to be displayed on index---------------------------------------------------------------
       event_time = event_obj[:start_time]
-      p event_obj[:start_time]
+      # p event_obj[:start_time]
       convert_event_time = Time.iso8601(event_time.gsub(/\.\d*/, ""))
-      p convert_event_time 
+      # p convert_event_time 
       difference = convert_event_time - NSDate.date
-      p NSDate.date
+      # p NSDate.date
       # if difference >= 0
       # p difference
       #if difference >= 0 #checking to make sure the time is in the future
@@ -69,6 +85,10 @@ class IndexController < UITableViewController
         @data.push(event_obj_array)   
       #--------------------------------------------------------------------------------------------------------------
     end
+
+
+
+
 
     #TODO
     #--------------------------
