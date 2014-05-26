@@ -4,19 +4,7 @@ class CreateController < Formotion::FormController
   def viewDidLoad
     super
     
-    # CUSTOM COLORS
-    candyAppleRed = UIColor.colorWithRed(0.93, green: 0.13, blue: 0.14, alpha: 1.0)
-    canvasYellow = UIColor.colorWithRed(1.0, green: 0.89, blue: 0.51, alpha: 1.0)
-    offWhite = UIColor.colorWithRed(0.98, green: 0.98, blue: 0.99, alpha: 1.0)
-    charcoal = UIColor.colorWithRed(0.2, green: 0.18, blue: 0.17, alpha: 1.0)
-    forestGreen = UIColor.colorWithRed(0.05, green: 0.49, blue: 0.37, alpha: 1.0)
-
-    @defaults = NSUserDefaults.standardUserDefaults
-    frame = UIScreen.mainScreen.applicationFrame
-    origin = frame.origin
-    size = frame.size
-
-    self.view.backgroundColor = canvasYellow
+    # self.view.backgroundColor = UIViewController.canvasYellow
 
     # ON FORM SUBMIT BLOCK
     self.form.on_submit do |form|

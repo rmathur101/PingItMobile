@@ -4,14 +4,11 @@ require 'motion/project/template/ios'
 require 'motion/project'
 require 'motion-cocoapods'
 require 'bubble-wrap'
-require 'bubble-wrap-http'
+require 'bubble-wrap/core'
 require 'bubble-wrap/http'
 require 'bubble-wrap/location'
 require 'formotion'
 require 'teacup'
-require 'date'
-
-
 
 begin
   require 'bundler'
@@ -21,16 +18,27 @@ end
 
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
-  app.name = 'PingItMobile'
-  app.frameworks += %w{ AdSupport Accounts Social }
-    app.weak_frameworks += %w{ AdSupport Accounts Social }
-    app.pods do
-      pod 'Facebook-iOS-SDK', '~> 3.1.1'
-      pod 'Google-Maps-iOS-SDK', '~> 1.0.2'
-    end
+  # Provisioning
+  app.name = "PingIt"
+  app.codesign_certificate = "Iphone Developer: John Norton (ZSRXY4XP7L)"
+  app.identifier = "5ZYPULWM24.com.herokuapp.pingit"
+  app.provisioning_profile = "/Users/rongierlach/Library/MobileDevice/Provisioning\ Profiles/PingItMobile.mobileprovision"
 
-    app.info_plist['FacebookAppID'] = '764749046879221'
-    app.info_plist['URL types'] = { 'URL Schemes' => 'fb764749046879221'}
-    app.interface_orientations = [:portrait]
+  app.interface_orientations = [:portrait]
+  app.icons = ["icon_32x32.png", "icon_32x32@2x.png"]
+
+  # app.frameworks += %w{ AdSupport Accounts Social }
+  # app.weak_frameworks += %w{ AdSupport Accounts Social }
+  app.pods do
+    # pod 'Facebook-iOS-SDK', '~> 3.1.1'
+    pod 'Google-Maps-iOS-SDK', '~> 1.8.1'
+  end
+
+  # app.info_plist['FacebookAppID'] = '764749046879221'
+  # app.info_plist['FacebookDisplayName'] = 'PingIt'
+  # app.info_plist['URL types'] = { 'URL Schemes' => 'fb764749046879221'}
+
+  app.archs['iPhoneOS'] = ['armv7']
+  app.frameworks += %w{AVFoundation CoreData CoreLocation CoreText GLKit ImageIO OpenGLES QuartzCore SystemConfiguration}
+  app.libs       += %w{/usr/lib/libicucore.dylib /usr/lib/libc++.dylib /usr/lib/libz.dylib}
 end
-

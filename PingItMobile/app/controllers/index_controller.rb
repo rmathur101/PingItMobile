@@ -1,15 +1,21 @@
-class IndexController < UITableViewController
+class IndexController < UIViewController
   def viewDidLoad
     super
-    #initiating table
-    @table = UITableView.alloc.initWithFrame(self.view.bounds)
-    @table.separatorColor = UIColor.blackColor
-    @table.backgroundColor = UIColor.blackColor
-    self.view.addSubview(@table)
-    self.title = "Pings near you!"
-    self.view.backgroundColor = UIColor.blackColor
 
-#--------------------------------------------PARSING THE EVENT DATA FROM HEROKU IN A FORM FOR PHONE APP
+    self.title = "Events"
+
+    events_table = UITableView.alloc.initWithFrame(self.view.bounds)
+    # events_table.backgroundView = self.view
+
+    # self.view.backgroundColor = canvasYellow
+    # initiating table
+    # events_table.separatorColor = UIViewController.charcoal
+    # events_table.backgroundColor = UIViewController.canvasYellow 
+    # events_table.sectionIndexTrackingBackgroundColor = UIViewController.candyAppleRed
+    
+    # self.view.addSubview(events_table)
+
+    self.view.addSubview(events_table)
 
 #QUESTIONS
 #------------------------------------
@@ -23,7 +29,6 @@ class IndexController < UITableViewController
 
 
     # App::Persistence.delete('events') #USE THIS TO DELETE THE PERSISTENCE DATA 
-
 
     Event.get_events do |event| #need to make sure that the program does not move on until we have a response back from this http request 
       # p event
@@ -44,8 +49,8 @@ class IndexController < UITableViewController
 #----------------------------------------------------------------------------
 
     #data stuff
-    @table.dataSource = self #set our controller as the table's dataSource
-    @table.delegate = self #delegate has to do with how the table looks and how the user interacts with it
+    events_table.dataSource = self #set our controller as the table's dataSource
+    events_table.delegate = self #delegate has to do with how the table looks and how the user interacts with it
     
 
 
@@ -96,15 +101,31 @@ class IndexController < UITableViewController
     #show both the hours and minutes to the event 
 
 
+    #data stuff
+    # events_table.dataSource = self #set our controller as the table's dataSource
+    # events_table.delegate = self #delegate has to do with how the table looks and how the user interacts with it
+    
+
+    #what pieces of data are going to go in our cells?
+    #the name of the event,
+    #the time until the start of the event
+    #the miles away from your current location
+    #checked, unchecked, or denied (in which it shouldn't even show up in the table)
+
+    # @data = ("A".."Z").to_a
+    # @data = [["Name1", "Time1", "Distance1"], ["Name2", "Time2", "Distance2"], ["Name3", "Time3", "Distance3"]]
+    # self.addSubview(my_table)
   end
 
   def initWithNibName(name, bundle: bundle)
-      super
-      self.tabBarItem = UITabBarItem.alloc.initWithTitle("PingIt!", image: "something", tag: 1)
-      self
+    super
+    @event = UIImage.imageNamed('event.png')
+    @eventSel = UIImage.imageNamed('event-select.png')
+    self.tabBarItem = UITabBarItem.alloc.initWithTitle('Event', image: @event, tag: 1)
+    self.tabBarItem.setFinishedSelectedImage(@eventSel, withFinishedUnselectedImage:@event)
+    self
   end
 
-  # Methods to conform to TableView delegate protocol
   def tableView(tableView, cellForRowAtIndexPath: indexPath) #special method for picking out cell
     #return the UITableViewCell for the row
     @reuseIdentifier ||= "CELL_IDENTIFIER"
