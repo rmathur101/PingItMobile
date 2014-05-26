@@ -41,7 +41,6 @@ class Event
     BW::HTTP.get("http://localhost:3000/phone/create_event", payload: {data: new_event_data}) do |response|
       puts "RESPONSE FROM CREATE EVENT REQUEST"
       if response.ok?   
-        # p response
         result_data = BW::JSON.parse(response.body.to_str)
         block.call(result_data)
       else
@@ -80,60 +79,3 @@ class Event
 
 end
 
-#-----------------------------------------------------------
-#called when an object is loaded from NSUserDefaults
-#this is an initializer, should should return "self"
-  # def initWithCoder(decoder)
-  #   self.init
-  #   PROPERTIES.each { |prop|
-  #     value = decoder.decodeObjectForKey(prop.to_s)
-  #     self.send((prop.to_s + "=").to_s, value) if value
-  #   }
-  #   self
-  # end
-
-  # # # called when saving an object to NSUserDefaults
-  # def encodeWithCoder(encoder)
-  #   PROPERTIES.each { |prop|
-  #     encoder.encodeObject(self.send(prop), forKey: prop.to_s)
-  #   }
-  # end
-  #--------------------------------------------------------------when you want to store things in defaults = NSUSerDefaults.standardUserDefaults
-
-
-  #example
-  #-------------------------------
-  # post = Post.new
-  # post.message = "hello!"
-  # post.id = 1000
-  #--------------------------------
-
-  #SAVING A POST
-  #---------------------------------------------------------
-  # post_as_data = NSKeyedArchiver.archivedDataWithRootObject(post)
-  # defaults["saved_post"] = post_as_data 
-  #------------------------------------------------------
-  #saved as a key value pair in defaults
-
-  #LOADING A POST
-  #---------------------------------------------------------
-  # post_as_data = defaults["saved_post"]
-  # post = NSKeyedUnarchiver.unarchiveObjectWithData(post_as_data)
-  #-----------------------------------------------------------------
-
-  #to purge all things from NSUser use: NSUserDefaults.resetStandardUserDefaults
-
-  #to use the defaults hash must first initialize:
-  #-------------------------------------------------------------
-  #@defaults = NSUserDefaults.standardUserDefaults
-  #@defaults["one"] = 1
-  #-----------------------------(to retrieve)
-  #@defaults["one"] => 1
-  #---------------------------------------------------------------
-
-
-
-
-#QUESTIONS
-#----------------------------------------------------
-#how do I get ONLY the new events? so that we don't have to referesh every time
