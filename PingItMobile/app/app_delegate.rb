@@ -30,6 +30,7 @@ class AppDelegate
   # =============
 
   def application(application, didFinishLaunchingWithOptions:launchOptions)
+
     authenticate
     # window.rootViewController = navController
     # window.makeKeyAndVisible
@@ -96,14 +97,22 @@ class AppDelegate
                 value: '6:00 PM',
                 input_accessory: :done #adds a Done button to the date picker
               },
-              { # End Time Row
-                title: "End",
-                key: :end_time,
-                type: :date,
-                picker_mode: :time,
-                value: '8:00 PM',
-                input_accessory: :done #adds a Done button to the date picker               
+              { # Duration Row
+                title: "Duration",
+                key: :duration,
+                type: :picker,
+                items: [1,2,3,4,5,6],
+                value: 2,
+                input_accessory: :done
               }
+              # { # End Time Row
+              #   title: "End",
+              #   key: :end_time,
+              #   type: :date,
+              #   picker_mode: :time,
+              #   value: '8:00 PM',
+              #   input_accessory: :done #adds a Done button to the date picker               
+              # }
             ] 
           },
           { # Where Section

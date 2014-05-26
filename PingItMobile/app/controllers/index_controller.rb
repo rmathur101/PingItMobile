@@ -22,12 +22,19 @@ class IndexController < UITableViewController
 # 2012-05-31T19:41:33Z #the example that bubble wrap gave us 
 
 
-    # App::Persistence.delete('events') #USE THIS TO DELETE THE PERSISTENCE DATA 
-    Event.get_events do |event|
-      puts "THESE ARE THE EVENTS I AM GETTING BACK"
-      p "IS THIS FUCKING WORKING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      p event
+    App::Persistence.delete('events') #USE THIS TO DELETE THE PERSISTENCE DATA 
+
+
+    Event.get_events do |event| #need to make sure that the program does not move on until we have a response back from this http request 
+      # p event
+      # testing =  event[0]
+      # p testing
+      # testing[:duration] = "this is the duration now"
+      # p testing
+
+      # puts "THESE ARE THE EVENTS I AM GETTING BACK"
       App::Persistence['events'] = event 
+      # p App::Persistence['events']
     end
 
 
@@ -50,33 +57,33 @@ class IndexController < UITableViewController
     #checked, unchecked, or denied (in which it shouldn't even show up in the table)
 
 
+    # @data = [["will", "this", "think"]]
 
 
+    @data = []
+    @array_events.each do |event_obj| 
+      event_obj_array = []
+      event_obj_array.push(event_obj[:title])
+      # p event_obj[:title]
 
-    # @data = []
-    # @array_events.each do |event_obj| 
-    #   event_obj_array = []
-    #   event_obj_array.push(event_obj[:title])
-    #   # p event_obj[:title]
-
-    #   #working out the time to be displayed on index---------------------------------------------------------------
-    #   event_time = event_obj[:start_time]
-    #   # p event_obj[:start_time]
-    #   convert_event_time = Time.iso8601(event_time.gsub(/\.\d*/, ""))
-    #   # p convert_event_time 
-    #   difference = convert_event_time - NSDate.date
-    #   # p NSDate.date
-    #   # if difference >= 0
-    #   # p difference
-    #   #if difference >= 0 #checking to make sure the time is in the future
-    #   # end 
-    #     time_until_event = (difference/60/60).round
-    #     event_obj_array.push(time_until_event.to_s)
-    #     # event_obj_array.push("Time")
-    #     event_obj_array.push("Distance")
-    #     @data.push(event_obj_array)   
-    #   #--------------------------------------------------------------------------------------------------------------
-    # end
+      #working out the time to be displayed on index---------------------------------------------------------------
+      event_time = event_obj[:start_time]
+      # p event_obj[:start_time]
+      convert_event_time = Time.iso8601(event_time.gsub(/\.\d*/, ""))
+      # p convert_event_time 
+      difference = convert_event_time - NSDate.date
+      # p NSDate.date
+      # if difference >= 0
+      # p difference
+      #if difference >= 0 #checking to make sure the time is in the future
+      # end 
+        time_until_event = (difference/60/60).round
+        event_obj_array.push(time_until_event.to_s)
+        # event_obj_array.push("Time")
+        event_obj_array.push("Distance")
+        @data.push(event_obj_array)   
+      #--------------------------------------------------------------------------------------------------------------
+    end
 
 
 
