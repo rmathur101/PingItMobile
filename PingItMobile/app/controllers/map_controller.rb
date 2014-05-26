@@ -1,37 +1,35 @@
 class MapController < UIViewController
   def viewDidLoad
     super
-    # CUSTOM COLORS
-    candyAppleRed = UIColor.colorWithRed(0.93, green: 0.13, blue: 0.14, alpha: 1.0)
-    canvasYellow = UIColor.colorWithRed(1.0, green: 0.89, blue: 0.51, alpha: 1.0)
-    offWhite = UIColor.colorWithRed(0.98, green: 0.98, blue: 0.99, alpha: 1.0)
-    charcoal = UIColor.colorWithRed(0.2, green: 0.18, blue: 0.17, alpha: 1.0)
-    forestGreen = UIColor.colorWithRed(0.05, green: 0.49, blue: 0.37, alpha: 1.0)
 
-    self.view.backgroundColor = canvasYellow
+    self.view.backgroundColor = UIColor.canvasYellow
     
     device_has_location_services_enabled = BW::Location.enabled?
     if device_has_location_services_enabled 
       GMSServices.provideAPIKey(UIViewController.maps_api_key)
+      camera_position = GMSCameraPosition.cameraWithLatitude(41.889911, longitude: -87.637657, zoom: 15 )
+      mapView = GMSMapView.mapWithFrame(self.view.bounds, camera: camera_position)
+      
+      user_marker = GMSMarker.alloc.init
+      user_marker.title = "You"
+      user_marker.map = mapView
 
       BW::Location.get do |result|
         coordinate = result[:from].coordinate if result[:from]
         coordinate = result[:to].coordinate if result[:to]
-        # position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude)
-
-        # camera = GMSCameraPosition.cameraWithLatitude( coordinate.latitude, longitude: coordinate.longitude, zoom: 13 )
-        # @mapView = GMSMapView.mapWithFrame( CGRectMake(0, 40, self.view.frame.width, self.view.frame.width)
-        # lat = textLabel(coordinate.latitude, 20, 370)
-        # long = textLabel(coordinate.longitude, 20, 390)
         
-        # marker = GMSMarker.markerWithPosition( position )
-        # marker.map = @mapView;
+        lat = coordinate.latitude
+        long = coordinate.longitude
 
-        # self.view.addSubview(@mapView)
-        # self.view.addSubview(lat)
-        # self.view.addSubview(long)
+        user_position = CLLocationCoordinate2DMake(lat, long)
+        user_marker.position = user_position
 
+        current_zoom = mapView.camera.zoom
 
+        camera_position = GMSCameraUpdate.setCamera(GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: current_zoom))
+        mapView.moveCamera(camera_position)
+
+        self.view = mapView
       end
     else
       # Display Alert

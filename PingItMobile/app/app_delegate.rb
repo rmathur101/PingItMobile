@@ -7,19 +7,23 @@ class UIViewController
   def appDelegate
     UIApplication.sharedApplication.delegate
   end
-  def candyAppleRed 
+end
+
+# Add Colors...
+class UIColor
+  def self.candyAppleRed 
     UIColor.colorWithRed(0.93, green: 0.13, blue: 0.14, alpha: 1.0)
   end
-  def canvasYellow
+  def self.canvasYellow
     UIColor.colorWithRed(1.0, green: 0.89, blue: 0.51, alpha: 1.0)
   end
-  def offWhite
+  def self.offWhite
     UIColor.colorWithRed(0.98, green: 0.98, blue: 0.99, alpha: 1.0)
   end
-  def charcoal
+  def self.charcoal
     UIColor.colorWithRed(0.2, green: 0.18, blue: 0.17, alpha: 1.0)
   end
-  def forestGreen
+  def self.forestGreen
     UIColor.colorWithRed(0.05, green: 0.49, blue: 0.37, alpha: 1.0)
   end
 end

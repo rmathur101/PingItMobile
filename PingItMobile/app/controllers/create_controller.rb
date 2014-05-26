@@ -4,7 +4,7 @@ class CreateController < Formotion::FormController
   def viewDidLoad
     super
     
-    # self.view.backgroundColor = UIViewController.canvasYellow
+    self.view.backgroundColor = UIColor.canvasYellow
 
     # ON FORM SUBMIT BLOCK
     self.form.on_submit do |form|

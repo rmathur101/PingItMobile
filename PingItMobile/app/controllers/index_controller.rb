@@ -7,11 +7,11 @@ class IndexController < UIViewController
     events_table = UITableView.alloc.initWithFrame(self.view.bounds)
     # events_table.backgroundView = self.view
 
-    # self.view.backgroundColor = canvasYellow
+    self.view.backgroundColor = UIColor.canvasYellow
     # initiating table
-    # events_table.separatorColor = UIViewController.charcoal
-    # events_table.backgroundColor = UIViewController.canvasYellow 
-    # events_table.sectionIndexTrackingBackgroundColor = UIViewController.candyAppleRed
+    events_table.separatorColor = UIColor.charcoal
+    events_table.backgroundColor = UIColor.offWhite 
+    events_table.sectionIndexTrackingBackgroundColor = UIColor.candyAppleRed
     
     # self.view.addSubview(events_table)
 

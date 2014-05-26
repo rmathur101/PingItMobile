@@ -1,9 +1,8 @@
 class ShowController < UIViewController
   def viewDidLoad
     super
-    canvasYellow = UIColor.colorWithRed(1.0, green: 0.89, blue: 0.51, alpha: 1.0)
 
-    self.view.backgroundColor = canvasYellow
+    self.view.backgroundColor = UIColor.canvasYellow
     # self.
     p App::Persistence['show_info']
 
