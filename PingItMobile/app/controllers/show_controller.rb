@@ -51,14 +51,20 @@ class ShowController < UIViewController
 
 
 
+    @yes_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
+    @yes_button.setTitle("OMG CAN'T WAIT.", forState: UIControlStateNormal)
+    @yes_button.frame = [[10, 300], [250, 50]]
+    @yes_button.backgroundColor = UIColor.whiteColor
+    @yes_button.addTarget(self, action: :select_yes, forControlEvents: UIControlEventTouchUpInside)
+    self.view.addSubview(@yes_button)
 
 
-
-    
-
-
-
-
+    @no_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
+    @no_button.setTitle("Nahhhhh.", forState: UIControlStateNormal)
+    @no_button.frame = [[10, 400], [250, 50]]
+    @no_button.backgroundColor = UIColor.whiteColor
+    @no_button.addTarget(self, action: :select_no, forControlEvents: UIControlEventTouchUpInside)
+    self.view.addSubview(@no_button)
 
     #title
     #description
@@ -69,7 +75,29 @@ class ShowController < UIViewController
     #status
     #start_time
 
-
-
   end
+
+  def select_yes
+    @alert_box = UIAlertView.alloc.initWithTitle("What up dude.",
+      message: "PROCESSING REQUEST",
+      delegate: nil,
+      cancelButtonTitle: "ok",
+      otherButtonTitles: nil)
+
+    @alert_box.show
+  end
+
+  def select_no
+    @alert_box = UIAlertView.alloc.initWithTitle("What up dude.",
+      message: "You suck and I hate you.",
+      delegate: nil,
+      cancelButtonTitle: "ok",
+      otherButtonTitles: nil)
+
+    @alert_box.show
+  end
+
+
+
+
 end

@@ -39,6 +39,7 @@ class Event
     end
   end
 
+
 #getting the event might not need a payload (unless the payload should be the events that are already on the phone)
   # def self.get_events(&block)
   #   BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone/get_events") do |response|
@@ -64,6 +65,17 @@ class Event
       end
     end
   end
+
+  def self.send_rsvp_info(event_rsvp_info, &block)
+    BW::HTTP.get("http://pure-garden-7269.herokuapp.com/phone/register_rsvp_info", payload: {data: event_rsvp_info}) do |response|
+      block.call(response)
+    end
+  end
+
+
+
+
+
 
   #do we need to do stuff with plist ?
 
