@@ -14,7 +14,8 @@ class ShowController < UIViewController
     # App::Persistence['show_info'][:start_time]
 
 
-
+    @data = {}
+    @data[:event_id] = App::Persistence['show_info'][:id]
 
     # (CGRectMake(10, 10, 100, 100)
 
@@ -77,24 +78,35 @@ class ShowController < UIViewController
 
   end
 
+#------------------------------------------------------------------the alert box is rendered in the callback function of the rsvp request 
   def select_yes
-    @alert_box = UIAlertView.alloc.initWithTitle("What up dude.",
-      message: "PROCESSING REQUEST",
-      delegate: nil,
-      cancelButtonTitle: "ok",
-      otherButtonTitles: nil)
+    @data[:rsvp_status] = "yes"
+    puts "@data HASH IS BELOW"
+    p @data
 
-    @alert_box.show
+    Event.send_rsvp_info(@data) do
+      @alert_box = UIAlertView.alloc.initWithTitle("What up dude.",
+        message: "PROCESSING REQUEST",
+        delegate: nil,
+        cancelButtonTitle: "ok",
+        otherButtonTitles: nil)
+      @alert_box.show
+    end
   end
 
   def select_no
-    @alert_box = UIAlertView.alloc.initWithTitle("What up dude.",
-      message: "You suck and I hate you.",
-      delegate: nil,
-      cancelButtonTitle: "ok",
-      otherButtonTitles: nil)
+    @data[:rsvp_status] = "no"
+    puts "@data HASH IS BELOW"
+    p @data
 
-    @alert_box.show
+    Event.send_rsvp_info(@data) do
+      @alert_box = UIAlertView.alloc.initWithTitle("What up dude.",
+        message: "You suck and I hate you.",
+        delegate: nil,
+        cancelButtonTitle: "ok",
+        otherButtonTitles: nil)
+      @alert_box.show
+    end
   end
 
 
