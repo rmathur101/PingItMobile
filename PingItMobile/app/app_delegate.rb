@@ -52,7 +52,7 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
 
   def auth_with_facebook
     if FBSession.activeSession.open?
-      @@user = facebook_controller.get_user
+      @@user = facebook_controller.return_user
 
       map_controller = MapController.alloc.initWithNibName(nil, bundle: nil)
       create_controller = CreateController.alloc.initWithForm(create_form)
@@ -64,6 +64,9 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
       tab_controller.selectedIndex = 1
 
       window.rootViewController = tab_controller
+      puts "!!!!!!!!!!!!!!"
+      NSLog("#{@@user.inspect}")
+      puts "User Inspect"
     else
       window.rootViewController = facebook_controller
     end

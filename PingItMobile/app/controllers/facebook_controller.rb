@@ -73,9 +73,10 @@ class FacebookController < UIViewController
   def return_user
     FBRequest.requestForMe.startWithCompletionHandler(lambda do |connection, user, error|
       if error.nil?
-        user
+        NSLog("#{user.inspect}")
+        return user
       end
-      nil
+      return nil
     end)
   end
   # ============================
