@@ -21,6 +21,9 @@ class MapController < UIViewController
         if coordinate
           puts "Coordinate: #{coordinate}"
 
+          App::Persistence["user_latitude"] = lat
+          App::Persistence["user_longitude"] = long
+
           lat = coordinate.latitude
           long = coordinate.longitude
 
@@ -35,6 +38,8 @@ class MapController < UIViewController
           puts "No result from Location.get"
         end
         # Drop events onto the map
+
+
 
 
 
