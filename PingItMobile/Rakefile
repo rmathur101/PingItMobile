@@ -27,16 +27,19 @@ Motion::Project::App.setup do |app|
   app.interface_orientations = [:portrait]
   app.icons = ["icon_32x32.png", "icon_32x32@2x.png"]
 
-  # app.frameworks += %w{ AdSupport Accounts Social }
-  # app.weak_frameworks += %w{ AdSupport Accounts Social }
   app.pods do
-    # pod 'Facebook-iOS-SDK', '~> 3.1.1'
+    pod 'Facebook-iOS-SDK', '~> 3.14.1'
     pod 'Google-Maps-iOS-SDK', '~> 1.8.1'
   end
 
-  # app.info_plist['FacebookAppID'] = '764749046879221'
-  # app.info_plist['FacebookDisplayName'] = 'PingIt'
-  # app.info_plist['URL types'] = { 'URL Schemes' => 'fb764749046879221'}
+# Create a key called FacebookAppID with a string value, and add the app ID there.
+# Create a key called FacebookDisplayName with a string value, and add the Display Name you configured in the App Dashboard.
+# Create an array key called URL types with a single array sub-item called URL Schemes. Give this a single item with your app ID prefixed with fb. This is used to ensure the application will receive the callback URL of the web-based OAuth flow.
+  app.info_plist['FacebookAppID'] = '764749046879221'
+  app.info_plist['FacebookDisplayName'] = 'PingIt'
+  app.info_plist['URL types'] = { 'URL Schemes' => 'fb764749046879221'}
+  app.frameworks += %w{ AdSupport Accounts Social }
+  app.weak_frameworks += %w{ AdSupport Accounts Social }
 
   app.archs['iPhoneOS'] = ['armv7']
   app.frameworks += %w{AVFoundation CoreData CoreLocation CoreText GLKit ImageIO OpenGLES QuartzCore SystemConfiguration}
