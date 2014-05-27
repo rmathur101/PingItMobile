@@ -43,6 +43,7 @@ class IndexController < UIViewController
       App::Persistence['events'] = events 
       @array_events = App::Persistence['events'] 
       # # $request_boolean == "true"
+      p events
       events.each do |event_obj|
         event_obj_array = []
         event_obj_array.push(event_obj[:title])
@@ -53,39 +54,59 @@ class IndexController < UIViewController
         @event_position = CLLocation.alloc.initWithLatitude(event_obj[:latitude], longitude: event_obj[:longitude])
         distance_meters = @user_position.distanceFromLocation(@event_position)
 
-          
-        p event_obj[:address]
-        p "USER LAT LONG: #{lat} #{long}"
-        p "EVENT LAT LONG: #{event_obj[:latitude]} #{event_obj[:longitude]}"
-        p "DISTANCE METERS: #{distance_meters}"
+
         distance_miles = (distance_meters / 1609).round(2)
-        p "DISTANCE MILES #{distance_miles}"
-        puts ""
+        # p event_obj[:address]
+        # p "USER LAT LONG: #{lat} #{long}"
+        # p "EVENT LAT LONG: #{event_obj[:latitude]} #{event_obj[:longitude]}"
+        # p "DISTANCE METERS: #{distance_meters}"
+        # p "DISTANCE MILES #{distance_miles}"
+        # puts ""
 
 
 
-        # (CLLocationDistance) distanceFromLocation(location)
+
+      #  NSTimeInterval ti = 3667;
+      # double hours = floor(ti / 60 / 60);
+      # double minutes = floor((ti - (hours * 60 * 60)) / 60);
+      # double seconds = floor(ti - (hours * 60 * 60) - (minutes * 60));   
+
+
+
 
         
 
-
-        # p "THE CURRENT DATETIME"
-        # current_time =  NSDate.date.timeIntervalSinceReferenceDate
-        # p current_time
         
+        now_date = NSDate.date#no description
+        p "This is current time: #{now_date}"
 
         event_time = event_obj[:start_time]
-        convert_event_time = (NSDate.dateWithString(event_time)).timeIntervalSinceReferenceDate
-        # p "THE CONVERTED START TIME"
-        # p convert_event_time 
+        convert_event_time = (NSDate.dateWithString(event_time)).timeIntervalSinceReferenceDate #DON'T THINK I NEED TO CONVERT TO DATE WITH STRING
+        convert_event_time_no_interval = NSDate.dateWithString(event_time)
+        p "This is event time: #{convert_event_time_no_interval} with dateWithString"
+
       
-        # difference = convert_event_time - NSDate.date
-        # p difference
+
+        difference = convert_event_time - NSDate.date.timeIntervalSinceReferenceDate
+        p "This is difference: #{difference}"
+
+
+        hours = (difference / 60 / 60 ).floor
+        p "This is hours: #{hours}"
+        min = ((difference - (hours * 60 * 60)) / 60).floor
+        # if min.to_s.length == 1
+        #   min = "0#{min}"
+        # else
+        #   min = min.to_s
+        # end
+        # p "This is minutes: #{min}"
+
+
+
         #if difference >= 0 #checking to make sure the time is in the future
         # end 
 
-        # event_obj_array.push(time_until_event.to_s)
-        event_obj_array.push("Time")
+        event_obj_array.push("#{hours}hr#{min}min")
         event_obj_array.push("#{distance_miles} miles")
         @data.push(event_obj_array)   
       end

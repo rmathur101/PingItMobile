@@ -96,7 +96,7 @@ class AppDelegate
               type: :date,
               picker_mode: :time,
               value: '6:00 PM',
-              input_accessory: :done #adds a Done button to the date picker
+              input_accessory: :done, #adds a Done button to the date picker
             },
             { # Duration Row
               title: "Duration",

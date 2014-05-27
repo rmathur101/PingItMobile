@@ -8,17 +8,21 @@ THINGS TO DO
 ------------------------------------------------------
 *FB AUTH (connect a user on the phone to the user on the web app when a request is made that requries the user (create event))
 
-*Format time (need to talk to tam and ron about how we are managing date time for pings)
+DONE *Format time (need to talk to tam and ron about how we are managing date time for pings)
 
-*Distance calucalation for index page 
+DONE *Distance calucalation for index page 
 
-*Validations on ping submit (how to verify address)
+ICE *Validations on ping submit (how to verify address; CORRECT TIME SKELETON IS UP - implement)
 
-*add the endtime / or duration to the show page AND number of rsvps 
+3 *add the endtime / or duration to the show page AND number of rsvps 
 
-#Distinguish between old and new events when making get_events requests from the web app
+ICE #Distinguish between old and new events when making get_events requests from the web app
 
-#Show both hours and minutes on the index controller for events 
+DONE #Show both hours and minutes on the index controller for events 
+
+2 *Get the index page to referesh every time that it is visited / everytime that the table is scrolled through
+
+1 * Ask tam at what point are events invalid based on time
 
 ---------------------------------------------------------------------------------
 
