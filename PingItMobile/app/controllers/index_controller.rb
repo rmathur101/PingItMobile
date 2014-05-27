@@ -24,12 +24,19 @@ class IndexController < UIViewController
 
       puts "THIS TIMER IS WORKING"
 
+
+      lat = 41.889911
+      long = -87.637657 
       #@user_position = CLLocation.alloc.initWithLatitude(lat, longitude: long)
-      @user_position = CLLocation.alloc.initWithLatitude(41.889911, longitude: -87.637657) #this is hardcoded but will be updatd on phone using the App::Persistence
-      Event.get_events do |events|
+      @user_position = CLLocation.alloc.initWithLatitude(lat, longitude: long) #this is hardcoded but will be updatd on phone using the App::Persistence
+
+
+      info = {latitude: lat, longitude: long, uid: App::Persistence['current_uid']}
+      Event.get_events(info) do |events|
+        p events
         @data = []
         App::Persistence['events'] = events 
-        events.each do |event_obj|
+        (events[:pingas_pending_in_radius]).each do |event_obj|
           event_obj_array = []
           event_obj_array.push(event_obj[:title])
 
