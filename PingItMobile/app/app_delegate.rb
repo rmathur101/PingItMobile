@@ -52,7 +52,13 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
 
   def auth_with_facebook
     if FBSession.activeSession.open?
-      @@user = facebook_controller.return_user
+      puts "Logged In!"
+      p user = facebook_controller.user
+      p user_id = user[:id]
+      p @@accessToken = FBSession.activeSession.accessToken
+      p @@expirationDate = FBSession.activeSession.expirationDate
+      # ---- Check if user exists in database
+      #----- if not, create user 
 
       map_controller = MapController.alloc.initWithNibName(nil, bundle: nil)
       create_controller = CreateController.alloc.initWithForm(create_form)
@@ -64,13 +70,16 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
       tab_controller.selectedIndex = 1
 
       window.rootViewController = tab_controller
-      puts "!!!!!!!!!!!!!!"
-      NSLog("#{@@user.inspect}")
-      puts "User Inspect"
     else
       window.rootViewController = facebook_controller
     end
   end
+
+  # def user
+  #   facebook_controller.return_user
+  #   @@user ||= facebook_controller.user
+  #   return @@user
+  # end
 
   def applicationDidBecomeActive(application)
     # We need to properly handle activation of the application with regards to SSO

@@ -1,5 +1,6 @@
 class FacebookController < UIViewController
-  
+  attr_accessor :user
+
   def viewDidLoad
     self.title = "RM Facebook Connect"
     self.view.backgroundColor = UIColor.canvasYellow
@@ -70,15 +71,18 @@ class FacebookController < UIViewController
     end
   end
   
-  def return_user
-    FBRequest.requestForMe.startWithCompletionHandler(lambda do |connection, user, error|
-      if error.nil?
-        NSLog("#{user.inspect}")
-        return user
-      end
-      return nil
-    end)
-  end
+  # def return_user
+  #   facebook_user = nil
+  #   FBRequest.requestForMe.startWithCompletionHandler(lambda do |connection, user, error|
+  #     if error.nil?
+  #       puts "!!!!!!!!Inside FBRequest!!!!!!!!!"
+  #       NSLog("#{user.inspect}")
+  #       facebook_user = user
+  #     end
+  #     return nil
+  #   end)
+  #   self.user = facebook_user
+  # end
   # ============================
   # = Private Instance Methods =
   # ============================
@@ -105,15 +109,16 @@ class FacebookController < UIViewController
   # Called when the FBSessionStateChangedNotification is pushed out
   # Changed the text on the authButton and updates the textLabel
   def sessionStateChanged(notification)
-    appDelegate.auth_with_facebook
-    # if FBSession.activeSession.open?
-    #   showUserInfo
-    #   # authButton.setTitle("Sign out", forState: UIControlStateNormal)
-    #   appDelegate.auth_with_facebook
-    # else
-    #   resetTextLabel
-    #   authButton.setTitle("Welcome to PingIt", forState: UIControlStateNormal)
-    # end
+
+    FBRequest.requestForMe.startWithCompletionHandler(lambda do |connection, user, error|
+      if error.nil?
+        # puts "!!!!!!!!Inside FBRequest!!!!!!!!!"
+        # NSLog("#{user.inspect}")
+        self.user = user
+      end
+      appDelegate.auth_with_facebook
+    end)
+    
   end
 
 end

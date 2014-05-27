@@ -44,7 +44,7 @@ class IndexController < UIViewController
 
 
     @array_events = App::Persistence['events'] 
-    p @array_events
+    # p @array_events
 
 #----------------------------------------------------------------------------
 
@@ -156,7 +156,7 @@ class IndexController < UIViewController
   #if a row was selected 
   def tableView(tableView, didSelectRowAtIndexPath: indexPath) #this is what runs when you pick one of the rows within the table 
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    p indexPath.row
+    # p indexPath.row
 
     
     @new_view = ShowController.alloc.initWithNibName(nil, bundle:nil)
