@@ -21,6 +21,13 @@ class MapController < UIViewController
         lat = coordinate.latitude
         long = coordinate.longitude
 
+        App::Persistence["user_latitude"] = lat
+        App::Persistence["user_longitude"] = long
+
+        # p App::Persistence["user_latitude"] = lat
+        # p App::Persistence["user_longitude"] = long
+
+
         user_position = CLLocationCoordinate2DMake(lat, long)
         user_marker.position = user_position
 
@@ -28,6 +35,11 @@ class MapController < UIViewController
 
         camera_position = GMSCameraUpdate.setCamera(GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: current_zoom))
         mapView.moveCamera(camera_position)
+
+
+
+
+
 
         self.view = mapView
       end

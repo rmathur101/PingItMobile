@@ -16,6 +16,8 @@ class CreateController < Formotion::FormController
       p "FORMOTION CREATE EVENT DATA"
       p new_event_data
 
+      new_event_data[:start_time] =  (NSDate.dateWithTimeIntervalSince1970(new_event_data[:start_time])).strftime("%I:%M%p")
+      
       Event.create_event(new_event_data) do |event|
         p "THIS IS CALLBACK AFTER THE CREATE_EVENT HTTP REQUEST IS MADE"
         p event
