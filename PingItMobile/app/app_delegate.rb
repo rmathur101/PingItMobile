@@ -59,7 +59,10 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
       p @@expirationDate = FBSession.activeSession.expirationDate
       # ---- Check if user exists in database
       #----- if not, create user 
-
+      unless User.already_exists?(user_id)
+        # create a new user in the database  
+        puts "User with uid #{user_id} already exists!"
+      end
       map_controller = MapController.alloc.initWithNibName(nil, bundle: nil)
       create_controller = CreateController.alloc.initWithForm(create_form)
       @index_controller = IndexController.alloc.initWithNibName(nil, bundle: nil)
