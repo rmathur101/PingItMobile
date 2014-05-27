@@ -13,8 +13,6 @@ class IndexController < UIViewController
     events_table.backgroundColor = UIColor.offWhite 
     events_table.sectionIndexTrackingBackgroundColor = UIColor.candyAppleRed
 
-    
-
     self.view.addSubview(events_table)
 
 #-------------------------------------------------------time logic
@@ -24,14 +22,24 @@ class IndexController < UIViewController
     # 2012-05-31T19:41:33Z #the example that bubble wrap gave us 
 #-------------------------------------------------------------------------
 
+    puts "PERSISTED USER LAT LONG INFO"
+    p App::Persistence["user_latitude"] 
+    p App::Persistence["user_longitude"]
+
+    lat = App::Persistence["user_latitude"]
+    long = App::Persistence["user_longitude"]
+
+
+    #@user_position = CLLocation.alloc.initWithLatitude(lat, longitude: long)
+    @user_position = CLLocation.alloc.initWithLatitude(41.889911, longitude: -87.637657) #this is hardcoded but will be updatd on phone
 
     # App::Persistence.delete('events') #USE THIS TO DELETE THE PERSISTENCE DATA 
 
     @data = []
 
     Event.get_events do |events| #need to make sure that the program does not move on until we have a response back from this http request 
-      p "these are the events i am getting from the web app"
-      p events   
+      # p "these are the events i am getting from the web app"
+      # p events   
       App::Persistence['events'] = events 
       @array_events = App::Persistence['events'] 
       # # $request_boolean == "true"
@@ -42,11 +50,23 @@ class IndexController < UIViewController
         
 
 
+        @event_position = CLLocation.alloc.initWithLatitude(event_obj[:latitude], longitude: event_obj[:longitude])
+        distance_meters = @user_position.distanceFromLocation(@event_position)
+
+          
+        p event_obj[:address]
+        p "USER LAT LONG: #{lat} #{long}"
+        p "EVENT LAT LONG: #{event_obj[:latitude]} #{event_obj[:longitude]}"
+        p "DISTANCE METERS: #{distance_meters}"
+        distance_miles = (distance_meters / 1609).round(2)
+        p "DISTANCE MILES #{distance_miles}"
+        puts ""
 
 
 
+        # (CLLocationDistance) distanceFromLocation(location)
 
-
+        
 
 
         # p "THE CURRENT DATETIME"
@@ -66,7 +86,7 @@ class IndexController < UIViewController
 
         # event_obj_array.push(time_until_event.to_s)
         event_obj_array.push("Time")
-        event_obj_array.push("Distance")
+        event_obj_array.push("#{distance_miles} miles")
         @data.push(event_obj_array)   
       end
       # p @array_events
