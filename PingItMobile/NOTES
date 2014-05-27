@@ -24,6 +24,9 @@ DONE #Show both hours and minutes on the index controller for events
 
 1 * Ask tam at what point are events invalid based on time
 
+*Get user info back from the webapp at login (listening radius)
+*Get events for the user (active, pending, outside raidus) every 10 seconds
+
 ---------------------------------------------------------------------------------
 
 (WEB APP SPECFIC) ASK TAM AND DAN
