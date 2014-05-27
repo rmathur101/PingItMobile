@@ -20,12 +20,12 @@ class MapController < UIViewController
 
         if coordinate
           puts "Coordinate: #{coordinate}"
+          
+          lat = coordinate.latitude
+          long = coordinate.longitude
 
           App::Persistence["user_latitude"] = lat
           App::Persistence["user_longitude"] = long
-
-          lat = coordinate.latitude
-          long = coordinate.longitude
 
           user_position = CLLocationCoordinate2DMake(lat, long)
           user_marker.position = user_position

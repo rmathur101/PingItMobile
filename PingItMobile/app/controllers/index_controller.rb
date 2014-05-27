@@ -86,6 +86,8 @@ class IndexController < UIViewController
         p "This is current time: #{now_date}"
 
         event_time = event_obj[:start_time]
+        p event_time
+        p NSDate.dateWithString(event_time)
         convert_event_time = (NSDate.dateWithString(event_time)).timeIntervalSinceReferenceDate #DON'T THINK I NEED TO CONVERT TO DATE WITH STRING
         convert_event_time_no_interval = NSDate.dateWithString(event_time)
         p "This is event time: #{convert_event_time_no_interval} with dateWithString"
