@@ -40,6 +40,10 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
     @window ||= UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
   end
 
+  def facebook_controller
+    @facebook_controller ||= FacebookController.alloc.initWithNibName(nil, bundle: nil)
+  end
+
   def application(application, didFinishLaunchingWithOptions:launchOptions)
     true
     window.makeKeyAndVisible
@@ -48,6 +52,8 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
 
   def auth_with_facebook
     if FBSession.activeSession.open?
+      @@user = facebook_controller.get_user
+
       map_controller = MapController.alloc.initWithNibName(nil, bundle: nil)
       create_controller = CreateController.alloc.initWithForm(create_form)
       @index_controller = IndexController.alloc.initWithNibName(nil, bundle: nil)
@@ -58,9 +64,8 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
       tab_controller.selectedIndex = 1
 
       window.rootViewController = tab_controller
-      window.makeKeyAndVisible
     else
-      window.rootViewController = FacebookController.alloc.initWithNibName(nil, bundle: nil)
+      window.rootViewController = facebook_controller
     end
   end
 

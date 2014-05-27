@@ -70,6 +70,14 @@ class FacebookController < UIViewController
     end
   end
   
+  def return_user
+    FBRequest.requestForMe.startWithCompletionHandler(lambda do |connection, user, error|
+      if error.nil?
+        user
+      end
+      nil
+    end)
+  end
   # ============================
   # = Private Instance Methods =
   # ============================
