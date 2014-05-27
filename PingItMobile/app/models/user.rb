@@ -1,8 +1,10 @@
 class User
 
-  def self.already_exists?(fb_id, &block)
-    BW::HTTP.get("http://pingitt.herokuapp.com/phone/checkforuser", payload: {data: uid}) do |response|
-      block.call(response)
+  def self.verify_or_create_user(fb_info, &block)
+    BW::HTTP.get("http://localhost:3000/phone/checkforuser", payload: {data: fb_info}) do |response|
+      p response
+      result = BW::JSON.parse(response.body.to_str)
+      block.call(result)
     end
   end
 
