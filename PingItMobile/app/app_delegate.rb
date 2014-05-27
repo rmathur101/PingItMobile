@@ -46,6 +46,11 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
 
   def application(application, didFinishLaunchingWithOptions:launchOptions)
     true
+    # timer = BW::Reactor.add_periodic_timer 1.0 do
+    #   puts "THIS TIMER IS WORKING"
+    # end
+    # puts "HERE"
+    # puts BW::Reactor.inspect
     window.makeKeyAndVisible
     auth_with_facebook
   end
@@ -172,6 +177,7 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
   # 
   # Returns a Boolean value
   def application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+
     # attempt to extract a token from the url
     FBSession.activeSession.handleOpenURL(url)
   end  

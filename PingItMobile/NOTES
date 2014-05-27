@@ -14,7 +14,6 @@ DONE *Distance calucalation for index page
 
 ICE *Validations on ping submit (how to verify address; CORRECT TIME SKELETON IS UP - implement)
 
-3 *add the endtime / or duration to the show page AND number of rsvps 
 
 ICE #Distinguish between old and new events when making get_events requests from the web app
 
@@ -22,10 +21,15 @@ DONE #Show both hours and minutes on the index controller for events
 
 2 *Get the index page to referesh every time that it is visited / everytime that the table is scrolled through
 
-1 * Ask tam at what point are events invalid based on time
+1* Ask tam at what point are events invalid based on time
 
+-----------------
+PRIORITIES
+-----------------
+
+*Get events for the user (active, pending, outside raidus) every 10 seconds (VERYIFY WE ARE NOT GETTING OLD EVENTS)
 *Get user info back from the webapp at login (listening radius)
-*Get events for the user (active, pending, outside raidus) every 10 seconds
+*add the endtime / or duration to the show page AND number of rsvps /attendees
 
 ---------------------------------------------------------------------------------
 
@@ -47,7 +51,31 @@ QUESTIONS
 
 
 
+HAPPENING NOW
+When do we want to send lat long information? (do we want to send it at login (when we find / create a user))
+I think we should do lat long every time we make a request for events - so maybe that is in the index controller
+But remember that now the way that we are making requests for events is also changing, we are now making requests for: active pingas in listening radius; pending pingas in listening radius; pingas that are outside of the listening radius
+And also remember that we want to make these requests occur every 10 seconds. We can send the lat / long every time we need to get_events because the only thing that is dependent on lat/long is the events we be getting.
 
+In terms of what shows up on our index page...we only want active and pending pingas in the listening radius to show up
+
+So we need to make requests every 10 seconds
+
+
+
+RANDOM CODE SNIPPETS
+
+#-------------------------------------------------------time logic
+    # p Time.iso8601(test_time)
+    # 2014-05-24T21:41:09.165Z #the original time getting form the hash
+    # 2014-05-24T21:41:165Z #the edited time to make it look more like the bubble wrap example
+    # 2012-05-31T19:41:33Z #the example that bubble wrap gave us 
+#-------------------------------------------------------------------------
+
+#  NSTimeInterval ti = 3667;
+      # double hours = floor(ti / 60 / 60);
+      # double minutes = floor((ti - (hours * 60 * 60)) / 60);
+      # double seconds = floor(ti - (hours * 60 * 60) - (minutes * 60));   
 
 
 
