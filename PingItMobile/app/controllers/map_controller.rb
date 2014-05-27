@@ -17,24 +17,29 @@ class MapController < UIViewController
       BW::Location.get do |result|
         coordinate = result[:from].coordinate if result[:from]
         coordinate = result[:to].coordinate if result[:to]
-        
-        lat = coordinate.latitude
-        long = coordinate.longitude
 
-        App::Persistence["user_latitude"] = lat
-        App::Persistence["user_longitude"] = long
+        if coordinate
+          puts "Coordinate: #{coordinate}"
 
-        # p App::Persistence["user_latitude"] = lat
-        # p App::Persistence["user_longitude"] = long
+          App::Persistence["user_latitude"] = lat
+          App::Persistence["user_longitude"] = long
+
+          lat = coordinate.latitude
+          long = coordinate.longitude
+
+          user_position = CLLocationCoordinate2DMake(lat, long)
+          user_marker.position = user_position
+
+          current_zoom = mapView.camera.zoom
+
+          camera_position = GMSCameraUpdate.setCamera(GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: current_zoom))
+          mapView.moveCamera(camera_position)
+        else
+          puts "No result from Location.get"
+        end
+        # Drop events onto the map
 
 
-        user_position = CLLocationCoordinate2DMake(lat, long)
-        user_marker.position = user_position
-
-        current_zoom = mapView.camera.zoom
-
-        camera_position = GMSCameraUpdate.setCamera(GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: current_zoom))
-        mapView.moveCamera(camera_position)
 
 
 
