@@ -31,7 +31,7 @@ class MapController < UIViewController
 
 
       uid = App::Persistence['current_uid']
-      radius = 10
+      radius = 20
       user_info = {uid: uid, radius: radius}
       User.set_radius(user_info) do |event|
         puts "RESPONSE FROM SET RADIUS"
