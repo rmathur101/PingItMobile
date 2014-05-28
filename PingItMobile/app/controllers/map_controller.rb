@@ -18,7 +18,7 @@ class MapController < UIViewController
 
       dbc_position = CLLocationCoordinate2DMake(41.889911, -87.637657)
 
-      user_circle = GMSCircle.circleWithPosition(dbc_position, radius: 800)
+      user_circle = GMSCircle.circleWithPosition(dbc_position, radius: 0.03)
       # user_circle = GMSCircle.circleWithPosition(dbc_position, radius: user.listening_radius)
       user_circle.map = mapView
       user_circle.fillColor = UIColor.colorWithRed(0.05, green: 0.49, blue: 0.37, alpha: 0.2)
