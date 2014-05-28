@@ -26,6 +26,14 @@ class MapController < UIViewController
       # DRAW EVENTS ON MAP
       Event.draw_on_map(mapView)
 
+
+      #set the user radius using an http request ##############################################
+
+      # User.set_radius(user_info, &block) do |event|
+      #   p event
+      # end
+
+
       BW::Location.get do |result|
         coordinate = result[:from].coordinate if result[:from]
         coordinate = result[:to].coordinate if result[:to]

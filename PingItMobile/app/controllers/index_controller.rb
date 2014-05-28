@@ -16,58 +16,64 @@ class IndexController < UIViewController
     # p App::Persistence["user_latitude"] #THIS IS WHAT IS CAUSING THE GEO TO PRINTED OUT REPEAT
     # p App::Persistence["user_longitude"]
 
-    lat = App::Persistence["user_latitude"]
-    long = App::Persistence["user_longitude"]
+
+  
 
     @data = []
+
+        # lat = App::Persistence["user_latitude"]
+        # long = App::Persistence["user_longitude"]
+     
     timer = EM.add_periodic_timer 5.0 do
-
-      puts "THIS TIMER IS WORKING"
-
-
-      # lat = 41.889911
-      # long = -87.637657 
-      #@user_position = CLLocation.alloc.initWithLatitude(lat, longitude: long)
-      @user_position = CLLocation.alloc.initWithLatitude(lat, longitude: long) #this is hardcoded but will be updatd on phone using the App::Persistence
+      lat = App::Persistence["user_latitude"]
+      long = App::Persistence["user_longitude"]
+      if lat && long
+        puts "THIS TIMER IS WORKING"
 
 
-      info = {latitude: lat, longitude: long, uid: App::Persistence['current_uid']}
-      Event.get_events(info) do |events|
-        # p events
-        @data = []
-        App::Persistence['events'] = events
-        events_arr = events[:pingas_active_in_radius] + events[:pingas_pending_in_radius] 
-        events_arr.each do |event_obj|
-          event_obj_array = []
-          event_obj_array.push(event_obj[:title])
+        # lat = 41.889911
+        # long = -87.637657 
+        #@user_position = CLLocation.alloc.initWithLatitude(lat, longitude: long)
+        @user_position = CLLocation.alloc.initWithLatitude(lat, longitude: long) #this is hardcoded but will be updatd on phone using the App::Persistence
 
-          @event_position = CLLocation.alloc.initWithLatitude(event_obj[:latitude], longitude: event_obj[:longitude])
-          distance_meters = @user_position.distanceFromLocation(@event_position)
-          distance_miles = (distance_meters / 1609).round(2)
-          # p event_obj[:address]
-          # p "USER LAT LONG: #{lat} #{long}"
-          # p "EVENT LAT LONG: #{event_obj[:latitude]} #{event_obj[:longitude]}"
-          # p "DISTANCE METERS: #{distance_meters}"
-          # p "DISTANCE MILES #{distance_miles}"
-          # puts ""
-          
-          now_date = NSDate.date#no description
-          event_time = event_obj[:start_time]
-          convert_event_time = (NSDate.dateWithString(event_time)).timeIntervalSinceReferenceDate #DON'T THINK I NEED TO CONVERT TO DATE WITH STRING
-          convert_event_time_no_interval = NSDate.dateWithString(event_time)
-          # p "This is event time: #{convert_event_time_no_interval} with dateWithString"
-          difference = convert_event_time - NSDate.date.timeIntervalSinceReferenceDate
-          # p "This is difference: #{difference}"
-          hours = (difference / 60 / 60 ).floor
-          # p "This is hours: #{hours}"
-          min = ((difference - (hours * 60 * 60)) / 60).floor 
+        info = {latitude: lat, longitude: long, uid: App::Persistence['current_uid']}
+        Event.get_events(info) do |events|
+          # p events
+          @data = []
+          App::Persistence['events'] = events
+          events_arr = events[:pingas_active_in_radius] + events[:pingas_pending_in_radius] 
+          events_arr.each do |event_obj|
+            event_obj_array = []
+            event_obj_array.push(event_obj[:title])
 
-          event_obj_array.push("#{hours}hr#{min}min")
-          event_obj_array.push("#{distance_miles} miles")
+            @event_position = CLLocation.alloc.initWithLatitude(event_obj[:latitude], longitude: event_obj[:longitude])
+            distance_meters = @user_position.distanceFromLocation(@event_position)
+            distance_miles = (distance_meters / 1609).round(2)
+            # p event_obj[:address]
+            # p "USER LAT LONG: #{lat} #{long}"
+            # p "EVENT LAT LONG: #{event_obj[:latitude]} #{event_obj[:longitude]}"
+            # p "DISTANCE METERS: #{distance_meters}"
+            # p "DISTANCE MILES #{distance_miles}"
+            # puts ""
+            
+            now_date = NSDate.date#no description
+            event_time = event_obj[:start_time]
+            convert_event_time = (NSDate.dateWithString(event_time)).timeIntervalSinceReferenceDate #DON'T THINK I NEED TO CONVERT TO DATE WITH STRING
+            convert_event_time_no_interval = NSDate.dateWithString(event_time)
+            # p "This is event time: #{convert_event_time_no_interval} with dateWithString"
+            difference = convert_event_time - NSDate.date.timeIntervalSinceReferenceDate
+            # p "This is difference: #{difference}"
+            hours = (difference / 60 / 60 ).floor
+            # p "This is hours: #{hours}"
+            min = ((difference - (hours * 60 * 60)) / 60).floor 
 
-          @data.push(event_obj_array)  
+            event_obj_array.push("#{hours}hr#{min}min")
+            event_obj_array.push("#{distance_miles} miles")
+
+            @data.push(event_obj_array)  
+          end
+          events_table.reloadData
         end
-        events_table.reloadData
       end
     end
 
