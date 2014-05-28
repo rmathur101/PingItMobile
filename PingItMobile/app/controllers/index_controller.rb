@@ -179,9 +179,7 @@ class IndexController < UIViewController
     
     @new_view = ShowController.alloc.initWithNibName(nil, bundle:nil)
 
-    # @array_events = App::Persistence['events'] #probably can convert this and the next line into one
     App::Persistence['show_info'] = @events_arr[indexPath.row] 
-    # App::Persistence['show_info'] = event_obj_array[indexPath.row] 
 
     self.navigationController.pushViewController(@new_view, animated: true)   
   end
