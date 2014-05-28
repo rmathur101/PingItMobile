@@ -39,10 +39,11 @@ INCOMPLETE
   *We want both active and pending (a way to distinguish)
   *We want to round duration into hour with decimal
   *We want to have a place in the mobile apps for pings you created / rsvpd too
+  *Validations on create (error send form)
 
-THINGS WE NEED TO TEST
+THINGS WE NEED TO TEST/BUGS
   *update_user_pingas
-
+  *create form time (6:pm) and the return thing it gives you afterwards
 
 
 

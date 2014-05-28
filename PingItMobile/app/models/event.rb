@@ -121,7 +121,7 @@ end
 # http://pinggit.herokuapp.com/phone/get_events
 # http://localhost:3000
   def self.get_events(user_and_location, &block)
-    BW::HTTP.get("http://pinggit.herokuapp.com/phone/get_events", payload: {data: user_and_location}) do |response|
+    BW::HTTP.get("http://localhost:5000/phone/get_events", payload: {data: user_and_location}) do |response|
       puts "RESPONSE FROM GET EVENTS REQUEST" 
       if response.ok?
         result_data = BW::JSON.parse(response.body.to_str)
@@ -134,7 +134,7 @@ end
 
 
   def self.create_event(new_event_data, &block)
-    BW::HTTP.get("http://pinggit.herokuapp.com/phone/create_event", payload: {data: new_event_data}) do |response|
+    BW::HTTP.get("http://localhost:5000/phone/create_event", payload: {data: new_event_data}) do |response|
       puts "RESPONSE FROM CREATE EVENT REQUEST"
       if response.ok?   
         result_data = BW::JSON.parse(response.body.to_str)
@@ -146,7 +146,7 @@ end
   end
 
   def self.send_rsvp_info(event_rsvp_info, &block)
-    BW::HTTP.get("http://pinggit.herokuapp.com/phone/register_rsvp_info", payload: {data: event_rsvp_info}) do |response|
+    BW::HTTP.get("http://localhost:5000/phone/register_rsvp_info", payload: {data: event_rsvp_info}) do |response|
       if response.ok?
         result_data = BW::JSON.parse(response.body.to_str)
         block.call(result_data)
