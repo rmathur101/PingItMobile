@@ -60,7 +60,7 @@ class IndexController < UIViewController
             # p "event start time #{event_time}"
             # p NSDate.dateWithString(event_time)
             # p now_date.strftime("%I:%M%p")
-            p (NSDate.dateWithString(event_time)).strftime("%I:%M %p")
+            # p (NSDate.dateWithString(event_time)).strftime("%I:%M %p")
 
 
 

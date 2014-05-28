@@ -27,17 +27,28 @@ DONE #Show both hours and minutes on the index controller for events
 PRIORITIES
 -----------------
 
-*Get events for the user (active, pending, outside raidus) every 10 seconds (VERYIFY WE ARE NOT GETTING OLD EVENTS)
-*Get user info back from the webapp at login (listening radius)
-*add the endtime / or duration to the show page AND number of rsvps /attendees
+COMPLETE
+  *Get events for the user (active, pending, outside raidus) every 10 seconds (VERYIFY WE ARE NOT GETTING OLD EVENTS - we are only getting active in our area, pending in our area, and active/pending out of area)
+  *Get user info back from the webapp at login (listening radius is set on the server - we send that over actually)
 
-*We want both active and pending (a way to distinguish)
-*We want to round duration into hour with decimal
-*
+INCOMPLETE
+
+  *RSVP statuses update
+  #Attending statuses
+  *add the endtime / or duration to the show page AND number of rsvps /attendees
+  *We want both active and pending (a way to distinguish)
+  *We want to round duration into hour with decimal
+  *We want to have a place in the mobile apps for pings you created / rsvpd too
+
+THINGS WE NEED TO TEST
+  *update_user_pingas
+
+
+
 
 ---------------------------------------------------------------------------------
 
-(WEB APP SPECFIC) ASK TAM AND DAN
+(WEB APP SPECFIC) ASK TAM AND DAN AND MATT
 *how to evaluate the pending status of pings
 *rsvping
 *how are we entering in time on the web app and on the phone
