@@ -12,7 +12,7 @@ class IndexController < UIViewController
 
 
 
-    puts "PERSISTED USER LAT LONG INFO"
+    # puts "PERSISTED USER LAT LONG INFO"
     # p App::Persistence["user_latitude"] #THIS IS WHAT IS CAUSING THE GEO TO PRINTED OUT REPEAT
     # p App::Persistence["user_longitude"]
 
@@ -33,10 +33,11 @@ class IndexController < UIViewController
 
       info = {latitude: lat, longitude: long, uid: App::Persistence['current_uid']}
       Event.get_events(info) do |events|
-        p events
+        # p events
         @data = []
-        App::Persistence['events'] = events 
-        (events[:pingas_pending_in_radius]).each do |event_obj|
+        App::Persistence['events'] = events
+        events_arr = events[:pingas_active_in_radius] + events[:pingas_pending_in_radius] 
+        events_arr.each do |event_obj|
           event_obj_array = []
           event_obj_array.push(event_obj[:title])
 

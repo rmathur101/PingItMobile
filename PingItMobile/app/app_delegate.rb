@@ -60,10 +60,10 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
       # facebook_controller.textLabel.removeFromSuperview
       # facebook_controller.authButton.removeFromSuperview
       puts "Logged In!"
-      p user = facebook_controller.user
-      p user_id = user[:id]
-      p @@accessToken = FBSession.activeSession.accessToken
-      p @@expirationDate = FBSession.activeSession.expirationDate
+      user = facebook_controller.user
+      user_id = user[:id]
+      @@accessToken = FBSession.activeSession.accessToken
+      @@expirationDate = FBSession.activeSession.expirationDate
 
       user_hash = {uid: user_id, oauth_expires_at: @@expirationDate, oauth_token: @@accessToken, name: user[:name], provider: "facebook" }
 

@@ -4,7 +4,7 @@ class User
 
   def self.verify_or_create_user(fb_info)
     BW::HTTP.get("http://pingitt.herokuapp.com/phone/checkforuser", payload: {data: fb_info}) do |response|
-      p response
+      # p response
     end
   end
 
