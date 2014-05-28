@@ -33,7 +33,6 @@ COMPLETE
 
 INCOMPLETE
 
-  *RSVP statuses update
   #Attending statuses
   *add the endtime / or duration to the show page AND number of rsvps /attendees
   *We want both active and pending (a way to distinguish)
@@ -42,8 +41,8 @@ INCOMPLETE
   *Validations on create (error send form)
 
 THINGS WE NEED TO TEST/BUGS
-  *update_user_pingas
   *create form time (6:pm) and the return thing it gives you afterwards
+  *RSVP statuses update
 
 
 
