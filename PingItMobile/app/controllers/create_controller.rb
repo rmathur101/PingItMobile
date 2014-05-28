@@ -17,6 +17,8 @@ class CreateController < Formotion::FormController
       p new_event_data
 
       new_event_data[:start_time] =  (NSDate.dateWithTimeIntervalSince1970(new_event_data[:start_time])).strftime("%I:%M%p")
+
+      new_event_data[:uid] = App::Persistence['current_uid']
       
       Event.create_event(new_event_data) do |event|
         p "THIS IS CALLBACK AFTER THE CREATE_EVENT HTTP REQUEST IS MADE"

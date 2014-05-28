@@ -18,6 +18,7 @@ class ShowController < UIViewController
 
     @data = {}
     @data[:event_id] = App::Persistence['show_info'][:id]
+    @data[:uid] = App::Persistence['current_uid']
 
     # (CGRectMake(10, 10, 100, 100)
 
@@ -84,7 +85,9 @@ class ShowController < UIViewController
 
 #------------------------------------------------------------------the alert box is rendered in the callback function of the rsvp request 
   def select_yes
-    @data[:rsvp_status] = "yes"
+    @data[:rsvp_status] = "attending"
+    puts "@data HASH IS BELOW"
+    p @data
 
     Event.send_rsvp_info(@data) do |event|
       @alert_box = UIAlertView.alloc.initWithTitle("What up dude.",
