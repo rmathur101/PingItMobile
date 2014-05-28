@@ -21,7 +21,7 @@ Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   # Provisioning
   app.name = "PingIt"
-  app.codesign_certificate = "Iphone Developer: John Norton (ZSRXY4XP7L)"
+  app.codesign_certificate = "Iphone Developer: Rohan Mathur (T6X4RFFZ34)"
   app.identifier = "5ZYPULWM24.com.herokuapp.pingit"
   app.provisioning_profile = "/Users/rongierlach/Library/MobileDevice/Provisioning\ Profiles/PingItMobile.mobileprovision"
 
@@ -33,9 +33,6 @@ Motion::Project::App.setup do |app|
     pod 'Facebook-iOS-SDK', '~> 3.14.1'
   end
 
-# Create a key called FacebookAppID with a string value, and add the app ID there.
-# Create a key called FacebookDisplayName with a string value, and add the Display Name you configured in the App Dashboard.
-# Create an array key called URL types with a single array sub-item called URL Schemes. Give this a single item with your app ID prefixed with fb. This is used to ensure the application will receive the callback URL of the web-based OAuth flow.
   app.info_plist['FacebookAppID'] = '764749046879221'
   app.info_plist['FacebookDisplayName'] = 'PingIt'
   app.info_plist['URL types'] = { 'URL Schemes' => 'fb764749046879221'}
@@ -46,22 +43,3 @@ Motion::Project::App.setup do |app|
   app.frameworks += %w{AVFoundation CoreData CoreLocation CoreText GLKit ImageIO OpenGLES QuartzCore SystemConfiguration}
   app.libs       += %w{/usr/lib/libicucore.dylib /usr/lib/libc++.dylib /usr/lib/libz.dylib}
 end
-
-  # deleted:    vendor/Pods/Resources/GoogleMaps.bundle/GMSCacheStorage.momd/Storage.mom
-  # deleted:    vendor/Pods/Resources/GoogleMaps.bundle/GMSCacheStorage.momd/Storage.omo
-  # deleted:    vendor/Pods/Resources/GoogleMaps.bundle/GMSCacheStorage.momd/VersionInfo.plist
-
-
-
-# AVFoundation.framework
-# CoreData.framework
-# CoreLocation.framework
-# CoreText.framework
-# GLKit.framework
-# ImageIO.framework
-# libc++.dylib
-# libicucore.dylib
-# libz.dylib
-# OpenGLES.framework
-# QuartzCore.framework
-# SystemConfiguration.framework

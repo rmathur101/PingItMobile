@@ -70,12 +70,9 @@ class IndexController < UIViewController
       end
     end
 
-# EM.cancel_timer(timer)
-#-------------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------------------------------------
     #@user_position = CLLocation.alloc.initWithLatitude(lat, longitude: long)
-    @user_position = CLLocation.alloc.initWithLatitude(41.889911, longitude: -87.637657) #this is hardcoded but will be updatd on phone
 
     # # App::Persistence.delete('events') #USE THIS TO DELETE THE PERSISTENCE DATA 
     # @data = []
