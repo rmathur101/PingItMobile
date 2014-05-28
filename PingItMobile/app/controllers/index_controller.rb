@@ -164,14 +164,16 @@ class IndexController < UIViewController
     #return the UITableViewCell for the row
     @reuseIdentifier ||= "CELL_IDENTIFIER"
     cell = tableView.dequeueReusableCellWithIdentifier(@reuseIdentifier) || begin
-      UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:@reuseIdentifier)
+      UITableViewCell.alloc.initWithStyle(UITableViewCellStyleSubtitle, reuseIdentifier:@reuseIdentifier)
     end
     #this is presupposing that the format of thedata is an array of arrays
-    cell.textLabel.text = @data[indexPath.row][0] + " " + @data[indexPath.row][1] + " " + @data[indexPath.row][2]
+    cell.textLabel.text = @data[indexPath.row][0]
+    # cell.detailTextLabel.text = @data[indexPath.row[1] + " " + @data[indexPath.row][2]
 
+    cell.detailTextLabel.text = "#{@data[indexPath.row][2]}    #{@data[indexPath.row][1]}"
     #adding acessorytypes to all cells 
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator
-
+    cell.imageView.image = UIImage.imageNamed('markers/user_marker.png')
     cell
   end
 

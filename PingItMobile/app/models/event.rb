@@ -47,9 +47,11 @@ end
 def  self.draw_on_map(mapView)
 timer = EM.add_periodic_timer 10.0 do
 "THESE ARE THE EVENTS THAT ARE LOADED FROM THE SERVER!!!!!!"
+  event_markers = []
         p events = App::Persistence['events']
         if events
-          mapView.clear
+          event_markers.each { |marker| marker.map = nil } 
+          
           puts "ACTIVE EVENTS"
           p active_events = events[:pingas_active_in_radius]
           puts "PENDING EVENTS"
@@ -73,7 +75,7 @@ timer = EM.add_periodic_timer 10.0 do
               ping_marker.icon = UIImage.imageNamed("markers/#{Event.category_from_id(event[:category_id])}_active.png")
               # ping_marker.icon = UIImage.imageNamed('')
               ping_marker.map = mapView
-
+              event_markers << ping_marker
               # another_array = App::Persistence["already_marked"]
               # another_array.push(event[:id])
               # App::Persistence["already_marked"][event[:id]] = "yes"
@@ -90,6 +92,7 @@ timer = EM.add_periodic_timer 10.0 do
               ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
               ping_marker.icon = UIImage.imageNamed("markers/#{Event.category_from_id(event[:category_id])}_pending.png")
               ping_marker.map = mapView
+              event_markers << ping_marker
               # another_array = App::Persistence["already_marked"]
               # another_array.push(event[:id])
               # App::Persistence["already_marked"] = another_array 
@@ -106,8 +109,8 @@ timer = EM.add_periodic_timer 10.0 do
               ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
               # ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.whiteColor)
               ping_marker.icon = UIImage.imageNamed("markers/#{Event.category_from_id(event[:category_id])}_outside.png")
-
               ping_marker.map = mapView
+              event_markers << ping_marker
               # another_array = App::Persistence["already_marked"]
               # another_array.push(event[:id])
               # App::Persistence["already_marked"] = another_array 

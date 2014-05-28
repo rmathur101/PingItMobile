@@ -39,7 +39,7 @@ class CreateController < Formotion::FormController
     @ping = UIImage.imageNamed('ping.png')
     @pingSel = UIImage.imageNamed('ping-select.png')
     self.tabBarItem = UITabBarItem.alloc.initWithTitle('PingIt', image: @ping, tag: 3)
-    self.tabBarItem.setFinishedSelectedImage(@pingSel, withFinishedUnselectedImage:@ping)
+    # self.tabBarItem.setFinishedSelectedImage(@pingSel, withFinishedUnselectedImage:@ping)
     self
   end
 
