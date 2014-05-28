@@ -39,7 +39,7 @@ class IndexController < UIViewController
           # p events
           @data = []
           App::Persistence['events'] = events
-          @events_arr = events[:pingas_active_in_radius] + events[:pingas_pending_in_radius] 
+          @events_arr = events[:pingas_active_in_radius] + events[:pingas_pending_in_radius] + events[:pingas_outside_radius] 
           @events_arr.each do |event_obj|
             event_obj_array = []
             event_obj_array.push(event_obj[:title])
@@ -56,6 +56,14 @@ class IndexController < UIViewController
             
             now_date = NSDate.date#no description
             event_time = event_obj[:start_time]
+            # p "current time #{now_date}"
+            # p "event start time #{event_time}"
+            # p NSDate.dateWithString(event_time)
+            # p now_date.strftime("%I:%M%p")
+            p (NSDate.dateWithString(event_time)).strftime("%I:%M %p")
+
+
+
             convert_event_time = (NSDate.dateWithString(event_time)).timeIntervalSinceReferenceDate #DON'T THINK I NEED TO CONVERT TO DATE WITH STRING
             convert_event_time_no_interval = NSDate.dateWithString(event_time)
             # p "This is event time: #{convert_event_time_no_interval} with dateWithString"
