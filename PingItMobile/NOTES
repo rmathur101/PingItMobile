@@ -31,6 +31,10 @@ PRIORITIES
 *Get user info back from the webapp at login (listening radius)
 *add the endtime / or duration to the show page AND number of rsvps /attendees
 
+*We want both active and pending (a way to distinguish)
+*We want to round duration into hour with decimal
+*
+
 ---------------------------------------------------------------------------------
 
 (WEB APP SPECFIC) ASK TAM AND DAN
@@ -76,6 +80,28 @@ RANDOM CODE SNIPPETS
       # double hours = floor(ti / 60 / 60);
       # double minutes = floor((ti - (hours * 60 * 60)) / 60);
       # double seconds = floor(ti - (hours * 60 * 60) - (minutes * 60));   
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------REDIS
+74 ❯❯ brew install redis
+==> Downloading https://downloads.sf.net/project/machomebrew/Bottles/redis-2.8.8.mavericks.bottle.tar.gz
+######################################################################## 100.0%
+==> Pouring redis-2.8.8.mavericks.bottle.tar.gz
+==> Caveats
+To have launchd start redis at login:
+    ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
+Then to load redis now:
+    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
+Or, if you don't want/need launchctl, you can just run:
+    redis-server /usr/local/etc/redis.conf
+
+     rake jobs:work
+rake aborted!
+
 
 
 
