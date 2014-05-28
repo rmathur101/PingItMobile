@@ -30,13 +30,13 @@ class MapController < UIViewController
       #set the user radius using an http request ##############################################
 
 
-      # uid = App::Persistence['current_uid']
-      # radius = 2
-      # user_info = {uid: uid, radius: radius}
-      # User.set_radius(user_info) do |event|
-      #   puts "RESPONSE FROM SET RADIUS"
-      #   p event
-      # end
+      uid = App::Persistence['current_uid']
+      radius = 10
+      user_info = {uid: uid, radius: radius}
+      User.set_radius(user_info) do |event|
+        puts "RESPONSE FROM SET RADIUS"
+        p event
+      end
 
 
       BW::Location.get do |result|
