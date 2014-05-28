@@ -53,6 +53,16 @@ class IndexController < UIViewController
             # p "DISTANCE METERS: #{distance_meters}"
             # p "DISTANCE MILES #{distance_miles}"
             # puts ""
+
+            #-------------------------------Attending Events
+              #if the event is like really near by I can send a request to the controller with the uid, the event id, and I can check to see if this event has an RSVP on it for attending - if it does then I can change the status to the attending on that user pinga and then we will have that in the data base 
+
+
+            #------------------------------------
+
+
+
+
             
             now_date = NSDate.date#no description
             event_time = event_obj[:start_time]
@@ -60,7 +70,7 @@ class IndexController < UIViewController
             # p "event start time #{event_time}"
             # p NSDate.dateWithString(event_time)
             # p now_date.strftime("%I:%M%p")
-            p (NSDate.dateWithString(event_time)).strftime("%I:%M %p")
+            # p (NSDate.dateWithString(event_time)).strftime("%I:%M %p")
 
 
 
