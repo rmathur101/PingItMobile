@@ -31,8 +31,6 @@ class IndexController < UIViewController
         puts "THIS TIMER IS WORKING"
 
 
-        # lat = 41.889911
-        # long = -87.637657 
         #@user_position = CLLocation.alloc.initWithLatitude(lat, longitude: long)
         @user_position = CLLocation.alloc.initWithLatitude(lat, longitude: long) #this is hardcoded but will be updatd on phone using the App::Persistence
 
@@ -41,8 +39,8 @@ class IndexController < UIViewController
           # p events
           @data = []
           App::Persistence['events'] = events
-          events_arr = events[:pingas_active_in_radius] + events[:pingas_pending_in_radius] 
-          events_arr.each do |event_obj|
+          @events_arr = events[:pingas_active_in_radius] + events[:pingas_pending_in_radius] 
+          @events_arr.each do |event_obj|
             event_obj_array = []
             event_obj_array.push(event_obj[:title])
 
@@ -181,8 +179,8 @@ class IndexController < UIViewController
     
     @new_view = ShowController.alloc.initWithNibName(nil, bundle:nil)
 
-    @array_events = App::Persistence['events'] #probably can convert this and the next line into one
-    App::Persistence['show_info'] = @array_events[indexPath.row] 
+    # @array_events = App::Persistence['events'] #probably can convert this and the next line into one
+    App::Persistence['show_info'] = @events_arr[indexPath.row] 
     # App::Persistence['show_info'] = event_obj_array[indexPath.row] 
 
     self.navigationController.pushViewController(@new_view, animated: true)   

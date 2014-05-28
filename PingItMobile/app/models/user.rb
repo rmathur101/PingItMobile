@@ -7,7 +7,13 @@ class User
   end
 
   def self.set_radius(user_info) 
-    BW::HTTP.get("http://pingitt.herokuapp.com/phone/set_radius", payload: {data: user_info}) do |response|    
+    BW::HTTP.get("http://pingitt.herokuapp.com/phone/set_radius", payload: {data: user_info}) do |response|  
+      if response.ok?
+        result_data = BW::JSON.parse(response.body.to_str)
+        block.call(result_data)
+      else
+        block.call("no")
+      end
     end
   end
 
