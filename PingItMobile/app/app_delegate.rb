@@ -46,6 +46,11 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
 
   def application(application, didFinishLaunchingWithOptions:launchOptions)
     true
+    # timer = BW::Reactor.add_periodic_timer 1.0 do
+    #   puts "THIS TIMER IS WORKING"
+    # end
+    # puts "HERE"
+    # puts BW::Reactor.inspect
     window.makeKeyAndVisible
     auth_with_facebook
   end
@@ -61,26 +66,11 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
 
 
 
-
-  # create_table "users", force: true do |t|
-  #   t.string   "oauth_token"
-  #   t.datetime "oauth_expires_at"
-  #   t.float    "latitude"
-  #   t.float    "longitude"
-  #   t.datetime "created_at"
-  #   t.datetime "updated_at"
-  #   t.string   "name"
-  #   t.string   "provider"
-  #   t.string   "uid"
-  #   t.string   "ip_address"
-  #   t.float    "listening_radius"
-  # end
-
-
-
       #----- if not, create user 
       user_hash = {uid: user_id, oauth_expires_at: @@expirationDate, oauth_token: @@accessToken, name: user[:name], provider: "facebook" }
       # user_hash = {uid: user_id, oauth_token: @@accessToken, name: user[:name], provider: "facebook", listening_radius: 1}
+
+      App::Persistence['current_uid'] = user_hash[:uid]
 
 
       User.verify_or_create_user(user_hash) do |response|
@@ -172,6 +162,7 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
   # 
   # Returns a Boolean value
   def application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+
     # attempt to extract a token from the url
     FBSession.activeSession.handleOpenURL(url)
   end  

@@ -19,7 +19,7 @@ class MapController < UIViewController
         coordinate = result[:to].coordinate if result[:to]
 
         if coordinate
-          puts "Coordinate: #{coordinate}"
+          # puts "Coordinate: #{coordinate}"
           
           lat = coordinate.latitude
           long = coordinate.longitude
