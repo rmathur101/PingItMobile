@@ -70,6 +70,7 @@ timer = EM.add_periodic_timer 10.0 do
               ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
               ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
               ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.greenColor)
+              ping_marker.icon = UIImage.imageNamed("markers/#{Event.category_from_id(event[:category_id])}_active.png")
               # ping_marker.icon = UIImage.imageNamed('')
               ping_marker.map = mapView
 
@@ -87,7 +88,7 @@ timer = EM.add_periodic_timer 10.0 do
               ping_marker.title = event[:title]
               ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
               ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
-              ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.canvasYellow)
+              ping_marker.icon = UIImage.imageNamed("markers/#{Event.category_from_id(event[:category_id])}_pending.png")
               ping_marker.map = mapView
               # another_array = App::Persistence["already_marked"]
               # another_array.push(event[:id])
@@ -103,7 +104,9 @@ timer = EM.add_periodic_timer 10.0 do
               ping_marker.title = event[:title]
               ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
               ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
-              ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.whiteColor)
+              # ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.whiteColor)
+              ping_marker.icon = UIImage.imageNamed("markers/#{Event.category_from_id(event[:category_id])}_outside.png")
+
               ping_marker.map = mapView
               # another_array = App::Persistence["already_marked"]
               # another_array.push(event[:id])
