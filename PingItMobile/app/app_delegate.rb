@@ -52,72 +52,32 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
 
   def auth_with_facebook
     if FBSession.activeSession.open?
+      # facebook_controller.textLabel.removeFromSuperview
+      # facebook_controller.authButton.removeFromSuperview
       puts "Logged In!"
       p user = facebook_controller.user
       p user_id = user[:id]
       p @@accessToken = FBSession.activeSession.accessToken
       p @@expirationDate = FBSession.activeSession.expirationDate
-      # ---- Check if user exists in database
 
-
-
-
-  # create_table "users", force: true do |t|
-  #   t.string   "oauth_token"
-  #   t.datetime "oauth_expires_at"
-  #   t.float    "latitude"
-  #   t.float    "longitude"
-  #   t.datetime "created_at"
-  #   t.datetime "updated_at"
-  #   t.string   "name"
-  #   t.string   "provider"
-  #   t.string   "uid"
-  #   t.string   "ip_address"
-  #   t.float    "listening_radius"
-  # end
-
-
-
-      #----- if not, create user 
       user_hash = {uid: user_id, oauth_expires_at: @@expirationDate, oauth_token: @@accessToken, name: user[:name], provider: "facebook" }
-      # user_hash = {uid: user_id, oauth_token: @@accessToken, name: user[:name], provider: "facebook", listening_radius: 1}
 
+      User.verify_or_create_user(user_hash)
 
-      User.verify_or_create_user(user_hash) do |response|
-        # if response[:user_exists] == "false"
-          # create a new user
-          # puts "A user with id #{user_id} and name #{user.name} does NOT EXIST"
-        # end
-        # puts "A user with id #{user_id} and name #{user.name} EXISTS!"
-      end
-        map_controller = MapController.alloc.initWithNibName(nil, bundle: nil)
-        create_controller = CreateController.alloc.initWithForm(create_form)
-        @index_controller = IndexController.alloc.initWithNibName(nil, bundle: nil)
-        @index_nav_controller = UINavigationController.alloc.initWithRootViewController(@index_controller)
-        
-        tab_controller = UITabBarController.alloc.initWithNibName(nil, bundle: nil)
-        tab_controller.viewControllers = [map_controller, @index_nav_controller, create_controller]
-        tab_controller.selectedIndex = 1
+      map_controller = MapController.alloc.initWithNibName(nil, bundle: nil)
+      create_controller = CreateController.alloc.initWithForm(create_form)
+      @index_controller = IndexController.alloc.initWithNibName(nil, bundle: nil)
+      @index_nav_controller = UINavigationController.alloc.initWithRootViewController(@index_controller)
+      
+      tab_controller = UITabBarController.alloc.initWithNibName(nil, bundle: nil)
+      tab_controller.viewControllers = [map_controller, @index_nav_controller, create_controller]
+      tab_controller.selectedIndex = 1
 
-        window.rootViewController = tab_controller
-      # puts "user_already_exists #{user_already_exists}"
-      # # User.already_exists?(user_id) do |response|
-      # #   p response
-      # #   # create a new user in the database  
-      # #   puts "User with uid #{user_id} already exists!"
-      # # end
-
-
+      window.rootViewController = tab_controller
     else
       window.rootViewController = facebook_controller
     end
   end
-
-  # def user
-  #   facebook_controller.return_user
-  #   @@user ||= facebook_controller.user
-  #   return @@user
-  # end
 
   def applicationDidBecomeActive(application)
     # We need to properly handle activation of the application with regards to SSO

@@ -43,7 +43,7 @@ class IndexController < UIViewController
       App::Persistence['events'] = events 
       @array_events = App::Persistence['events'] 
       # # $request_boolean == "true"
-      p events
+      # p events
       events.each do |event_obj|
         event_obj_array = []
         event_obj_array.push(event_obj[:title])
