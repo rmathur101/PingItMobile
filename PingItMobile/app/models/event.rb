@@ -23,6 +23,27 @@ class Event
   end
 
 #--------------------------------------------------------------------------------------------EVENT REQUESTS (note that the server is localhost)
+def self.category_from_id(id)
+  case id
+  when 1
+    return "deals"
+  when 2 
+    return "sports"
+  when 3
+    return "social" 
+  when 4
+    return "ent"
+  when 5
+    return "food"
+  else
+    return "other"
+  end
+end
+
+def self.clocktime_from_datetime(datetime)
+
+end
+
 def  self.draw_on_map(mapView)
 timer = EM.add_periodic_timer 10.0 do
 "THESE ARE THE EVENTS THAT ARE LOADED FROM THE SERVER!!!!!!"
@@ -49,6 +70,7 @@ timer = EM.add_periodic_timer 10.0 do
               ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
               ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
               ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.greenColor)
+              # ping_marker.icon = UIImage.imageNamed('')
               ping_marker.map = mapView
 
               # another_array = App::Persistence["already_marked"]

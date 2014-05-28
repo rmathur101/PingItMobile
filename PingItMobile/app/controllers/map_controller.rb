@@ -13,9 +13,11 @@ class MapController < UIViewController
       user_marker = GMSMarker.alloc.init
       user_marker.title = "You"
       # user_marker.title = user.name
+      user_marker.icon = UIImage.imageNamed("markers/user_marker.png")
       user_marker.map = mapView
 
       dbc_position = CLLocationCoordinate2DMake(41.889911, -87.637657)
+      user_marker.position = dbc_position
 
       user_circle = GMSCircle.circleWithPosition(dbc_position, radius: 800)
       # user_circle = GMSCircle.circleWithPosition(dbc_position, radius: user.listening_radius)
@@ -43,104 +45,28 @@ class MapController < UIViewController
         coordinate = result[:from].coordinate if result[:from]
         coordinate = result[:to].coordinate if result[:to]
 
-        # "THESE ARE THE EVENTS THAT ARE LOADED FROM THE SERVER!!!!!!"
-        # p events = App::Persistence['events']
-        # if events
-        #   puts "ACTIVE EVENTS"
-        #   p active_events = events[:pingas_active_in_radius]
-        #   puts "PENDING EVENTS"
-        #   p pending_events = events[:pingas_pending_in_radius]
-        #   puts "OUTSIDE EVENTS"
-        #   p outside_events = events[:pingas_outside_radius]
+        if coordinate
+          # puts "Coordinate: #{coordinate}"
+          
+          lat = coordinate.latitude
+          long = coordinate.longitude
 
+          App::Persistence["user_latitude"] = lat
+          App::Persistence["user_longitude"] = long
 
-        #   # some_array = [8,9,10]
-        #   # App::Persistence["already_marked"] = {}
+          user_position = CLLocationCoordinate2DMake(lat, long)
+          user_marker.position = user_position
 
-        #   active_events.each do |event|
-        #     # this_hash = App::Persistence["already_marked"]
-        #     # if this_hash.has_key?(event[:id]) == false
-        #       puts "placing an active event"
-        #       ping_marker = GMSMarker.alloc.init
-        #       ping_marker.title = event[:title]
-        #       ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
-        #       ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
-        #       ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.greenColor)
-        #       ping_marker.map = mapView
+          user_circle.position = user_position
 
-        #       # another_array = App::Persistence["already_marked"]
-        #       # another_array.push(event[:id])
-        #       # App::Persistence["already_marked"][event[:id]] = "yes"
-        #     # end
+          # current_zoom = mapView.camera.zoom
+          # camera_position = GMSCameraUpdate.setCamera(GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: current_zoom))
+          # mapView.moveCamera(camera_position)
+        else
+          puts "No result from Location.get"
+        end
 
-        #   end
-
-        #   pending_events.each do |event|
-        #     # this_array = App::Persistence["already_marked"]
-        #     # if this_array.include?(event[:id]) == false
-        #       ping_marker = GMSMarker.alloc.init
-        #       ping_marker.title = event[:title]
-        #       ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
-        #       ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
-        #       ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.canvasYellow)
-        #       ping_marker.map = mapView
-        #       # another_array = App::Persistence["already_marked"]
-        #       # another_array.push(event[:id])
-        #       # App::Persistence["already_marked"] = another_array 
-        #     # end
-        #   end
-
-        #   outside_events.each do |event|
-        #     # this_array = App::Persistence["already_marked"]
-        #     # if this_array.include?(event[:id]) == false
-        #       p "GETTING AN OUTSIDE EVENT"
-        #       ping_marker = GMSMarker.alloc.init
-        #       ping_marker.title = event[:title]
-        #       ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
-        #       ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
-        #       ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.whiteColor)
-        #       ping_marker.map = mapView
-        #       # another_array = App::Persistence["already_marked"]
-        #       # another_array.push(event[:id])
-        #       # App::Persistence["already_marked"] = another_array 
-        #     # end
-        #     # puts "ALREADY MARKED ARRAY"
-        #     # p App::Persistence["already_marked"]
-        #   end
-
-  # marker of different color
-  # marker.icon = [GMSMarker markerImageWithColor:[UIColor blackColor]];
-  # marker of different icon image
-  # marker.icon = [UIImage imageNamed:@"house"];
-  # ping_marker.icon = "#{event[:status]}_#{event[:category].png}"
-          #   # ping_marker.appearAnimation = kGMSMarkerAnimationPop
-          #   # kGMSMarkerAnimationDrop? How to get animations in iOS?
-
-
-          if coordinate
-            # puts "Coordinate: #{coordinate}"
-            
-            lat = coordinate.latitude
-            long = coordinate.longitude
-
-            App::Persistence["user_latitude"] = lat
-            App::Persistence["user_longitude"] = long
-
-            user_position = CLLocationCoordinate2DMake(lat, long)
-            user_marker.position = user_position
-
-            user_circle.position = user_position
-
-            # current_zoom = mapView.camera.zoom
-            # camera_position = GMSCameraUpdate.setCamera(GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: current_zoom))
-            # mapView.moveCamera(camera_position)
-          else
-            puts "No result from Location.get"
-          end
-
-          self.view = mapView
-        # end
-        # mapView.clear
+        self.view = mapView
       end
     else
       # Display Alert
