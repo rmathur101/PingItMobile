@@ -25,8 +25,8 @@ class IndexController < UIViewController
       puts "THIS TIMER IS WORKING"
 
 
-      lat = 41.889911
-      long = -87.637657 
+      # lat = 41.889911
+      # long = -87.637657 
       #@user_position = CLLocation.alloc.initWithLatitude(lat, longitude: long)
       @user_position = CLLocation.alloc.initWithLatitude(lat, longitude: long) #this is hardcoded but will be updatd on phone using the App::Persistence
 
