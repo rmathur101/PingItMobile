@@ -17,65 +17,91 @@ class MapController < UIViewController
 
       dbc_position = CLLocationCoordinate2DMake(41.889911, -87.637657)
 
-      user_circle = GMSCircle.circleWithPosition(dbc_position, radius: 10)
+      user_circle = GMSCircle.circleWithPosition(dbc_position, radius: 800)
       # user_circle = GMSCircle.circleWithPosition(dbc_position, radius: user.listening_radius)
       user_circle.map = mapView
       user_circle.fillColor = UIColor.colorWithRed(0.05, green: 0.49, blue: 0.37, alpha: 0.2)
       user_circle.strokeColor = UIColor.clearColor
-      
+
+      # DRAW EVENTS ON MAP
+      Event.draw_on_map(mapView)
 
       BW::Location.get do |result|
         coordinate = result[:from].coordinate if result[:from]
         coordinate = result[:to].coordinate if result[:to]
 
-        events = App::Persistence['events']
-        if events
-          p active_events = events[:pingas_active_in_radius]
-          p pending_events = events[:pingas_pending_in_radius]
-          p outside_events = events[:pingas_outside_radius]
+        # "THESE ARE THE EVENTS THAT ARE LOADED FROM THE SERVER!!!!!!"
+        # p events = App::Persistence['events']
+        # if events
+        #   puts "ACTIVE EVENTS"
+        #   p active_events = events[:pingas_active_in_radius]
+        #   puts "PENDING EVENTS"
+        #   p pending_events = events[:pingas_pending_in_radius]
+        #   puts "OUTSIDE EVENTS"
+        #   p outside_events = events[:pingas_outside_radius]
 
-          active_events.each do |event|
-            ping_marker = GMSMarker.alloc.init
-            ping_marker.title = event[:title]
-            ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
-            ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
-            ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.greenColor)
-            ping_marker.map = mapView
-          end
 
-          pending_events.each do |event|
-            ping_marker = GMSMarker.alloc.init
-            ping_marker.title = event[:title]
-            ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
-            ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
-            ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.canvasYellow)
-            ping_marker.map = mapView
-          end
+        #   # some_array = [8,9,10]
+        #   # App::Persistence["already_marked"] = {}
 
-          pending_events.each do |event|
-            ping_marker = GMSMarker.alloc.init
-            ping_marker.title = event[:title]
-            ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
-            ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
-            ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.whiteColor)
-            ping_marker.map = mapView
-          end
+        #   active_events.each do |event|
+        #     # this_hash = App::Persistence["already_marked"]
+        #     # if this_hash.has_key?(event[:id]) == false
+        #       puts "placing an active event"
+        #       ping_marker = GMSMarker.alloc.init
+        #       ping_marker.title = event[:title]
+        #       ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
+        #       ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
+        #       ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.greenColor)
+        #       ping_marker.map = mapView
 
-          # events.each do |event|
-          #   ping_marker = GMSMarker.alloc.init
-          #   ping_marker.title = event[:title]
-          #   ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
-          #   ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
-          #   ping_marker.map = mapView
-          #   # ping_marker.appearAnimation = kGMSMarkerAnimationPop
-          #   # kGMSMarkerAnimationDrop? How to get animations in iOS?
-          # end
+        #       # another_array = App::Persistence["already_marked"]
+        #       # another_array.push(event[:id])
+        #       # App::Persistence["already_marked"][event[:id]] = "yes"
+        #     # end
+
+        #   end
+
+        #   pending_events.each do |event|
+        #     # this_array = App::Persistence["already_marked"]
+        #     # if this_array.include?(event[:id]) == false
+        #       ping_marker = GMSMarker.alloc.init
+        #       ping_marker.title = event[:title]
+        #       ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
+        #       ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
+        #       ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.canvasYellow)
+        #       ping_marker.map = mapView
+        #       # another_array = App::Persistence["already_marked"]
+        #       # another_array.push(event[:id])
+        #       # App::Persistence["already_marked"] = another_array 
+        #     # end
+        #   end
+
+        #   outside_events.each do |event|
+        #     # this_array = App::Persistence["already_marked"]
+        #     # if this_array.include?(event[:id]) == false
+        #       p "GETTING AN OUTSIDE EVENT"
+        #       ping_marker = GMSMarker.alloc.init
+        #       ping_marker.title = event[:title]
+        #       ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
+        #       ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
+        #       ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.whiteColor)
+        #       ping_marker.map = mapView
+        #       # another_array = App::Persistence["already_marked"]
+        #       # another_array.push(event[:id])
+        #       # App::Persistence["already_marked"] = another_array 
+        #     # end
+        #     # puts "ALREADY MARKED ARRAY"
+        #     # p App::Persistence["already_marked"]
+        #   end
 
   # marker of different color
   # marker.icon = [GMSMarker markerImageWithColor:[UIColor blackColor]];
   # marker of different icon image
   # marker.icon = [UIImage imageNamed:@"house"];
   # ping_marker.icon = "#{event[:status]}_#{event[:category].png}"
+          #   # ping_marker.appearAnimation = kGMSMarkerAnimationPop
+          #   # kGMSMarkerAnimationDrop? How to get animations in iOS?
 
 
           if coordinate
@@ -100,7 +126,8 @@ class MapController < UIViewController
           end
 
           self.view = mapView
-        end
+        # end
+        # mapView.clear
       end
     else
       # Display Alert
@@ -120,7 +147,23 @@ class MapController < UIViewController
     # GRectMake(0,0, 10, 25)
 
     # @mapView = GMSMapView.mapWithFrame( CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.width), camera:camera )
-    # @mapView.delegate = self
+    # # @mapView.delegate = self
+    # {"id"=>3, 
+    #   "end_time"=>"2014-05-27 16:37:34 +0000", 
+    #   "duration"=>1, 
+    #   "title"=>"Chipotile $1 Burritos", 
+    #   "description"=>"This is crazy", 
+    #   "longitude"=>-87.6351791, 
+    #   "creator_id"=>1, 
+    #   "address"=>"233 W Lake St Chicago, IL 60606", 
+    #   "latitude"=>41.8855285644531, 
+    #   "created_at"=>"2014-05-27T13:57:34.186Z", 
+    #   "start_time"=>"2014-05-27 15:37:34 +0000", 
+    #   "updated_at"=>"2014-05-27T15:56:08.318Z", 
+    #   "category_id"=>5, 
+    #   "distance"=>0.328356504440308, 
+    #   "status"=>"active", 
+    #   "bearing"=>"150.500355945692"}]
 
     # MARKER
     # marker = GMSMarker.alloc.init
