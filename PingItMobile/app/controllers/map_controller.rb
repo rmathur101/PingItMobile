@@ -22,46 +22,85 @@ class MapController < UIViewController
       user_circle.map = mapView
       user_circle.fillColor = UIColor.colorWithRed(0.05, green: 0.49, blue: 0.37, alpha: 0.2)
       user_circle.strokeColor = UIColor.clearColor
+      
 
       BW::Location.get do |result|
         coordinate = result[:from].coordinate if result[:from]
         coordinate = result[:to].coordinate if result[:to]
 
         events = App::Persistence['events']
+        if events
+          p active_events = events[:pingas_active_in_radius]
+          p pending_events = events[:pingas_pending_in_radius]
+          p outside_events = events[:pingas_outside_radius]
 
-        # events.each do |event|
-        #   ping_marker = GMSMarker.alloc.init
-        #   ping_marker.title = event[:title]
-        #   ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
-        #   ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
-        #   ping_marker.map = mapView
-        #   # ping_marker.icon = "#{event[:status]}_#{event[:category].png}"
-        #   # ping_marker.appearAnimation = kGMSMarkerAnimationPop
-        #   # kGMSMarkerAnimationDrop? How to get animations in iOS?
-        # end
-# 007d53
-        if coordinate
-          # puts "Coordinate: #{coordinate}"
-          
-          lat = coordinate.latitude
-          long = coordinate.longitude
+          active_events.each do |event|
+            ping_marker = GMSMarker.alloc.init
+            ping_marker.title = event[:title]
+            ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
+            ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
+            ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.greenColor)
+            ping_marker.map = mapView
+          end
 
-          App::Persistence["user_latitude"] = lat
-          App::Persistence["user_longitude"] = long
+          pending_events.each do |event|
+            ping_marker = GMSMarker.alloc.init
+            ping_marker.title = event[:title]
+            ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
+            ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
+            ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.canvasYellow)
+            ping_marker.map = mapView
+          end
 
-          user_position = CLLocationCoordinate2DMake(lat, long)
-          user_marker.position = user_position
+          pending_events.each do |event|
+            ping_marker = GMSMarker.alloc.init
+            ping_marker.title = event[:title]
+            ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
+            ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
+            ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.whiteColor)
+            ping_marker.map = mapView
+          end
 
-          user_circle.position = user_position
+          # events.each do |event|
+          #   ping_marker = GMSMarker.alloc.init
+          #   ping_marker.title = event[:title]
+          #   ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
+          #   ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
+          #   ping_marker.map = mapView
+          #   # ping_marker.appearAnimation = kGMSMarkerAnimationPop
+          #   # kGMSMarkerAnimationDrop? How to get animations in iOS?
+          # end
 
-          # current_zoom = mapView.camera.zoom
-          # camera_position = GMSCameraUpdate.setCamera(GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: current_zoom))
-          # mapView.moveCamera(camera_position)
-        else
-          puts "No result from Location.get"
+  # marker of different color
+  # marker.icon = [GMSMarker markerImageWithColor:[UIColor blackColor]];
+  # marker of different icon image
+  # marker.icon = [UIImage imageNamed:@"house"];
+  # ping_marker.icon = "#{event[:status]}_#{event[:category].png}"
+
+
+          if coordinate
+            # puts "Coordinate: #{coordinate}"
+            
+            lat = coordinate.latitude
+            long = coordinate.longitude
+
+            App::Persistence["user_latitude"] = lat
+            App::Persistence["user_longitude"] = long
+
+            user_position = CLLocationCoordinate2DMake(lat, long)
+            user_marker.position = user_position
+
+            user_circle.position = user_position
+
+            # current_zoom = mapView.camera.zoom
+            # camera_position = GMSCameraUpdate.setCamera(GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: current_zoom))
+            # mapView.moveCamera(camera_position)
+          else
+            puts "No result from Location.get"
+          end
+
+          self.view = mapView
         end
-
-        self.view = mapView
       end
     else
       # Display Alert
