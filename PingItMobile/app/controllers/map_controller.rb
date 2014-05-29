@@ -18,11 +18,8 @@ class MapController < UIViewController
 
       dbc_position = CLLocationCoordinate2DMake(41.889911, -87.637657)
 
-      user_circle = GMSCircle.circleWithPosition(dbc_position, radius: 531.08) # meters
+      # user_circle = GMSCircle.circleWithPosition(dbc_position, radius: 531.08) # meters
       # user_circle = GMSCircle.circleWithPosition(dbc_position, radius: user.listening_radius)
-      user_circle.map = mapView
-      user_circle.fillColor = UIColor.colorWithRed(0.05, green: 0.49, blue: 0.37, alpha: 0.2)
-      user_circle.strokeColor = UIColor.clearColor
 
       # DRAW EVENTS ON MAP
       Event.draw_on_map(mapView)
@@ -30,14 +27,21 @@ class MapController < UIViewController
       # 1609.34 meters in a mile
       #set the user radius using an http request ##############################################
       uid = App::Persistence['current_uid']
-      # radius = 0.33 # miles
-      circle_radius = nil 
+      radius = "novalue" # miles
+      circle_radius = 0 
+      user_circle = GMSCircle.circleWithPosition(dbc_position, radius: circle_radius)
+      user_circle.fillColor = UIColor.colorWithRed(0.05, green: 0.49, blue: 0.37, alpha: 0.2)
+      user_circle.strokeColor = UIColor.clearColor
       user_info = {uid: uid, radius: radius}
       User.set_radius(user_info) do |event|
         puts "RESPONSE FROM SET RADIUS"
+        p event
         App::Persistence["user_radius"] = event[:radius_set_to]
         circle_radius = 1609.34 * App::Persistence["user_radius"]
+        user_circle.radius = circle_radius
+        user_circle.map = mapView
       end
+
 
 
       BW::Location.get do |result|
