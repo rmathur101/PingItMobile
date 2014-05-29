@@ -164,16 +164,18 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
               type: :string,
               placeholder: 'My Event',
               auto_correction: :no,
-              auto_capitalization: :words
+              auto_capitalization: :words,
+              input_accessory: :done
             },
             { # Description Row
               title: "Description",
               key: :description,
               type: :text,
-              row_height: 40,
+              row_height: 70,
               placeholder: 'Event Description',
               auto_correction: :yes,
-              auto_capitalization: :sentences
+              auto_capitalization: :sentences,
+              input_accessory: :done
             },
             { # Category Row
               title: "Category",
