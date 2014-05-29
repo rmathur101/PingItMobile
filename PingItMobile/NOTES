@@ -35,6 +35,7 @@ COMPLETE
   *We want to round duration into hour with decimal
 
 INCOMPLETE
+  *get the description text to wrap on the show page 
   *get a map image on the show page
   *get rid of the pop up with the data hash after we submit the create form
   *make the title page WelcomeToPingIt look cooler
@@ -49,6 +50,7 @@ THINGS WE NEED TO TEST/BUGS
   *RSVP statuses update (need to test using live phone and heroku logs because of simulator is out of range of all events which means their is no relatinship made for the events)
   *how to evaluate the pending status of pings (seems like we are getting inactive pings)
   *TAM is the time login for create pinga on the phone working?
+  *trace the time piple, local and utc, on the webapp and on the phone 
 
 
 --------------------------------------------------------------------------------------------------------------------

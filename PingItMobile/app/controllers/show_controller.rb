@@ -10,8 +10,8 @@ class ShowController < UIViewController
     @data[:event_id] = App::Persistence['show_info'][:id]
     @data[:uid] = App::Persistence['current_uid']
 
-    title_font = UIFont.fontWithName("Helvetica-Bold", size: 24.0)
-    text_font = UIFont.fontWithName("Helvetica", size: 14.0)
+    title_font = UIFont.fontWithName("GillSans-Bold", size: 24.0)
+    text_font = UIFont.fontWithName("GillSans", size: 14.0)
 
     @event_title = UILabel.alloc.initWithFrame(CGRectMake(10, 10, 300, 200))
     @event_title.textColor = UIColor.offWhite
@@ -24,13 +24,23 @@ class ShowController < UIViewController
     @event_time.textColor = UIColor.offWhite
     start = (NSDate.dateWithString(App::Persistence['show_info'][:start_time])).strftime("%I:%M %p")
     ending = (NSDate.dateWithString(App::Persistence['show_info'][:end_time])).strftime("%I:%M %p")
+
+    p "START TIME "
+    p NSDate.dateWithString(App::Persistence['show_info'][:start_time])
+    p "START TIME (getutc)"
+    p (NSDate.dateWithString(App::Persistence['show_info'][:start_time])).getutc
+    p "END TIME"
+    p NSDate.dateWithString(App::Persistence['show_info'][:end_time])
+    p "END TIME (getlocal)"
+    p NSDate.dateWithString(App::Persistence['show_info'][:end_time]).getlocal
+
     @event_time.text = start + " - " + ending
     @event_time.font = text_font
     @event_time.textAlignment = NSTextAlignmentCenter
     self.view.addSubview(@event_time)
     
 
-    descrip_font = UIFont.fontWithName("Helvetica-LightOblique", size: 16.0)
+    descrip_font = UIFont.fontWithName("GillSans-Italic", size: 16.0)
     @event_description = UILabel.alloc.initWithFrame(CGRectMake(10, 80, 300, 200))
 
     @event_description.text = App::Persistence['show_info'][:description]
@@ -70,6 +80,7 @@ class ShowController < UIViewController
 # if attending_status.nil?
     @yes_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     @yes_button.setTitle("YES", forState: UIControlStateNormal)
+    @yes_button.font = text_font
     @yes_button.setTitleColor(UIColor.offWhite, forState: UIControlStateNormal)
     @yes_button.setTitleColor(UIColor.charcoal, forState: UIControlStateHighlighted)
     # @yes_button.frame = [[10, 300], [250, 50]]
@@ -82,6 +93,7 @@ class ShowController < UIViewController
 
     @no_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     @no_button.setTitle("NO", forState: UIControlStateNormal)
+    @no_button.font = text_font
     @no_button.backgroundColor = UIColor.colorWithRed(0.99, green: 0.0, blue: 0.0, alpha: 0.7)
     @no_button.setTitleColor(UIColor.offWhite, forState: UIControlStateNormal)
     @no_button.setTitleColor(UIColor.charcoal, forState: UIControlStateHighlighted)
