@@ -3,11 +3,11 @@ class IndexController < UIViewController
     super
     self.title = "Events"
     events_table = UITableView.alloc.initWithFrame(self.view.bounds)
-    self.view.backgroundColor = UIColor.canvasYellow
-
-    events_table.separatorColor = UIColor.charcoal
-    events_table.backgroundColor = UIColor.offWhite 
-    events_table.sectionIndexTrackingBackgroundColor = UIColor.candyAppleRed
+    # self.view.backgroundColor = UIColor.canvasYellow
+    # self.view.indexColor = UIColor.offWhite
+    # self.view.indexBackgroundColor = charcoal
+    events_table.separatorColor = UIColor.offWhite
+    events_table.backgroundColor = UIColor.charcoal 
     self.view.addSubview(events_table)
 
     @data = []
@@ -25,6 +25,7 @@ class IndexController < UIViewController
 
           @data = []
           App::Persistence['events'] = events
+
           unordered_events = events[:pingas_active_in_radius] + events[:pingas_pending_in_radius] + events[:pingas_outside_radius]
 
           @events_arr = unordered_events.sort_by do |hash|
@@ -44,11 +45,7 @@ class IndexController < UIViewController
             
             now_date = NSDate.date#no description
             event_time = event_obj[:start_time]
-            # p "current time #{now_date}"
-            # p "event start time #{event_time}"
-            # p NSDate.dateWithString(event_time)
-            # p now_date.strftime("%I:%M%p")
-            # p (NSDate.dateWithString(event_time)).strftime("%I:%M %p")
+
             convert_event_time = (NSDate.dateWithString(event_time)).timeIntervalSinceReferenceDate #DON'T THINK I NEED TO CONVERT TO DATE WITH STRING
             convert_event_time_no_interval = NSDate.dateWithString(event_time)
             # p "This is event time: #{convert_event_time_no_interval} with dateWithString"
@@ -58,10 +55,25 @@ class IndexController < UIViewController
             # p "This is hours: #{hours}"
             min = ((difference - (hours * 60 * 60)) / 60).floor 
 
+            puts "MINUTES"
+            p rounded_minutes = (min/60.0).round(2)
+            puts "HOURS"
+            p hours
+            puts "HOURS (WITH MINUTES)"
+            p h_m = (hours + rounded_minutes).round(2)
+
+            time_left = "#{ h_m } hours"
+            time_left = "#{min} minutes" if hours < 1 && hours > 0
+            # time_left = "#{min} minutes" if hours < 1
+            # time_left = "Happening Now" if hours <= 0
+            
             event_obj_array = []
             event_obj_array.push(event_obj[:title])
-            event_obj_array.push("#{hours}hr#{min}min")
-            event_obj_array.push("#{distance_miles} miles")
+            event_obj_array.push(time_left)
+            event_obj_array.push("#{distance_miles.round(2)} miles")
+p            event_obj_array.push("#{Event.category_from_id(event_obj[:category_id])}_#{event_obj[:status]}.png")
+            event_obj_array.push()
+
             @data.push(event_obj_array)  
           end
           events_table.reloadData
@@ -76,10 +88,9 @@ class IndexController < UIViewController
 
   def initWithNibName(name, bundle: bundle)
     super
-    @event = UIImage.imageNamed('event.png')
-    @eventSel = UIImage.imageNamed('event-select.png')
-    self.tabBarItem = UITabBarItem.alloc.initWithTitle('Event', image: @event, tag: 1)
-    self.tabBarItem.setFinishedSelectedImage(@eventSel, withFinishedUnselectedImage:@event)
+    @index = UIImage.imageNamed('index.png')
+    self.tabBarItem = UITabBarItem.alloc.initWithTitle('Events', image: @index, tag: 1)
+    # self.tabBarItem.setFinishedSelectedImage(@eventSel, withFinishedUnselectedImage:@event)
     self
   end
 
@@ -92,11 +103,13 @@ class IndexController < UIViewController
     #this is presupposing that the format of thedata is an array of arrays
     cell.textLabel.text = @data[indexPath.row][0]
     # cell.detailTextLabel.text = @data[indexPath.row[1] + " " + @data[indexPath.row][2]
-
     cell.detailTextLabel.text = "#{@data[indexPath.row][2]}    #{@data[indexPath.row][1]}"
     #adding acessorytypes to all cells 
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator
-    cell.imageView.image = UIImage.imageNamed('markers/user_marker.png')
+    cell.imageView.image = UIImage.imageNamed(@data[indexPath.row][3])
+    cell.backgroundColor = UIColor.charcoal
+    cell.textColor = UIColor.offWhite
+    cell.detailTextLabel.color = UIColor.offWhite
     cell
   end
 

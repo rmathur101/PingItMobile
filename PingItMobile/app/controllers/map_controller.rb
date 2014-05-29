@@ -18,7 +18,7 @@ class MapController < UIViewController
 
       dbc_position = CLLocationCoordinate2DMake(41.889911, -87.637657)
 
-      user_circle = GMSCircle.circleWithPosition(dbc_position, radius: 50)
+      user_circle = GMSCircle.circleWithPosition(dbc_position, radius: 531.08) # meters
       # user_circle = GMSCircle.circleWithPosition(dbc_position, radius: user.listening_radius)
       user_circle.map = mapView
       user_circle.fillColor = UIColor.colorWithRed(0.05, green: 0.49, blue: 0.37, alpha: 0.2)
@@ -27,10 +27,10 @@ class MapController < UIViewController
       # DRAW EVENTS ON MAP
       Event.draw_on_map(mapView)
 
-
+      # 1609.34 meters in a mile
       #set the user radius using an http request ##############################################
       uid = App::Persistence['current_uid']
-      radius = 0.03
+      radius = 0.33 # miles
       user_info = {uid: uid, radius: radius}
       User.set_radius(user_info) do |event|
         puts "RESPONSE FROM SET RADIUS"
@@ -134,9 +134,9 @@ class MapController < UIViewController
   def initWithNibName(name, bundle: bundle)
     super
     @map = UIImage.imageNamed('map.png')
-    @mapSel = UIImage.imageNamed('map-select.png')
+    # @mapSel = UIImage.imageNamed('map-select.png')
     self.tabBarItem = UITabBarItem.alloc.initWithTitle('Map', image: @map, tag: 2)
-    self.tabBarItem.setFinishedSelectedImage(@mapSel, withFinishedUnselectedImage:@map)
+    # self.tabBarItem.setFinishedSelectedImage(@mapSel, withFinishedUnselectedImage:@map)
     self
   end
 

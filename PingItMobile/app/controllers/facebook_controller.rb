@@ -3,7 +3,7 @@ class FacebookController < UIViewController
 
   def viewDidLoad
     self.title = "RM Facebook Connect"
-    self.view.backgroundColor = UIColor.canvasYellow
+    self.view.backgroundColor = UIColor.charcoal
     view.addSubview(textLabel)    
     view.addSubview(authButton)
     NSNotificationCenter.defaultCenter.addObserver(self, selector: 'sessionStateChanged:', name: FBSessionStateChangedNotification, object: nil)
@@ -41,7 +41,7 @@ class FacebookController < UIViewController
       _textLabel = UILabel.alloc.initWithFrame([[50, 140], [220, 44]])
       _textLabel.text = "Welcome to PingIt"
       _textLabel.textAlignment = UITextAlignmentCenter
-      _textLabel.textColor = UIColor.charcoal
+      _textLabel.textColor = UIColor.offWhite
       _textLabel
     end
   end
