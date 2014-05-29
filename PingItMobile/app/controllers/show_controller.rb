@@ -13,14 +13,14 @@ class ShowController < UIViewController
     title_font = UIFont.fontWithName("GillSans-Bold", size: 24.0)
     text_font = UIFont.fontWithName("GillSans", size: 14.0)
 
-    @event_title = UILabel.alloc.initWithFrame(CGRectMake(10, 10, 300, 200))
+    @event_title = UILabel.alloc.initWithFrame(CGRectMake(10, 10, 300, 145))
     @event_title.textColor = UIColor.offWhite
     @event_title.text = App::Persistence['show_info'][:title]
     @event_title.textAlignment = NSTextAlignmentCenter
     @event_title.font = title_font
     self.view.addSubview(@event_title)
 
-    @event_time = UILabel.alloc.initWithFrame(CGRectMake(10, 40, 300, 200))
+    @event_time = UILabel.alloc.initWithFrame(CGRectMake(10, 10, 300, 200))
     @event_time.textColor = UIColor.offWhite
     start = (NSDate.dateWithString(App::Persistence['show_info'][:start_time])).strftime("%I:%M %p")
     ending = (NSDate.dateWithString(App::Persistence['show_info'][:end_time])).strftime("%I:%M %p")
@@ -41,7 +41,7 @@ class ShowController < UIViewController
     
 
     descrip_font = UIFont.fontWithName("GillSans-Italic", size: 16.0)
-    @event_description = UILabel.alloc.initWithFrame(CGRectMake(10, 80, 300, 200))
+    @event_description = UILabel.alloc.initWithFrame(CGRectMake(10, 50, 300, 190))
 
     @event_description.text = App::Persistence['show_info'][:description]
     @event_description.textColor = UIColor.offWhite
@@ -53,7 +53,7 @@ class ShowController < UIViewController
     p lat = (App::Persistence['show_info'][:latitude])
     p long = (App::Persistence['show_info'][:longitude])
     camera_position = GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: 15 )
-    window = CGRectMake(20, 270, 280, 170)
+    window = CGRectMake(20, 190, 280, 155)
     mapView = GMSMapView.mapWithFrame(window, camera: camera_position)
     event_marker = GMSMarker.alloc.init
     event_marker.title = App::Persistence['show_info'][:title]
@@ -62,7 +62,7 @@ class ShowController < UIViewController
     event_marker.map = mapView
     self.view.addSubview(mapView)
 
-    @event_address = UILabel.alloc.initWithFrame(CGRectMake(15, 140, 300, 200))
+    @event_address = UILabel.alloc.initWithFrame(CGRectMake(15, 235, 300, 250))
     @event_address.textColor = UIColor.offWhite
     @event_address.text = App::Persistence['show_info'][:address]
     @event_address.font = text_font
@@ -93,7 +93,7 @@ class ShowController < UIViewController
     @yes_button.backgroundColor = UIColor.colorWithRed(0.0, green: 0.99, blue: 0.0, alpha: 0.7)
     @yes_button.layer.cornerRadius = 5
     # @yes_button.layer.borderWidth = 2
-    @yes_button.frame = CGRectMake(20, 460, 130, 35)
+    @yes_button.frame = CGRectMake(20, 380, 130, 35)
     @yes_button.addTarget(self, action: :select_yes, forControlEvents: UIControlEventTouchUpInside)
     self.view.addSubview(@yes_button)
 
@@ -105,7 +105,7 @@ class ShowController < UIViewController
     @no_button.setTitleColor(UIColor.charcoal, forState: UIControlStateHighlighted)
     @no_button.layer.cornerRadius = 5
     # @no_button.layer.borderWidth = 2
-    @no_button.frame = CGRectMake(170, 460, 130, 35)
+    @no_button.frame = CGRectMake(170, 380, 130, 35)
     @no_button.addTarget(self, action: :select_no, forControlEvents: UIControlEventTouchUpInside)
     self.view.addSubview(@no_button)    
 # else
