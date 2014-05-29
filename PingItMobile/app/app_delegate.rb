@@ -170,7 +170,7 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
               title: "Description",
               key: :description,
               type: :text,
-              row_height: 75,
+              row_height: 40,
               placeholder: 'Event Description',
               auto_correction: :yes,
               auto_capitalization: :sentences
@@ -190,7 +190,7 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
           rows: 
           [
             { # Start Time Row
-              title: "Start",
+              title: "Start Time",
               key: :start_time,
               type: :date,
               picker_mode: :time,
@@ -198,7 +198,7 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
               input_accessory: :done, #adds a Done button to the date picker
             },
             { # Duration Row
-              title: "Duration",
+              title: "Duration in Hours",
               key: :duration,
               type: :picker,
               items: ["1", "2", "3", "4", "5", "6"],
@@ -234,6 +234,9 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
               type: :submit
             }
           ]
+        },
+        { # Blank Section to clear for button
+          title: "   "
         }
       ]
     })

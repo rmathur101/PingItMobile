@@ -3,10 +3,11 @@ class IndexController < UIViewController
     super
     self.title = "Events"
     events_table = UITableView.alloc.initWithFrame(self.view.bounds)
-    self.view.backgroundColor = UIColor.canvasYellow
-
-    events_table.separatorColor = UIColor.charcoal
-    events_table.backgroundColor = UIColor.offWhite 
+    # self.view.backgroundColor = UIColor.canvasYellow
+    # self.view.indexColor = UIColor.offWhite
+    # self.view.indexBackgroundColor = charcoal
+    events_table.separatorColor = UIColor.offWhite
+    events_table.backgroundColor = UIColor.charcoal 
     self.view.addSubview(events_table)
 
     @data = []
@@ -69,6 +70,8 @@ class IndexController < UIViewController
             event_obj_array.push(event_obj[:title])
             event_obj_array.push(time_left)
             event_obj_array.push("#{distance_miles.round(2)} miles")
+p            event_obj_array.push("#{Event.category_from_id(event_obj[:category_id])}_#{event_obj[:status]}.png")
+            event_obj_array.push()
 
             @data.push(event_obj_array)  
           end
@@ -102,7 +105,10 @@ class IndexController < UIViewController
     cell.detailTextLabel.text = "#{@data[indexPath.row][2]}    #{@data[indexPath.row][1]}"
     #adding acessorytypes to all cells 
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator
-    cell.imageView.image = UIImage.imageNamed('markers/user_marker.png')
+    cell.imageView.image = UIImage.imageNamed(@data[indexPath.row][3])
+    cell.backgroundColor = UIColor.charcoal
+    cell.textColor = UIColor.offWhite
+    cell.detailTextLabel.color = UIColor.offWhite
     cell
   end
 

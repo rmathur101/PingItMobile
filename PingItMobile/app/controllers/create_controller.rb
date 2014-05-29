@@ -4,7 +4,7 @@ class CreateController < Formotion::FormController
   def viewDidLoad
     super
     
-    self.view.backgroundColor = UIColor.canvasYellow
+    self.view.backgroundColor = UIColor.charcoal
 
     # ON FORM SUBMIT BLOCK
     self.form.on_submit do |form|
@@ -28,8 +28,10 @@ class CreateController < Formotion::FormController
 
 
       alert = UIAlertView.alloc.init
-      alert.title = "@form.render"
-      alert.message = @form.render.to_s
+      # alert.title = "@form.render"
+      # alert.message = @form.render.to_s
+      alert.title = "Sweet!"
+      alert.message = "Your event was Pinged to the database."
       alert.addButtonWithTitle("OK")
       alert.show
     end
