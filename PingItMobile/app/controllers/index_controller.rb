@@ -32,6 +32,7 @@ class IndexController < UIViewController
             (NSDate.dateWithString(hash[:start_time])).timeIntervalSinceReferenceDate
           end
 
+
           @events_arr.each do |event_obj|
 
             @event_position = CLLocation.alloc.initWithLatitude(event_obj[:latitude], longitude: event_obj[:longitude])

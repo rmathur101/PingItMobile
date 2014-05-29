@@ -23,37 +23,42 @@ DONE #Show both hours and minutes on the index controller for events
 
 1* Ask tam at what point are events invalid based on time
 
+---------------------------------------------------------------------------------------------------------------------------------
 -----------------
-PRIORITIES
+PRIORITIES                   !!!  RON - LOOK HERE !!!
 -----------------
 
 COMPLETE
   *Get events for the user (active, pending, outside raidus) every 10 seconds (VERYIFY WE ARE NOT GETTING OLD EVENTS - we are only getting active in our area, pending in our area, and active/pending out of area)
   *Get user info back from the webapp at login (listening radius is set on the server - we send that over actually)
+  *Get the pending / active in area ordered in time so that they can show up on index (try doing this client side)
+  *We want to round duration into hour with decimal
 
 INCOMPLETE
-  *Get the pending / active in area ordered in time so that they can show up on index (try doing this client side)
+  *get a map image on the show page
+  *get rid of the pop up with the data hash after we submit the create form
   *make the title page WelcomeToPingIt look cooler
-  #Attending statuses
-  *add the endtime / or duration to the show page AND number of rsvps /attendees
-  *We want both active and pending (a way to distinguish)
-  *We want to round duration into hour with decimal
-  *We want to have a place in the mobile apps for pings you created / rsvpd too
-  *Validations on create (error send form)
+  *add the endtime / or duration to the show page AND number of rsvps /attendees on the show page
+  *We want both active and pending (a way to distinguish) (why are the pngs in index not showing up on my simulator?)
+  *We want to have a place in the mobile apps for pings you created / rsvpd too ICED
+  *Validations on create (error send form) ICED
+  #Attending statuses ICED
 
 THINGS WE NEED TO TEST/BUGS
   *create form time (6:pm) and the return thing it gives you afterwards
-  *RSVP statuses update
+  *RSVP statuses update (need to test using live phone and heroku logs because of simulator is out of range of all events which means their is no relatinship made for the events)
+  *how to evaluate the pending status of pings (seems like we are getting inactive pings)
+  *TAM is the time login for create pinga on the phone working?
 
 
-
+--------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 
 (WEB APP SPECFIC) ASK TAM AND DAN AND MATT
-*how to evaluate the pending status of pings
+*how to evaluate the pending status of pings (seems like we are getting inactive pings)
 *rsvping
 *how are we entering in time on the web app and on the phone
-*timer to update the phone requests
+
 
 
 ----------------------------------------------------------------------------------------
