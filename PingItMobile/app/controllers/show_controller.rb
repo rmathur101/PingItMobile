@@ -14,14 +14,14 @@ class ShowController < UIViewController
     text_font = UIFont.fontWithName("Helvetica", size: 14.0)
 
     @event_title = UILabel.alloc.initWithFrame(CGRectMake(10, 10, 300, 200))
-    @event_title.textColor = UIColor.offWhite
+    @event_title.textColor = UIColor.canvasYellow
     @event_title.text = App::Persistence['show_info'][:title]
     @event_title.textAlignment = NSTextAlignmentCenter
     @event_title.font = title_font
     self.view.addSubview(@event_title)
 
     @event_time = UILabel.alloc.initWithFrame(CGRectMake(10, 40, 300, 200))
-    @event_time.textColor = UIColor.offWhite
+    @event_time.textColor = UIColor.canvasYellow
     start = (NSDate.dateWithString(App::Persistence['show_info'][:start_time])).strftime("%I:%M %p")
     ending = (NSDate.dateWithString(App::Persistence['show_info'][:end_time])).strftime("%I:%M %p")
     @event_time.text = start + " - " + ending
@@ -34,7 +34,7 @@ class ShowController < UIViewController
     @event_description = UILabel.alloc.initWithFrame(CGRectMake(10, 80, 300, 200))
 
     @event_description.text = App::Persistence['show_info'][:description]
-    @event_description.textColor = UIColor.offWhite
+    @event_description.textColor = UIColor.canvasYellow
     @event_description.font = descrip_font
     @event_description.textAlignment = NSTextAlignmentCenter
     self.view.addSubview(@event_description)
@@ -42,15 +42,17 @@ class ShowController < UIViewController
     p lat = (App::Persistence['show_info'][:latitude])
     p long = (App::Persistence['show_info'][:longitude])
     camera_position = GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: 15 )
-    window = CGRectMake(15, 150, 10, 10)
+    window = CGRectMake(20, 270, 280, 170)
     mapView = GMSMapView.mapWithFrame(window, camera: camera_position)
     event_marker = GMSMarker.alloc.init
     event_marker.title = App::Persistence['show_info'][:title]
     event_marker.icon = UIImage.imageNamed("markers/user_marker.png")
+    event_marker.position = CLLocationCoordinate2DMake(lat, long)
     event_marker.map = mapView
+    self.view.addSubview(mapView)
 
     @event_address = UILabel.alloc.initWithFrame(CGRectMake(15, 140, 300, 200))
-    @event_address.textColor = UIColor.offWhite
+    @event_address.textColor = UIColor.canvasYellow
     @event_address.text = App::Persistence['show_info'][:address]
     @event_address.font = text_font
     @event_address.textAlignment = NSTextAlignmentCenter
@@ -69,9 +71,9 @@ class ShowController < UIViewController
 
 # if attending_status.nil?
     @yes_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    @yes_button.setTitle("YES", forState: UIControlStateNormal)
-    @yes_button.setTitleColor(UIColor.offWhite, forState: UIControlStateNormal)
-    @yes_button.setTitleColor(UIColor.charcoal, forState: UIControlStateHighlighted)
+    @yes_button.setTitle("GOING", forState: UIControlStateNormal)
+    @yes_button.setTitleColor(UIColor.charcoal, forState: UIControlStateNormal)
+    @yes_button.setTitleColor(UIColor.offWhite, forState: UIControlStateHighlighted)
     # @yes_button.frame = [[10, 300], [250, 50]]
     @yes_button.backgroundColor = UIColor.colorWithRed(0.0, green: 0.99, blue: 0.0, alpha: 0.7)
     @yes_button.layer.cornerRadius = 5
@@ -81,10 +83,10 @@ class ShowController < UIViewController
     self.view.addSubview(@yes_button)
 
     @no_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    @no_button.setTitle("NO", forState: UIControlStateNormal)
+    @no_button.setTitle("NOT GOING", forState: UIControlStateNormal)
     @no_button.backgroundColor = UIColor.colorWithRed(0.99, green: 0.0, blue: 0.0, alpha: 0.7)
-    @no_button.setTitleColor(UIColor.offWhite, forState: UIControlStateNormal)
-    @no_button.setTitleColor(UIColor.charcoal, forState: UIControlStateHighlighted)
+    @no_button.setTitleColor(UIColor.charcoal, forState: UIControlStateNormal)
+    @no_button.setTitleColor(UIColor.offWhite, forState: UIControlStateHighlighted)
     @no_button.layer.cornerRadius = 5
     # @no_button.layer.borderWidth = 2
     @no_button.frame = CGRectMake(170, 460, 130, 35)
@@ -118,7 +120,7 @@ class ShowController < UIViewController
       @alert_box = UIAlertView.alloc.initWithTitle("Thanks!",
         message: "See you soon!",
         delegate: nil,
-        cancelButtonTitle: "ok",
+        cancelButtonTitle: "OK",
         otherButtonTitles: nil)
       puts "THIS IS RESPONSE FROM HTTP REQUEST IN SELECT_YES"
       p event 
@@ -132,10 +134,10 @@ class ShowController < UIViewController
     p @data
 
     Event.send_rsvp_info(@data) do |event|
-      @alert_box = UIAlertView.alloc.initWithTitle("...",
-        message: "You suck and I hate you.",
+      @alert_box = UIAlertView.alloc.initWithTitle("Shucks!",
+        message: "You won't be attending.",
         delegate: nil,
-        cancelButtonTitle: "ok",
+        cancelButtonTitle: "OK",
         otherButtonTitles: nil)
       puts "THIS IS RESPONSE FROM HTTP REQUEST IN SELECT_NO"
       p event      

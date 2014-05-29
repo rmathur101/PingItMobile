@@ -170,7 +170,7 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
               title: "Description",
               key: :description,
               type: :text,
-              row_height: 40,
+              row_height: 70,
               placeholder: 'Event Description',
               auto_correction: :yes,
               auto_capitalization: :sentences

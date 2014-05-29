@@ -2,7 +2,7 @@ class MapController < UIViewController
   def viewDidLoad
     super
 
-    self.view.backgroundColor = UIColor.canvasYellow
+    self.view.backgroundColor = UIColor.charcoal
     
     device_has_location_services_enabled = BW::Location.enabled?
     if device_has_location_services_enabled 

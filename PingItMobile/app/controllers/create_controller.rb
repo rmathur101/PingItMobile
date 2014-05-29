@@ -1,3 +1,12 @@
+module Formotion
+  class Form < Formotion::Base
+    def tableView(tableView, willDisplayCell: cell, forRowAtIndexPath: indexPath)
+      cell.textLabel.textColor = UIColor.charcoal
+      cell.backgroundColor = UIColor.canvasYellow
+    end
+  end
+end
+
 class CreateController < Formotion::FormController
   attr_accessor :form
 

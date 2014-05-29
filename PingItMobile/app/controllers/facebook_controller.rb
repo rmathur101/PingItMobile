@@ -2,8 +2,11 @@ class FacebookController < UIViewController
   attr_accessor :user
 
   def viewDidLoad
-    self.title = "RM Facebook Connect"
+    logo_image = UIImage.imageNamed('markers/user_marker.png')
+    logo_view = UIImageView.alloc.initWithFrame([[150,110],[20,33]])
+    logo_view.image = logo_image
     self.view.backgroundColor = UIColor.charcoal
+    view.addSubview(logo_view)
     view.addSubview(textLabel)    
     view.addSubview(authButton)
     NSNotificationCenter.defaultCenter.addObserver(self, selector: 'sessionStateChanged:', name: FBSessionStateChangedNotification, object: nil)
@@ -41,11 +44,10 @@ class FacebookController < UIViewController
       _textLabel = UILabel.alloc.initWithFrame([[50, 140], [220, 44]])
       _textLabel.text = "Welcome to PingIt"
       _textLabel.textAlignment = UITextAlignmentCenter
-      _textLabel.textColor = UIColor.offWhite
+      _textLabel.textColor = UIColor.canvasYellow
       _textLabel
     end
   end
-  
   
   # ===========
   # = Actions =

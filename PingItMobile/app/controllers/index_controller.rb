@@ -108,8 +108,8 @@ p            event_obj_array.push("#{Event.category_from_id(event_obj[:category_
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator
     cell.imageView.image = UIImage.imageNamed(@data[indexPath.row][3])
     cell.backgroundColor = UIColor.charcoal
-    cell.textColor = UIColor.offWhite
-    cell.detailTextLabel.color = UIColor.offWhite
+    cell.textColor = UIColor.canvasYellow
+    cell.detailTextLabel.color = UIColor.canvasYellow
     cell
   end
 
