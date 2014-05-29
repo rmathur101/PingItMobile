@@ -39,8 +39,10 @@ class CreateController < Formotion::FormController
   def initWithNibName(name, bundle: bundle)
     super
     @ping = UIImage.imageNamed('ping.png')
-    @pingSel = UIImage.imageNamed('ping-select.png')
+    # @pingSel = UIImage.imageNamed('ping-select.png')
     self.tabBarItem = UITabBarItem.alloc.initWithTitle('PingIt', image: @ping, tag: 3)
+        # self.tabBarItem.setTintColor(UIColor.candyAppleRed)
+
     # self.tabBarItem.setFinishedSelectedImage(@pingSel, withFinishedUnselectedImage:@ping)
     self
   end

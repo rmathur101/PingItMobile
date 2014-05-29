@@ -7,7 +7,6 @@ class IndexController < UIViewController
     # initiating table
     events_table.separatorColor = UIColor.charcoal
     events_table.backgroundColor = UIColor.offWhite 
-    events_table.sectionIndexTrackingBackgroundColor = UIColor.candyAppleRed
     self.view.addSubview(events_table)
 
 
@@ -39,7 +38,7 @@ class IndexController < UIViewController
           # p events
           @data = []
           App::Persistence['events'] = events
-          @events_arr = events[:pingas_active_in_radius] + events[:pingas_pending_in_radius] + events[:pingas_outside_radius] 
+          @events_arr = events[:pingas_active_in_radius] + events[:pingas_pending_in_radius] + events[:pingas_outside_radius]
           @events_arr.each do |event_obj|
             event_obj_array = []
             event_obj_array.push(event_obj[:title])
@@ -66,13 +65,6 @@ class IndexController < UIViewController
             
             now_date = NSDate.date#no description
             event_time = event_obj[:start_time]
-            # p "current time #{now_date}"
-            # p "event start time #{event_time}"
-            # p NSDate.dateWithString(event_time)
-            # p now_date.strftime("%I:%M%p")
-            # p (NSDate.dateWithString(event_time)).strftime("%I:%M %p")
-
-
 
             convert_event_time = (NSDate.dateWithString(event_time)).timeIntervalSinceReferenceDate #DON'T THINK I NEED TO CONVERT TO DATE WITH STRING
             convert_event_time_no_interval = NSDate.dateWithString(event_time)
@@ -83,8 +75,17 @@ class IndexController < UIViewController
             # p "This is hours: #{hours}"
             min = ((difference - (hours * 60 * 60)) / 60).floor 
 
-            event_obj_array.push("#{hours}hr#{min}min")
-            event_obj_array.push("#{distance_miles} miles")
+            puts "MINUTES"
+            p rounded_minutes = (min/60.0).round(2)
+            puts "HOURS"
+            p hours
+            puts "HOURS (WITH MINUTES)"
+            p h_m = (hours + rounded_minutes).round(2)
+
+            time_left = "#{ h_m } hours"
+            time_left = "#{min} minutes" if hours < 1
+            event_obj_array.push(time_left)
+            event_obj_array.push("#{distance_miles.round(2)} miles")
 
             @data.push(event_obj_array)  
           end
@@ -93,64 +94,10 @@ class IndexController < UIViewController
       end
     end
 
-
-#------------------------------------------------------------------------------------------------------------
-    #@user_position = CLLocation.alloc.initWithLatitude(lat, longitude: long)
-
-    # # App::Persistence.delete('events') #USE THIS TO DELETE THE PERSISTENCE DATA 
-    # @data = []
-    # Event.get_events do |events| #need to make sure that the program does not move on until we have a response back from this http request 
-    #   # p "these are the events i am getting from the web app"
-    #   # p events   
-    #   App::Persistence['events'] = events 
-    #   @array_events = App::Persistence['events'] 
-    #   p events
-    #   events.each do |event_obj|
-    #     event_obj_array = []
-    #     event_obj_array.push(event_obj[:title])
-    #     @array_events = App::Persistence['events'] 
-    #     # p @array_events
-    #     @event_position = CLLocation.alloc.initWithLatitude(event_obj[:latitude], longitude: event_obj[:longitude])
-    #     distance_meters = @user_position.distanceFromLocation(@event_position)
-    #     distance_miles = (distance_meters / 1609).round(2)
-    #     # p event_obj[:address]
-    #     # p "USER LAT LONG: #{lat} #{long}"
-    #     # p "EVENT LAT LONG: #{event_obj[:latitude]} #{event_obj[:longitude]}"
-    #     # p "DISTANCE METERS: #{distance_meters}"
-    #     # p "DISTANCE MILES #{distance_miles}"
-    #     # puts ""
-        
-    #     now_date = NSDate.date#no description
-    #     # p "This is current time: #{now_date}"
-    #     event_time = event_obj[:start_time]
-    #     # p event_time
-    #     # p NSDate.dateWithString(event_time)
-    #     convert_event_time = (NSDate.dateWithString(event_time)).timeIntervalSinceReferenceDate #DON'T THINK I NEED TO CONVERT TO DATE WITH STRING
-    #     convert_event_time_no_interval = NSDate.dateWithString(event_time)
-    #     # p "This is event time: #{convert_event_time_no_interval} with dateWithString"
-    #     difference = convert_event_time - NSDate.date.timeIntervalSinceReferenceDate
-    #     # p "This is difference: #{difference}"
-    #     hours = (difference / 60 / 60 ).floor
-    #     # p "This is hours: #{hours}"
-    #     min = ((difference - (hours * 60 * 60)) / 60).floor 
-
-    #     event_obj_array.push("#{hours}hr#{min}min")
-    #     event_obj_array.push("#{distance_miles} miles")
-    #     @data.push(event_obj_array)   
-    #   end
-    #   events_table.reloadData
-    # end
-  #---------------------------------------------------------------
-  
-
     #data stuff
     events_table.dataSource = self #set our controller as the table's dataSource
     events_table.delegate = self #delegate has to do with how the table looks and how the user interacts with it
     
-
-    # @data = [["will", "this", "think"]]
-
-
   end
 
   def get_events
@@ -163,10 +110,9 @@ class IndexController < UIViewController
 
   def initWithNibName(name, bundle: bundle)
     super
-    @event = UIImage.imageNamed('event.png')
-    @eventSel = UIImage.imageNamed('event-select.png')
-    self.tabBarItem = UITabBarItem.alloc.initWithTitle('Event', image: @event, tag: 1)
-    self.tabBarItem.setFinishedSelectedImage(@eventSel, withFinishedUnselectedImage:@event)
+    @index = UIImage.imageNamed('index.png')
+    self.tabBarItem = UITabBarItem.alloc.initWithTitle('Events', image: @index, tag: 1)
+    # self.tabBarItem.setFinishedSelectedImage(@eventSel, withFinishedUnselectedImage:@event)
     self
   end
 
@@ -179,7 +125,8 @@ class IndexController < UIViewController
     #this is presupposing that the format of thedata is an array of arrays
     cell.textLabel.text = @data[indexPath.row][0]
     # cell.detailTextLabel.text = @data[indexPath.row[1] + " " + @data[indexPath.row][2]
-
+    puts "!!!!!asdfasdfjasd;flkajsd;flkjads;flkajs;lfk~~~!!!!!"
+    p @data[indexPath.row]
     cell.detailTextLabel.text = "#{@data[indexPath.row][2]}    #{@data[indexPath.row][1]}"
     #adding acessorytypes to all cells 
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator
