@@ -1,8 +1,8 @@
 class ShowController < UIViewController
   def viewDidLoad
     super
-    self.view.backgroundColor = UIColor.canvasYellow
-
+    self.view.backgroundColor = UIColor.charcoal
+    puts "SHOW INFO"
     p App::Persistence['show_info']
 
 
@@ -10,16 +10,18 @@ class ShowController < UIViewController
     @data[:event_id] = App::Persistence['show_info'][:id]
     @data[:uid] = App::Persistence['current_uid']
 
-    title_font = UIFont.fontWithName("GillSans-Bold", size: 24.0)
+    title_font = UIFont.fontWithName("Helvetica-Bold", size: 24.0)
     text_font = UIFont.fontWithName("Helvetica", size: 14.0)
 
     @event_title = UILabel.alloc.initWithFrame(CGRectMake(10, 10, 300, 200))
+    @event_title.textColor = UIColor.offWhite
     @event_title.text = App::Persistence['show_info'][:title]
     @event_title.textAlignment = NSTextAlignmentCenter
     @event_title.font = title_font
     self.view.addSubview(@event_title)
 
     @event_time = UILabel.alloc.initWithFrame(CGRectMake(10, 40, 300, 200))
+    @event_time.textColor = UIColor.offWhite
     start = (NSDate.dateWithString(App::Persistence['show_info'][:start_time])).strftime("%I:%M %p")
     ending = (NSDate.dateWithString(App::Persistence['show_info'][:end_time])).strftime("%I:%M %p")
     @event_time.text = start + " - " + ending
@@ -30,21 +32,33 @@ class ShowController < UIViewController
 
     descrip_font = UIFont.fontWithName("Helvetica-LightOblique", size: 16.0)
     @event_description = UILabel.alloc.initWithFrame(CGRectMake(10, 80, 300, 200))
+
     @event_description.text = App::Persistence['show_info'][:description]
+    @event_description.textColor = UIColor.offWhite
     @event_description.font = descrip_font
-    @event_description.textAlignment = NSTextAlignmentLeft
+    @event_description.textAlignment = NSTextAlignmentCenter
     self.view.addSubview(@event_description)
 
+    p lat = (App::Persistence['show_info'][:latitude])
+    p long = (App::Persistence['show_info'][:longitude])
+    camera_position = GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: 15 )
+    window = CGRectMake(15, 150, 10, 10)
+    mapView = GMSMapView.mapWithFrame(window, camera: camera_position)
+    event_marker = GMSMarker.alloc.init
+    event_marker.title = App::Persistence['show_info'][:title]
+    event_marker.icon = UIImage.imageNamed("markers/user_marker.png")
+    event_marker.map = mapView
 
-    @event_address = UILabel.alloc.initWithFrame(CGRectMake(20, 140, 300, 200))
+    @event_address = UILabel.alloc.initWithFrame(CGRectMake(15, 140, 300, 200))
+    @event_address.textColor = UIColor.offWhite
     @event_address.text = App::Persistence['show_info'][:address]
     @event_address.font = text_font
     @event_address.textAlignment = NSTextAlignmentCenter
     self.view.addSubview(@event_address)
 
-    @event_status = UILabel.alloc.initWithFrame(CGRectMake(20, 170, 300, 200))
-    @event_status.text = App::Persistence['show_info'][:status]
-    self.view.addSubview(@event_status)
+    # @event_status = UILabel.alloc.initWithFrame(CGRectMake(20, 170, 300, 200))
+    # @event_status.text = App::Persistence['show_info'][:status]
+    # self.view.addSubview(@event_status)
 
 
 #------------------------------------------------------buttons
@@ -53,25 +67,32 @@ class ShowController < UIViewController
 # buyButton.layer.borderWidth = 1;
 # buyButton.layer.borderColor = [UIColor blueColor].CGColor;
 
+# if attending_status.nil?
     @yes_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     @yes_button.setTitle("YES", forState: UIControlStateNormal)
+    @yes_button.setTitleColor(UIColor.offWhite, forState: UIControlStateNormal)
+    @yes_button.setTitleColor(UIColor.charcoal, forState: UIControlStateHighlighted)
     # @yes_button.frame = [[10, 300], [250, 50]]
-    @yes_button.backgroundColor = UIColor.whiteColor
+    @yes_button.backgroundColor = UIColor.colorWithRed(0.0, green: 0.99, blue: 0.0, alpha: 0.7)
     @yes_button.layer.cornerRadius = 5
-    @yes_button.layer.borderWidth = 2
-    @yes_button.frame = CGRectMake(10, 460, 130, 35)
+    # @yes_button.layer.borderWidth = 2
+    @yes_button.frame = CGRectMake(20, 460, 130, 35)
     @yes_button.addTarget(self, action: :select_yes, forControlEvents: UIControlEventTouchUpInside)
     self.view.addSubview(@yes_button)
 
     @no_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     @no_button.setTitle("NO", forState: UIControlStateNormal)
-    @no_button.backgroundColor = UIColor.whiteColor
+    @no_button.backgroundColor = UIColor.colorWithRed(0.99, green: 0.0, blue: 0.0, alpha: 0.7)
+    @no_button.setTitleColor(UIColor.offWhite, forState: UIControlStateNormal)
+    @no_button.setTitleColor(UIColor.charcoal, forState: UIControlStateHighlighted)
     @no_button.layer.cornerRadius = 5
-    @no_button.layer.borderWidth = 2
-    @no_button.frame = CGRectMake(180, 460, 130, 35)
+    # @no_button.layer.borderWidth = 2
+    @no_button.frame = CGRectMake(170, 460, 130, 35)
     @no_button.addTarget(self, action: :select_no, forControlEvents: UIControlEventTouchUpInside)
     self.view.addSubview(@no_button)    
-
+# else
+    # put down a text label that says "Attending"
+# end
 
     
 
