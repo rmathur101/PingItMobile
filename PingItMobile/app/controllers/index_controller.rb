@@ -27,7 +27,7 @@ class IndexController < UIViewController
           @data = []
           App::Persistence['events'] = events
 
-          unordered_events = events[:pingas_active_in_radius] + events[:pingas_pending_in_radius] + events[:pingas_outside_radius]
+          unordered_events = events[:pingas_active_in_radius] + events[:pingas_pending_in_radius]
 
           @events_arr = unordered_events.sort_by do |hash|
             (NSDate.dateWithString(hash[:start_time])).timeIntervalSinceReferenceDate
