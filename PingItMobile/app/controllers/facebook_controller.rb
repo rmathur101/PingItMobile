@@ -44,7 +44,8 @@ class FacebookController < UIViewController
       _textLabel = UILabel.alloc.initWithFrame([[50, 140], [220, 44]])
       _textLabel.text = "Welcome to PingIt"
       _textLabel.textAlignment = UITextAlignmentCenter
-      _textLabel.textColor = UIColor.canvasYellow
+      _textLabel.textColor = UIColor.offWhite
+      _textLabel.font = UIFont.fontWithName("GillSans-Bold", size: 18.0)
       _textLabel
     end
   end

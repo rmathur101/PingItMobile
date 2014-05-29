@@ -10,33 +10,44 @@ class ShowController < UIViewController
     @data[:event_id] = App::Persistence['show_info'][:id]
     @data[:uid] = App::Persistence['current_uid']
 
-    title_font = UIFont.fontWithName("Helvetica-Bold", size: 24.0)
-    text_font = UIFont.fontWithName("Helvetica", size: 14.0)
+    title_font = UIFont.fontWithName("GillSans-Bold", size: 24.0)
+    text_font = UIFont.fontWithName("GillSans", size: 14.0)
 
     @event_title = UILabel.alloc.initWithFrame(CGRectMake(10, 10, 300, 200))
-    @event_title.textColor = UIColor.canvasYellow
+    @event_title.textColor = UIColor.offWhite
     @event_title.text = App::Persistence['show_info'][:title]
     @event_title.textAlignment = NSTextAlignmentCenter
     @event_title.font = title_font
     self.view.addSubview(@event_title)
 
     @event_time = UILabel.alloc.initWithFrame(CGRectMake(10, 40, 300, 200))
-    @event_time.textColor = UIColor.canvasYellow
+    @event_time.textColor = UIColor.offWhite
     start = (NSDate.dateWithString(App::Persistence['show_info'][:start_time])).strftime("%I:%M %p")
     ending = (NSDate.dateWithString(App::Persistence['show_info'][:end_time])).strftime("%I:%M %p")
+
+    p "START TIME "
+    p NSDate.dateWithString(App::Persistence['show_info'][:start_time])
+    p "START TIME (getutc)"
+    p (NSDate.dateWithString(App::Persistence['show_info'][:start_time])).getutc
+    p "END TIME"
+    p NSDate.dateWithString(App::Persistence['show_info'][:end_time])
+    p "END TIME (getlocal)"
+    p NSDate.dateWithString(App::Persistence['show_info'][:end_time]).getlocal
+
     @event_time.text = start + " - " + ending
     @event_time.font = text_font
     @event_time.textAlignment = NSTextAlignmentCenter
     self.view.addSubview(@event_time)
     
 
-    descrip_font = UIFont.fontWithName("Helvetica-LightOblique", size: 16.0)
+    descrip_font = UIFont.fontWithName("GillSans-Italic", size: 16.0)
     @event_description = UILabel.alloc.initWithFrame(CGRectMake(10, 80, 300, 200))
 
     @event_description.text = App::Persistence['show_info'][:description]
-    @event_description.textColor = UIColor.canvasYellow
+    @event_description.textColor = UIColor.offWhite
     @event_description.font = descrip_font
     @event_description.textAlignment = NSTextAlignmentCenter
+    @event_description.numberOfLines = 6
     self.view.addSubview(@event_description)
 
     p lat = (App::Persistence['show_info'][:latitude])
@@ -52,7 +63,7 @@ class ShowController < UIViewController
     self.view.addSubview(mapView)
 
     @event_address = UILabel.alloc.initWithFrame(CGRectMake(15, 140, 300, 200))
-    @event_address.textColor = UIColor.canvasYellow
+    @event_address.textColor = UIColor.offWhite
     @event_address.text = App::Persistence['show_info'][:address]
     @event_address.font = text_font
     @event_address.textAlignment = NSTextAlignmentCenter
@@ -71,9 +82,13 @@ class ShowController < UIViewController
 
 # if attending_status.nil?
     @yes_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
+
     @yes_button.setTitle("GOING", forState: UIControlStateNormal)
-    @yes_button.setTitleColor(UIColor.charcoal, forState: UIControlStateNormal)
-    @yes_button.setTitleColor(UIColor.offWhite, forState: UIControlStateHighlighted)
+    @yes_button.setTitleColor(UIColor.offWhite, forState: UIControlStateNormal)
+    @yes_button.setTitleColor(UIColor.charcoal, forState: UIControlStateHighlighted)
+
+    @yes_button.font = text_font
+
     # @yes_button.frame = [[10, 300], [250, 50]]
     @yes_button.backgroundColor = UIColor.colorWithRed(0.0, green: 0.99, blue: 0.0, alpha: 0.7)
     @yes_button.layer.cornerRadius = 5
@@ -84,9 +99,10 @@ class ShowController < UIViewController
 
     @no_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     @no_button.setTitle("NOT GOING", forState: UIControlStateNormal)
+    @no_button.font = text_font
     @no_button.backgroundColor = UIColor.colorWithRed(0.99, green: 0.0, blue: 0.0, alpha: 0.7)
-    @no_button.setTitleColor(UIColor.charcoal, forState: UIControlStateNormal)
-    @no_button.setTitleColor(UIColor.offWhite, forState: UIControlStateHighlighted)
+    @no_button.setTitleColor(UIColor.offWhite, forState: UIControlStateNormal)
+    @no_button.setTitleColor(UIColor.charcoal, forState: UIControlStateHighlighted)
     @no_button.layer.cornerRadius = 5
     # @no_button.layer.borderWidth = 2
     @no_button.frame = CGRectMake(170, 460, 130, 35)

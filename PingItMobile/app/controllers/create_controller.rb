@@ -2,7 +2,7 @@ module Formotion
   class Form < Formotion::Base
     def tableView(tableView, willDisplayCell: cell, forRowAtIndexPath: indexPath)
       cell.textLabel.textColor = UIColor.charcoal
-      cell.backgroundColor = UIColor.canvasYellow
+      cell.backgroundColor = UIColor.offWhite
     end
   end
 end

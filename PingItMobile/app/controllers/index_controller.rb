@@ -22,7 +22,8 @@ class IndexController < UIViewController
 
         info = {latitude: lat, longitude: long, uid: App::Persistence['current_uid']}
         Event.get_events(info) do |events|
-
+          p "?????????????????????????????????????????????????????????????????????????????????????????????"
+          p events
           @data = []
           App::Persistence['events'] = events
 
@@ -46,24 +47,29 @@ class IndexController < UIViewController
             now_date = NSDate.date#no description
             event_time = event_obj[:start_time]
 
-            convert_event_time = (NSDate.dateWithString(event_time)).timeIntervalSinceReferenceDate #DON'T THINK I NEED TO CONVERT TO DATE WITH STRING
-            convert_event_time_no_interval = NSDate.dateWithString(event_time)
+            convert_event_time = ((NSDate.dateWithString(event_time)).getutc).timeIntervalSinceReferenceDate #DON'T THINK I NEED TO CONVERT TO DATE WITH STRING
+            p "THIS IS THE EVENT TIME"
+            p (NSDate.dateWithString(event_time)).getutc
+            p "THIS IS THE LOCAL TIME"
+            p now_date
+            # convert_event_time_no_interval = (NSDate.dateWithString(event_time)).getutc
             # p "This is event time: #{convert_event_time_no_interval} with dateWithString"
-            difference = convert_event_time - NSDate.date.timeIntervalSinceReferenceDate
+            difference = convert_event_time - ((NSDate.date)).timeIntervalSinceReferenceDate
             # p "This is difference: #{difference}"
             hours = (difference / 60 / 60 ).floor
-            # p "This is hours: #{hours}"
+            p "This is hours: #{hours}"
             min = ((difference - (hours * 60 * 60)) / 60).floor 
 
             puts "MINUTES"
-            p rounded_minutes = (min/60.0).round(2)
+            rounded_minutes = (min/60.0).round(2)
             puts "HOURS"
-            p hours
+            # p hours
             puts "HOURS (WITH MINUTES)"
-            p h_m = (hours + rounded_minutes).round(2)
+            h_m = (hours + rounded_minutes).round(2)
 
             time_left = "#{ h_m } hours"
             time_left = "#{min} minutes" if hours < 1 && hours > 0
+            time_left = "" if hours < 0 
             # time_left = "#{min} minutes" if hours < 1
             # time_left = "Happening Now" if hours <= 0
             
@@ -71,7 +77,7 @@ class IndexController < UIViewController
             event_obj_array.push(event_obj[:title])
             event_obj_array.push(time_left)
             event_obj_array.push("#{distance_miles.round(2)} miles")
-p            event_obj_array.push("#{Event.category_from_id(event_obj[:category_id])}_#{event_obj[:status]}.png")
+            event_obj_array.push("#{Event.category_from_id(event_obj[:category_id])}_#{event_obj[:status]}.png")
             event_obj_array.push()
 
             @data.push(event_obj_array)  
@@ -108,8 +114,16 @@ p            event_obj_array.push("#{Event.category_from_id(event_obj[:category_
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator
     cell.imageView.image = UIImage.imageNamed(@data[indexPath.row][3])
     cell.backgroundColor = UIColor.charcoal
-    cell.textColor = UIColor.canvasYellow
-    cell.detailTextLabel.color = UIColor.canvasYellow
+
+    cell.textColor = UIColor.offWhite
+    cell.detailTextLabel.color = UIColor.offWhite
+
+    text_font = UIFont.fontWithName("GillSans", size: 14.0)
+    cell.detailTextLabel.font = text_font
+
+    title_font = UIFont.fontWithName("GillSans-Bold", size: 18.0)
+    cell.textLabel.font = title_font
+
     cell
   end
 
