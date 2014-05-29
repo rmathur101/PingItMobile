@@ -33,22 +33,22 @@ COMPLETE
   *Get user info back from the webapp at login (listening radius is set on the server - we send that over actually)
   *Get the pending / active in area ordered in time so that they can show up on index (try doing this client side)
   *We want to round duration into hour with decimal
-
-INCOMPLETE
   *get the description text to wrap on the show page 
   *get a map image on the show page
   *get rid of the pop up with the data hash after we submit the create form
   *make the title page WelcomeToPingIt look cooler
-  *add the endtime / or duration to the show page AND number of rsvps /attendees on the show page
   *We want both active and pending (a way to distinguish) (why are the pngs in index not showing up on my simulator?)
+  *create form time (6:pm) and the return thing it gives you afterwards
+  *how to evaluate the pending status of pings (seems like we are getting inactive pings)
+
+INCOMPLETE
+  *add the endtime / or duration to the show page AND number of rsvps /attendees on the show page
   *We want to have a place in the mobile apps for pings you created / rsvpd too ICED
   *Validations on create (error send form) ICED
   #Attending statuses ICED
 
 THINGS WE NEED TO TEST/BUGS
-  *create form time (6:pm) and the return thing it gives you afterwards
   *RSVP statuses update (need to test using live phone and heroku logs because of simulator is out of range of all events which means their is no relatinship made for the events)
-  *how to evaluate the pending status of pings (seems like we are getting inactive pings)
   *TAM is the time login for create pinga on the phone working?
   *trace the time piple, local and utc, on the webapp and on the phone 
 

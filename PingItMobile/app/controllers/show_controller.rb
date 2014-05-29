@@ -43,10 +43,16 @@ class ShowController < UIViewController
     descrip_font = UIFont.fontWithName("GillSans-Italic", size: 16.0)
     @event_description = UILabel.alloc.initWithFrame(CGRectMake(10, 80, 300, 200))
 
+
+    # paragraph_style = NSParagraphStyle.init
+    # line_break = NSLineBreakByWordWrapping.alloc.init
+    # line_break = 0   
+
     @event_description.text = App::Persistence['show_info'][:description]
     @event_description.textColor = UIColor.offWhite
     @event_description.font = descrip_font
     @event_description.textAlignment = NSTextAlignmentCenter
+    @event_description.numberOfLines = 10
     self.view.addSubview(@event_description)
 
     p lat = (App::Persistence['show_info'][:latitude])
