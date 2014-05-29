@@ -194,7 +194,6 @@ FBPermissions = %w{ user_birthday user_hometown user_location }
               key: :start_time,
               type: :date,
               picker_mode: :time,
-              value: '6:00 PM',
               input_accessory: :done, #adds a Done button to the date picker
             },
             { # Duration Row
