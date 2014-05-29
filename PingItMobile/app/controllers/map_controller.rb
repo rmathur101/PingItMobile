@@ -30,11 +30,13 @@ class MapController < UIViewController
       # 1609.34 meters in a mile
       #set the user radius using an http request ##############################################
       uid = App::Persistence['current_uid']
-      radius = 0.33 # miles
+      # radius = 0.33 # miles
+      circle_radius = nil 
       user_info = {uid: uid, radius: radius}
       User.set_radius(user_info) do |event|
         puts "RESPONSE FROM SET RADIUS"
-        p event
+        App::Persistence["user_radius"] = event[:radius_set_to]
+        circle_radius = 1609.34 * App::Persistence["user_radius"]
       end
 
 
