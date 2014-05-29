@@ -1,8 +1,6 @@
 class ShowController < UIViewController
   def viewDidLoad
     super
-
-
     self.view.backgroundColor = UIColor.canvasYellow
     # self.
     p App::Persistence['show_info']
@@ -13,7 +11,6 @@ class ShowController < UIViewController
     # App::Persistence['show_info'][:status]
     # App::Persistence['show_info'][:start_time]
 
-
     p App::Persistence['show_info']
 
     @data = {}
@@ -23,8 +20,13 @@ class ShowController < UIViewController
     # (CGRectMake(10, 10, 100, 100)
 
 
-    @event_title = UILabel.alloc.initWithFrame(CGRectMake(20, 40, 300, 200))
+
+    # (NSDate.dateWithString(event_time)).strftime("%I:%M %p")
+
+
+    @event_title = UILabel.alloc.initWithFrame(CGRectMake(20, 15, 300, 200))
     @event_title.text = App::Persistence['show_info'][:title]
+    @event_title.textAlignment = NSTextAlignmentCenter
     # @event_title.sizeToFit
     # @event_title.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 7)
     self.view.addSubview(@event_title)
@@ -48,12 +50,16 @@ class ShowController < UIViewController
     self.view.addSubview(@event_status)
 
     @event_start = UILabel.alloc.initWithFrame(CGRectMake(20, 160, 300, 200))
-    @event_start.text = App::Persistence['show_info'][:start_time]
+    start = (NSDate.dateWithString(App::Persistence['show_info'][:start_time])).strftime("%I:%M %p")
+    @event_start.text = start
     # @event_start.sizeToFit
     # @event_start.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 3)
     self.view.addSubview(@event_start)
-
-
+    
+    @event_end = UILabel.alloc.initWithFrame(CGRectMake(20, 190, 300, 200))
+    ending = (NSDate.dateWithString(App::Persistence['show_info'][:end_time])).strftime("%I:%M %p")
+    @event_end.text = ending
+    self.view.addSubview(@event_end) 
 
     @yes_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
     @yes_button.setTitle("OMG CAN'T WAIT.", forState: UIControlStateNormal)
@@ -73,13 +79,12 @@ class ShowController < UIViewController
 
 #TO DO (SHOW)
     #title
-    #description
-    #google image ICEBOX
-    #address
+    #start_time - #end_time
     #rsvp count
+    #description
+    #google image satic pic (status)
+    #address
     #yes / no ---> this is going to require an http request 
-    #status
-    #start_time
 
   end
 

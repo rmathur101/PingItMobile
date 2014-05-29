@@ -32,7 +32,8 @@ COMPLETE
   *Get user info back from the webapp at login (listening radius is set on the server - we send that over actually)
 
 INCOMPLETE
-
+  *Get the pending / active in area ordered in time so that they can show up on index (try doing this client side)
+  *make the title page WelcomeToPingIt look cooler
   #Attending statuses
   *add the endtime / or duration to the show page AND number of rsvps /attendees
   *We want both active and pending (a way to distinguish)
