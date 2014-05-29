@@ -45,12 +45,15 @@ def self.clocktime_from_datetime(datetime)
 end
 
 def  self.draw_on_map(mapView)
+event_markers = []
 timer = EM.add_periodic_timer 10.0 do
 "THESE ARE THE EVENTS THAT ARE LOADED FROM THE SERVER!!!!!!"
-  event_markers = []
-        p events = App::Persistence['events']
+        events = App::Persistence['events']
+        puts "EVENT MARKERS"
+        p event_markers
         if events
           event_markers.each { |marker| marker.map = nil } 
+          event_markers = []
           
           puts "ACTIVE EVENTS"
           p active_events = events[:pingas_active_in_radius]
@@ -69,17 +72,22 @@ timer = EM.add_periodic_timer 10.0 do
               puts "placing an active event"
               ping_marker = GMSMarker.alloc.init
               ping_marker.title = event[:title]
-              ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
+              formatted_time = NSDate.dateWithString((event[:start_time])).strftime("%I:%M %p")
+              ping_marker.snippet = "#{formatted_time}"
               ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
               ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.greenColor)
               ping_marker.icon = UIImage.imageNamed("markers/#{Event.category_from_id(event[:category_id])}_active.png")
               # ping_marker.icon = UIImage.imageNamed('')
               ping_marker.map = mapView
-              event_markers << ping_marker
+              event_markers.push(ping_marker)
               # another_array = App::Persistence["already_marked"]
               # another_array.push(event[:id])
               # App::Persistence["already_marked"][event[:id]] = "yes"
             # end
+    #             start = (NSDate.dateWithString(App::Persistence['show_info'][:start_time])).strftime("%I:%M %p")
+    # ending = (NSDate.dateWithString(App::Persistence['show_info'][:end_time])).strftime("%I:%M %p")
+
+    # @event_time.text = start + " - " + ending
 
           end
 
@@ -88,11 +96,12 @@ timer = EM.add_periodic_timer 10.0 do
             # if this_array.include?(event[:id]) == false
               ping_marker = GMSMarker.alloc.init
               ping_marker.title = event[:title]
-              ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
+              formatted_time = NSDate.dateWithString((event[:start_time])).strftime("%I:%M %p")
+              ping_marker.snippet = "#{formatted_time}"
               ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
               ping_marker.icon = UIImage.imageNamed("markers/#{Event.category_from_id(event[:category_id])}_pending.png")
               ping_marker.map = mapView
-              event_markers << ping_marker
+              event_markers.push(ping_marker)
               # another_array = App::Persistence["already_marked"]
               # another_array.push(event[:id])
               # App::Persistence["already_marked"] = another_array 
@@ -105,12 +114,13 @@ timer = EM.add_periodic_timer 10.0 do
               p "GETTING AN OUTSIDE EVENT"
               ping_marker = GMSMarker.alloc.init
               ping_marker.title = event[:title]
-              ping_marker.snippet = "#{event[:start_time]} -- #{event[:description]}"
+              formatted_time = NSDate.dateWithString((event[:start_time])).strftime("%I:%M %p")
+              ping_marker.snippet = "#{formatted_time}"
               ping_marker.position = CLLocationCoordinate2DMake(event[:latitude], event[:longitude])
               # ping_marker.icon = GMSMarker.markerImageWithColor(UIColor.whiteColor)
               ping_marker.icon = UIImage.imageNamed("markers/#{Event.category_from_id(event[:category_id])}_outside.png")
               ping_marker.map = mapView
-              event_markers << ping_marker
+              event_markers.push(ping_marker)
               # another_array = App::Persistence["already_marked"]
               # another_array.push(event[:id])
               # App::Persistence["already_marked"] = another_array 

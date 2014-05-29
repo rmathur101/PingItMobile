@@ -48,9 +48,9 @@ class MapController < UIViewController
 
 
       BW::Location.get do |result|
-        coordinate = result[:from].coordinate if result[:from]
-        coordinate = result[:to].coordinate if result[:to]
-
+        # coordinate = result[:from].coordinate if result[:from]  # COMMENT IN FOR RAKE DEVICE
+        # coordinate = result[:to].coordinate if result[:to]      # COMMENT IN FOR RAKE DEVICE
+        coordinate = dbc_position                             # COMMENT IN FOR DEMO RAKE
         if coordinate
           # puts "Coordinate: #{coordinate}"
           
