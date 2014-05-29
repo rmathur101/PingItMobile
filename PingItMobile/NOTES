@@ -43,7 +43,7 @@ INCOMPLETE
 
 THINGS WE NEED TO TEST/BUGS
   *create form time (6:pm) and the return thing it gives you afterwards
-  *RSVP statuses update
+  *RSVP statuses update (need to test using live phone and heroku logs because of simulator is out of range of all events which means their is no relatinship made for the events)
 
 
 
