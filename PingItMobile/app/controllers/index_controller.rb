@@ -31,12 +31,6 @@ class IndexController < UIViewController
             (NSDate.dateWithString(hash[:start_time])).timeIntervalSinceReferenceDate
           end
 
-          # p @events_arr
-
-
-
-          # different = NSDate.dateWithString(event_time) - NSDate.date.timeIntervalSinceReferenceDate
-
 
           @events_arr.each do |event_obj|
 
