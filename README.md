@@ -1,7 +1,7 @@
-![Map View] (http://imgur.com/2wehppS,nlzw4Mr,CjvqMBZ,UOLBHMF#1 "Map")
+![Map View] (http://i.imgur.com/nlzw4Mr.png "Map")
 
-![Events View] (http://imgur.com/2wehppS,nlzw4Mr,CjvqMBZ,UOLBHMF#3 "Events")
+![Events View] (http://i.imgur.com/UOLBHMF.png "Events")
 
-![Event Show] (http://imgur.com/2wehppS,nlzw4Mr,CjvqMBZ,UOLBHMF#2 "Event")
+![Event Show] (http://i.imgur.com/CjvqMBZ.png "Event")
 
-![Create Event] (http://imgur.com/2wehppS,nlzw4Mr,CjvqMBZ,UOLBHMF "Form")
+![Create Event] (http://i.imgur.com/2wehppS.png "Form")
