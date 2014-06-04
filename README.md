@@ -13,7 +13,9 @@ Web Application Gihtub: [PingIt Mobile](https://github.com/rmathur101/PingMobile
 
 *****
 
-"PingIt" is a Ruby on Rails web application complemented by a Ruby Motion iOS mobile application.
+"PingIt" is a Ruby on Rails web application complemented by an iOS mobile application.
+
+The iOS mobile application is built in Ruby Motion. It's a language that leverages Objective C Classes with Ruby syntax for iOS development. It is compiled in a way that preserves the same runtime efficiency of an Objective-C app. It was built in conjuction with the web app to create a dynamic user experience on the go. The app uses Bubble Wrap to write data to files and make periodic http requests to the server so that the user receives the most up to date data. Websockets and delayed jobs ensure that data sent from the phone updates the web app without a refresh of the page.   
 
 The purpose of PingIt is to offer a platform for people to create and find events of particular interest.  PingIt is specifically designed for events that occur "here and now".  An event can only be created if it occurs within the next 12 hours.  This feature makes it incredibly simple to find events that are occurring in the immediate short term.  Finally, there is an answer to the question, "What do you want to do tonight?!"
 
@@ -46,12 +48,6 @@ A final feature that PingIt offers is the ability for an event creator to determ
   * Bubble-Wrap
 
 *****
-
-
-
-
-
-
 
 <img src="http://i.imgur.com/nlzw4Mrl.png" height="350" width="250">
 
