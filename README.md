@@ -1,10 +1,10 @@
 
-<img style="float: right" src="http://i.imgur.com/nlzw4Mrl.png" height="350" width="250">
+<img src="http://i.imgur.com/nlzw4Mrl.png" height="350" width="250" style="float:right">
 
-<img style="float: right" src="http://i.imgur.com/UOLBHMFl.png" height="350" width="250">
+<img src="http://i.imgur.com/UOLBHMFl.png" height="350" width="250" style="float:right">
 
-<img style="float: right"  src="http://i.imgur.com/CjvqMBZl.png" height="350" width="250">
+<img src="http://i.imgur.com/CjvqMBZl.png" height="350" width="250" style="float:right">
 
-<img style="float: right" src="http://i.imgur.com/2wehppSl.png" height="350" width="250">
+<img src="http://i.imgur.com/2wehppSl.png" height="350" width="250" style="float right">
 
 
