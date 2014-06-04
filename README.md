@@ -2,7 +2,7 @@
 
 ###Events - When and Where they matter most 
 
-Web Application Gihtub: [PingIt Mobile](https://github.com/rmathur101/https://github.com/mdidier9/PingIt)
+Web Application Gihtub: [PingIt Web App](https://github.com/mdidier9/PingIt)
 
 #####Team PingIt
   * [Dan Armstrong](https://github.com/danarmstrong-io)
