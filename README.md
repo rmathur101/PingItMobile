@@ -7,12 +7,12 @@
 > ![Create Event] (http://i.imgur.com/2wehppSl.png "Form")
 
 
-<img src="http://i.imgur.com/nlzw4Mrl.png" height="100" width="60">
+<img src="http://i.imgur.com/nlzw4Mrl.png" height="300" width="180">
 
-<img src="http://i.imgur.com/UOLBHMFl.png" height="100" width="60">
+<img src="http://i.imgur.com/UOLBHMFl.png" height="300" width="180">
 
-<img src="http://i.imgur.com/CjvqMBZl.png" height="100" width="60">
+<img src="http://i.imgur.com/CjvqMBZl.png" height="300" width="180">
 
-<img src="http://i.imgur.com/2wehppSl.png" height="100" width="60">
+<img src="http://i.imgur.com/2wehppSl.png" height="300" width="180">
 
 
