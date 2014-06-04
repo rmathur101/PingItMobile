@@ -1,4 +1,4 @@
-![Map View] (http://i.imgur.com/nlzw4Mrl.png "Map")
+![Map View] (http://i.imgur.com/nlzw4Mrl.png =10X20 "Map")
 
 ![Events View] (http://i.imgur.com/UOLBHMFl.png "Events")
 
